@@ -1,0 +1,41 @@
+{
+  "dflt": {
+    "CNN_SQLITE3" : "file:@?file:locked.sqlite?cache=shared&mode=rwc",
+    "CNN_MSACCESS": "Driver={Microsoft Access Driver (*.mdb, *.accdb)};Dbq=@;",
+    "INDEX_NAME"  : "index.xlsx",
+    "REFDATA_DIR" : "c:\\c_portab\\01_rb\\ProgramData\\go-edimap\\",
+    "DB_NAME"     : "edimaps.db",
+    "DB_DIR"      : "c:\\c_portab\\01_rb\\ProgramData\\go-edimap\\",
+    "INPUTS_DIR"  : "c:\\c_portab\\01_rb\\_work_projects\\rb1901_rbna_edi-mapping-specs\\",
+    "OUTPUTS_DIR" : "c:\\c_portab\\01_rb\\ProgramData\\go-edimap\\output\\",
+    "TRIM_SPACE"  : false,
+    "USE_NO_DATA" : true,
+    "OMMIT_EMPTY" : false,
+    "NODATA_CHAR" : "¤",
+    "LF_CHAR"     : "\\n",
+    "OFILE_NAME"  : "SHORT_NAME"
+  },
+  "konst": {
+    "MAPPING_X12_SPECS": "Common Mapping ANSI X12 for UBK/RM",
+    "MAPPING_ISO_SPECS": "Common Mapping EDIFACT for UBK/RM",
+    "MAPPING_SHEET"    : 2,
+    "END_OF_MAPPING"   : "End of mapping",
+    "ITEMS_TOP_LINE"   : 5,
+    "IX_MAPPING_SHEET" : 0,
+    "IX_ITEMS_TOP_LINE": 1,
+    "MSA_FIELD_MAXLEN" : 255
+  },
+  "sqlst": [
+    {"activ": true, "tblnm": "cd_index", "sqlst": "CREATE TABLE IF NOT EXISTS cd_index (tabid TEXT, tabtx TEXT, tabus TEXT, PRIMARY KEY (tabid));"},
+    {"activ": true, "tblnm": "cd_codes", "sqlst": "CREATE TABLE IF NOT EXISTS cd_codes (tabid TEXT, cdkey TEXT, cdtext TEXT, PRIMARY KEY (tabid, cdkey));"},
+    {"activ": true, "tblnm": "cd_data",  "sqlst": "CREATE TABLE IF NOT EXISTS cd_data  (tabid TEXT, cdkey TEXT, relshp1 TEXT, relshp2 TEXT, PRIMARY KEY (tabid, cdkey));"},
+    {"activ": true, "tblnm": "indix",    "sqlst": "CREATE TABLE IF NOT EXISTS indix    (mapid TEXT, ctmrs TEXT, ctmrl TEXT, messg TEXT, mvers TEXT, idocm TEXT, stats TEXT, fname TEXT, msgtp TEXT, PRIMARY KEY (mapid));"},
+    {"activ": true, "tblnm": "headers",  "sqlst": "CREATE TABLE IF NOT EXISTS headers  (seqno TEXT, mapid TEXT UNIQUE, mptit TEXT, lupdt TEXT, authr TEXT, bvers TEXT, cstmr TEXT, tgtfm TEXT, srcfm TEXT, instr TEXT, sampl TEXT);"},
+    {"activ": true, "tblnm": "sections", "sqlst": "CREATE TABLE IF NOT EXISTS sections (seqno TEXT, mapid TEXT, secid TEXT, stext TEXT, lpmax TEXT, stats TEXT, PRIMARY KEY (mapid, secid));"},
+    {"activ": true, "tblnm": "segments", "sqlst": "CREATE TABLE IF NOT EXISTS segments (seqno TEXT, mapid TEXT, secid TEXT, segid TExT, sgmtp TEXT, lpmax TEXT, stats TEXT, usage TEXT);"},
+    {"activ": true, "tblnm": "fields",   "sqlst": "CREATE TABLE IF NOT EXISTS fields   (seqno TEXT, mapid TEXT, secid TEXT, segid TEXT, targt TEXT, targ2 TEXT, dtext TEXT, idocs TEXT, idocq TEXT, idocv TEXT, sourc TEXT, rcond TEXT, commt TEXT, sampl TEXT, chang TEXT);"}
+  ],
+  "errs": {
+    "F1001" : "Error: Document is not an EDI Mapping Specification file."
+  }
+}

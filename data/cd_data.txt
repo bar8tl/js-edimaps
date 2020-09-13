@@ -1,0 +1,68 @@
+editransp|1|40|06
+editransp|3|30|35
+editransp|31TE|30|35
+editransp|4|10|11
+editransp|50|40|06
+editransp|70|30|31
+editransp|82|30|31
+editransp|90|10|11
+editransp|A AC|40|06
+editransp|A AE|40|06
+editransp|A AF|40|06
+editransp|A CN|40|06
+editransp|ACAC|40|06
+editransp|ACAF|40|06
+editransp|AEAC|40|06
+editransp|AEAE|40|06
+editransp|AEAF|40|06
+editransp|AETL|40|06
+editransp|AFAF|40|06
+editransp|B TE|30|35
+editransp|C TE|30|35
+editransp|C TL|30|35
+editransp|E AC|40|06
+editransp|E AF|40|06
+editransp|E EX|40|06
+editransp|E TE|40|06
+editransp|E TL|30|35
+editransp|E TV|30|35
+editransp|G TL|40|06
+editransp|GGRR|30|35
+editransp|GGTL|30|35
+editransp|GS  |20|20
+editransp|GSTE|20|20
+editransp|GSTL|20|20
+editransp|H TE|30|35
+editransp|H TL|30|35
+editransp|I TL|30|35
+editransp|J TL|30|35
+editransp|LTTE|30|35
+editransp|LTTL|30|35
+editransp|M AC|30|35
+editransp|M PT|30|35
+editransp|M TL|30|35
+editransp|M TO|30|35
+editransp|N TL|30|35
+editransp|NNTL|30|35
+editransp|O OB|10|11
+editransp|O VE|10|11
+editransp|O VT|10|11
+editransp|P TL|30|35
+editransp|PCTL|30|35
+editransp|PDTL|30|35
+editransp|PDTV|30|35
+editransp|R RR|20|20
+editransp|RRRC|20|20
+editransp|S CN|10|11
+editransp|S TL|10|11
+editransp|SECN|10|11
+editransp|SSCN|10|11
+editransp|SSVE|10|11
+editransp|T TV|30|35
+editransp|TCTL|30|35
+editransp|TNTL|30|35
+editransp|U TL|30|35
+editransp|U TV|30|35
+editransp|X AC|40|06
+editransp|X RR|20|20
+editransp|X TL|30|35

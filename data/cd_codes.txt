@@ -1,0 +1,666 @@
+docref|001|Customer Purchase Order
+docref|002|Vendor Order
+docref|003|Customer Inquiry
+docref|004|Vendor Quotation
+docref|005|Customer Contract Number
+docref|006|Vendor Contract Number
+docref|007|Collective Number for Quotations
+docref|008|Last Purchase Order Number (SPEC2000 Acknowl.)
+docref|009|Invoice Number
+docref|010|Internal Number (Document)
+docref|011|Referenced Document Number
+docref|012|Delivery Note Number
+docref|013|Internal PO Number
+docref|014|Accounting Document
+docref|015|Billing Document Number of Invoicing Party
+docref|016|Number of Preceding Document
+docref|017|Assignment Number
+docref|018|Customer Order Number
+docref|019|ISR Number
+docref|020|Invoice List Number
+docref|021|ID for Cost Assignment
+docref|022|Payment Document Number
+docref|023|Banker's Acceptance
+docref|024|Matured Certificate of Deposit (CD)
+docref|025|Loan
+docref|026|Check Number
+docref|027|Foreign Exchange Contract Number
+docref|028|Credit Memo
+docref|029|Payment Advice Note Number
+docref|030|Original Purchase Order Number (ALE)
+docref|031|Return Leg Number
+docref|032|Reference Bank
+docref|033|Third-Party Reference Number
+docref|034|Reference Number of Beneficiary's Bank
+docref|035|Message Reference
+docref|036|Credit Card Number
+docref|037|Statement Number
+docref|038|Account Statement No. (Deposit No.)
+docref|039|Account Statement No. (Deposit Seq. No)
+docref|040|Payee Code
+docref|041|MICR Line
+docref|042|Imported Line
+docref|043|Vendor Contract Number
+docref|044|Ship-To Party's PO Order
+docref|045|Cost Center
+docref|046|Profitability Segment No.
+docref|047|Work Breakdown Structure Object
+docref|048|Profit Center
+docref|049|Business Area
+docref|050|Delivery Order
+docref|051|Delivery Order Route Number
+docref|052|Sequence Number
+docref|053|Scheduling Agreement Number
+docref|054|External Transaction
+docref|055|Promotion Number
+docref|056|Customer Quotation Number
+docref|057|Customer Buying Group
+docref|058|Customer Contract Number
+docref|059|Check Number from Check Register
+docref|060|JIT Call Number
+docref|061|Internal Delivery Note Number
+docref|062|Customer PO no. for consignment issue by ext. service agent
+docref|063|External Delivery Note Number
+docref|064|Goods Receipt/Issue Slip Number
+docref|065|Repetitive Wire Nummer
+docref|066|External Order Number
+docref|067|Quality Notification Number
+docref|068|External Inquiry Number
+docref|069|Business Partner Reference Key
+docref|070|Reference Text for Settled Items
+docref|071|Customer ID no.
+docref|072|Agreement Number
+docref|073|Credit Advice Number
+docref|074|Transfer Number
+docref|075|Check Number
+docref|076|Credit Posting Number
+docref|077|Transfer number (just transferred)
+docref|078|Delivering Profit Center
+docref|079|Batch Number
+docref|080|Certificate Profile
+docref|081|Collective Daily Delivery Note
+docref|082|Summarized JIT call
+docref|083|External Delivering Plant
+docref|084|Tax Number Tax Office §14
+docref|085|KANBAN ID
+docref|086|Kanban Control Cycle
+docref|087|Reference Document Number Billing Doc.
+docref|090|Higher-Level Billing Item
+docref|102|Resale Ship and Debit Agreement No.
+docref|103|Customer Claim Reference Number
+docref|104|Design Registration Number
+docref|105|TPOP Order Number
+docref|106|TPOP Reference Order Number
+docref|107|VAT Registration Number CU
+docref|111|Partner Business Area
+docref|APY|Approval Year of Official Document Numbers
+docref|APN|Registration Number of Official Document Numbers
+docref|SNC|Serial Number of Statement
+docref|120|Contract Account Number
+docref|88|FI-CA Contract Account Number
+docref|RMA|Return Delivery Number
+docref|RA|RMA Number
+docref|RR|Return Reason Code
+docref|RTR|Return Reason
+docref|RRC|Rejection Reason Code
+docref|RJR|Rejection Reason
+docref|REP|Replacement Request
+date|001|Delivery date (supplier)
+date|002|Requested delivery date (customer)
+date|003|Closing date for applications
+date|004|Deadline for submission of quotations
+date|005|Quotation/inquiry valid from
+date|006|Binding period for a quotation (valid to)
+date|007|Reconciliation date for agreed cumulative quantity
+date|008|First firm zone
+date|009|Second firm zone
+date|010|Shipping date
+date|011|Date IDOC created
+date|012|Document date
+date|013|Quotation date (supplier)
+date|014|Inquiry date (customer)
+date|015|Invoice posting date (Invoice tax point date)
+date|016|Invoice date
+date|017|Payment Date
+date|018|Bill of exchange date
+date|019|Start of validity for outline agreement or inquiry
+date|020|End of validity for outline agreement or inquiry
+date|021|Billing date for invoice list
+date|022|Purchase order date
+date|023|Pricing date
+date|024|Fixed value date
+date|025|Created on
+date|026|Billing date for billing index and printout
+date|027|Date on which services rendered
+date|028|Due date
+date|029|Sales order date
+date|030|Goods receipt date
+date|031|Planned date
+date|032|Date of reference number
+date|033|Shipment start date
+date|034|Planned shipment end date
+date|035|Goods issue date
+date|036|Bank value date
+date|037|Bank offsetting date
+date|038|Posting to bank
+date|039|Ship-to party's PO date
+date|040|Pickup date from (delivery order)
+date|041|Pickup date to (delivery order)
+date|042|Date of old balance
+date|043|Date of new balance
+date|044|Payment baseline date
+date|045|Shelf life expiration data for batch
+date|046|Date for Delivery Relevance
+date|047|Tax Reporting Date
+date|101|Resale Invoice Date
+date|102|Resale Ship Date
+date|103|Booking from date
+date|104|Booking to date
+date|105|Shipping from date
+date|106|Shipping to date
+date|107|Billing from date
+date|108|Billing to date
+date|109|Exercise from date
+date|110|Exercise to date
+date|048|Exchange Rate
+vat|001|VAT indicator 1
+vat|002|VAT indicator 2
+vat|003|VAT indicator 3
+vat|004|VAT indicator 4
+vat|005|VAT indicator 5
+vat|006|VAT indicator 6
+vat|007|VAT indicator 7
+vat|008|VAT indicator 8
+vat|009|VAT indicator 9
+vat|010|VAT indicator 10
+vat|011|VAT indicator 11
+vat|012|VAT indicator 12
+vat|013|VAT indicator 13
+vat|014|VAT indicator 14
+vat|015|VAT indicator 15
+vat|016|VAT indicator 16
+vat|017|VAT indicator 17
+vat|018|VAT indicator 18
+vat|019|VAT indicator 19
+vat|020|VAT indicator 20
+vat|TXC|County Sales Tax
+vat|TXL|Local Sales Tax
+vat|TXS|State Sales Tax
+vat|VAT|Value Added Tax
+org|001|Business area
+org|002|Sales area
+org|003|Delivering company code
+org|004|Plant in charge
+org|005|Delivering plant
+org|006|Division
+org|007|Distribution channel
+org|008|Sales organization
+org|009|Purchasing group
+org|010|Sales group
+org|011|Company code
+org|012|Order type
+org|013|Purchase order type
+org|014|Purchasing organization
+org|015|Billing Type
+org|016|Sales office
+org|017|Unloading Point
+org|018|Quotation type
+org|019|PO type (SD)
+org|020|Transaction Tax Group
+org|021|Sales Document Category
+org|022|Returns
+org|ARO|Advanced Returns Order
+iterms|001|INCOTERMS part 1
+iterms|002|INCOTERMS Part 2
+iterms|003|INCOTERMS Part 3
+iterms|VER|INCOTERMS Version
+iterms|CDI|Complete Delivery Required
+pterms|001|Payment term 1
+pterms|002|Payment term 2
+pterms|003|Payment term 3
+pterms|004|Payment term stock transfer
+pterms|005|Description of Payment Term
+pterms|PMI|Type of Installment Payment
+partnrf|AA|Customer - Financial document
+partnrf|AB|
+partnrf|AG|Sold-to party
+partnrf|AP|Contact Person
+partnrf|AW|Shipped-to party financial document
+partnrf|BA|Bank sold-to party
+partnrf|BB|Bank beneficiary/partner for debit memo
+partnrf|BE|Beneficiary
+partnrf|BK|Company code address
+partnrf|CC|SPEC2000 Customer Code
+partnrf|CO|Competitors
+partnrf|DE|Bank holding account
+partnrf|EK|Buyer
+partnrf|I1|Sender's correspondent bank
+partnrf|I2|Intermediary bank
+partnrf|I3|Recipient's correspondent bank
+partnrf|I4|External house bank
+partnrf|LF|Vendor
+partnrf|LFA|Vendor for additionals
+partnrf|LFL|Vendor (from vendor view)
+partnrf|ME|Declarant OB Opening bank
+partnrf|PA|Partner for debit memo/direct debit/bank collection
+partnrf|RE|Bill-to party RG Payer
+partnrf|RS|Invoicing party
+partnrf|SLS|Supplementary logistics service
+partnrf|SP|Forwarding agent
+partnrf|VR|Representative
+partnrf|WE|Ship-to party
+partnrf|WK|
+partnrf|ZA|Payer
+partnrf|ZE|Payment recipient
+partnrf|ZM|Responsible employee
+objid|001|Material number used by customer
+objid|002|Material number used by vendor
+objid|003|International Article Number(EAN)
+objid|004|Manufacturer part number
+objid|005|Interchanged manufacturer part number
+objid|006|Pricing reference material
+objid|007|Commodity code
+objid|010|Batch number
+objid|011|Country of origin of material
+objid|012|Shipping unit
+objid|013|Original material number (ALE)
+objid|014|Serial number
+objid|015|Manufacturing plant
+objid|016|Revision level
+objid|017|Additionals
+objid|008|Replacement Material Number of Customer
+objid|009|Replacement Material Number of Vendor
+amount|001|Gross price
+amount|002|Gross value
+amount|003|Net value
+amount|004|Amount qualifying for cash discount
+amount|005|Absolute net value of item
+amount|006|Net price
+amount|007|Cash discount amount
+amount|009|Statistical value
+amount|010|Subtotal 1 from calculation procedure
+amount|011|Subtotal 2 from calculation procedure
+amount|012|Subtotal 3 from calculation procedure
+amount|013|Subtotal 4 from calculation procedure
+amount|014|Subtotal 5 from calculation procedure
+amount|015|Subtotal 6 from calculation procedure
+amount|016|Foreign trade: Net value in company code currency, rounded
+amount|017|New valuation: Old settlement value in settlement currency
+amount|018|New valuation: New settlement value in settlement currency
+amount|019|ERS: Handling surcharge
+totals|001|Number of items (purchase order count)
+totals|002|Net document value (EVT)
+totals|003|Gross document value
+totals|004|Total of all quantities (total control quantity)
+totals|005|Sales tax total
+totals|006|Order values
+totals|007|Sales tax
+totals|008|Invoice values
+totals|009|Target value for outline agreement
+totals|010|Net invoice value
+totals|011|Billed value
+totals|012|Amount qualifying for cash discount
+totals|013|Cash discount amount 1
+totals|014|Cash discount amount 2
+totals|015|Net values with sales tax ID
+totals|016|Billed values with sales tax ID
+totals|017|Total item net value
+totals|018|Invoice list final amount
+totals|019|Net value invoice list
+totals|020|Total discounts/surcharges
+totals|021|Net weight
+totals|022|Gross weight
+totals|023|Total weight
+totals|024|Quantity of transferred materials
+totals|025|Billed value in EUROs
+totals|026|End amount for invoice list in EUROs
+totals|027|Billed value of invoice list in EUROs
+totals|028|Number of IDocs
+editransp|1|RBAU- Air
+editransp|3|RBAU- Road
+editransp|31TE|Motor-Trail-EDIFACT
+editransp|4|RBAU- Sea
+editransp|50 |Air
+editransp|70|Truck
+editransp|82|Truck
+editransp|90|Sea
+editransp|A AC|Air-Closd Cont
+editransp|A AE|Air-Air Express
+editransp|A AF|Air-Air Frt
+editransp|A CN|Air-Cont-EDIFACT
+editransp|ACAC|Air Chart-Closd Cont
+editransp|ACAF|Air Chart-Air Frt
+editransp|AEAC|Air Exp-Closd Cont
+editransp|AEAE|Air Exp-Air
+editransp|AEAF|Air Exp-Air Frt
+editransp|AETL|Air Exp-
+editransp|AFAF|AirFrt-Air Frt
+editransp|B TE|GM Tran Mode ODC
+editransp|C TE|Consol-Trailer
+editransp|C TL|Consol-Trailer
+editransp|E AC|Expedited-Air Chart
+editransp|E AF|Expedited-Air Frt
+editransp|E EX|Expedite
+editransp|E TE|Expedited-Air
+editransp|E TL|Expedited-Trailer
+editransp|E TV|Expedited-Van
+editransp|G TL|Piggy-back (w.eq.in)
+editransp|GGRR|Geo Ship-Rail Car
+editransp|GGTL|Geo Ship-Trailer
+editransp|GS|Geo Route
+editransp|GSTE|MilkRun-Trailer
+editransp|GSTL|Geo Ship-Trailer Chr
+editransp|H TE|Intermodal-Milk Run
+editransp|H TL|Cust Pickup-Trailer
+editransp|I TL|Intermodal-Truckload
+editransp|J TL|Motor-Trailer
+editransp|LTTE|LTL-Trailer
+editransp|LTTL|LTL-Trailer
+editransp|M AC|Motor-Closed Cont
+editransp|M PT|Motor-Partial Truck
+editransp|M TL|Motor-Trailer
+editransp|M TO|Motor-Truck Open Top
+editransp|N TL|N Trailer
+editransp|NNTL|Not Full-Trailer
+editransp|O OB|Ocean BrkBlk
+editransp|O VE|Ocean Vessel
+editransp|O VT|Ocean Containership
+editransp|P TL|Private Carrier-Trl
+editransp|PCTL|Private Carr-Trailer
+editransp|PDTL|Parcel Dlvry-Trailer
+editransp|PDTV|Parcel Dlvry-Van
+editransp|R RR|Rail Car
+editransp|RRRC|Roadrailer (w.eq.in)
+editransp|S CN|Sea-Container EDIFC
+editransp|S TL|Sea Frt-S09
+editransp|SECN|Sea/Air Contnr EDIFC
+editransp|SSCN|SteamShip-Container
+editransp|SSVE|Sea- GM Europe
+editransp|T TV|Best Way-Van
+editransp|TCTL|Surface Expeditor
+editransp|TNTL|Common Carr-Trailer
+editransp|U TL|UPS-Trailer
+editransp|U TV|UPS-Van
+editransp|X AC|Air Charter
+editransp|X RR|Intmodal Railcar
+editransp|X TL|Intmodal Trailer
+tmean|00|Sample
+tmean|01|sample by express
+tmean|02|sample by reg. mail
+tmean|03|sample mailexpress
+tmean|04|sample COD
+tmean|05|small packet
+tmean|06|s.packet  by express
+tmean|07|s.packet by reg.mail
+tmean|08|s.packet expressmail
+tmean|09|s.packet COD
+tmean|10|by post
+tmean|11|packet by express
+tmean|12|packet urgently
+tmean|13|by post COD
+tmean|15|by post
+tmean|16|by post
+tmean|17|by post urgently
+tmean|18|by post COD
+tmean|20|express parcel
+tmean|21|exp.parcel /courier
+tmean|25|exp. parcel by post
+tmean|26|ex.parcel by post ex
+tmean|30|sample air freight
+tmean|31|sample air fr. exp.
+tmean|32|sample air fr. mail
+tmean|33|sample air fr. ex.m.
+tmean|35|small packet air fr.
+tmean|36|s.packet air fr. exp
+tmean|37|s.packet air fr. mai
+tmean|38|s.pack.air fr.ex.mai
+tmean|40|airmail
+tmean|41|packet airmail exp
+tmean|45|airmail by post
+tmean|46|airmail by post exp
+tmean|50|collective air fr.
+tmean|51|single air freight
+tmean|52|air freight (A-Serv)
+tmean|53|air freight (B-Serv)
+tmean|54|air freight (C-Serv)
+tmean|55|air freight (fast-S)
+tmean|60|express goods
+tmean|61|exp goods COD
+tmean|62|express goods
+tmean|64|private parcel seric
+tmean|65|IC-courier
+tmean|66|futures goods
+tmean|67|SV future goods truc
+tmean|68|private parcel servi
+tmean|69|organized SV
+tmean|70|rail goods
+tmean|71|forwarding by rail
+tmean|72|express goods
+tmean|73|rail - collec load
+tmean|74|Rail-distributer
+tmean|75|services goods
+tmean|76|services goods exp
+tmean|77|freight goods COD
+tmean|78|comb. street-rail
+tmean|79|truck future goods
+tmean|80|truck piece goods
+tmean|81|truck collect. load
+tmean|82|our truck
+tmean|83|pickup
+tmean|84|pickup your repres.
+tmean|85|delivery  RB
+tmean|87|exp supplies goods
+tmean|88|military goods
+tmean|90|sea freight
+tmean|91|comb. sea-air freigh
+tmean|92|extra run
+tmean|93|UPS
+tmean|94|German Parcel
+tmean|95|DHL
+tmean|96|TNT- COD
+tmean|98|right
+tmean|99|right SV
+tmode|10|Sea
+tmode|20|Railcar
+tmode|30|Motor Trailer
+tmode|40|Air
+trefno|AS|Assembly Location
+trefno|BC|Batch Characteristics
+trefno|CC|Control Cycle Number
+trefno|CD|Card Number
+trefno|CM|Batch Characteristics
+trefno|CN|Number of Load Carriers
+trefno|CP|additional plant code
+trefno|CR|Load carrier
+trefno|IS|Material Issuer
+trefno|JP|External Call Item
+trefno|MR|Main Route
+trefno|PF|Range: PRODN Initial Value
+trefno|PT|Range: PRODN End Value
+trefno|PV|Different Packing Instruction
+trefno|RN|Route Number
+trefno|SR|Sub Route
+trefno|UI|Usage Indicator SA
+trefno|UP|Unloading Point
+trefno|Y1|Shipt to NO/ W/H
+trefno|Y2|Plant ID NO
+trefno|Y3|SCAC Code
+trefno|Y4|Packaging type
+trefno|Y5|Container type
+trefno|YS|Supermarket Handling Code
+trefno|Z0|Vehicle ID (JIS)
+trefno|Z1|JIT number 2
+trefno|Z2|Jit number 3
+trefno|Z3|
+trefno|Z4|
+trefno|Z5|HU-No (JIS)
+trefno|Z6|Parttype (JIS)
+trefno|Z7|part description (JIS)
+trefno|Z8|vehicle type (JIS)
+trefno|Z9|vehicle project (JIS)
+trefno|ZA|special delivery (JIS)
+trefno|ZB|Order No. Final Customer
+trefno|ZC|Final Customer
+trefno|ZD|Packaging 1
+trefno|ZE|Packaging 2
+trefno|ZF|Packaging 3
+trefno|ZG|EDI Sender
+trefno|ZH|Latest arrival date/time
+trefno|ZI|JIT number 1
+trefno|ZJ|Latest collection date/time
+trefno|ZK|EDI Sender on Position Level
+trefno|ZL|Message type
+trefno|ZM|
+trefno|ZP|Honda Small Lot Number
+trefno|ZS|Honda Small Lot Number
+trefno|ZT|
+trefno|ZU|
+trefno|ZV|Release Number
+addat|1010|Reserve Line
+addat|1020|Container
+addat|1050|Additional Supplier Number
+addat|1060|Material Handling Code
+addat|1070|PCI_112
+addat|1080|Plant dock code
+addat|1090|PCI_13Z
+addat|1100|PCI_13Z_ISSUER
+addat|1110|PCI_142
+addat|1120|PCI_14Z
+addat|1130|PCI_15Z
+addat|1140|PCI_16Z
+addat|1150|PCI_172
+addat|1160|PCI_17Z
+addat|1170|Intermediate Consignee
+addat|1180|POSEX
+addat|1190|Container Type
+addat|1200|Customer material description
+addat|1210|EDI Sender
+addat|1220|Kontierung
+addat|1230|RB material number
+addat|1240|Customer order type
+addat|1250|Cust.mat.number in print form
+addat|1260|Customer free text 1
+addat|1270|Customer free text 2
+addat|1280|Customer free text 3
+addat|1290|Customer material short text
+addat|1300|Sales units of measurement
+addat|1310|EDI receiver
+addat|1320|Material colour code
+addat|1330|Compas part number
+addat|1400|PSP element IGPK
+addat|1410|
+addat|1420|
+addat|1430|
+addat|1440|
+addat|1450|
+addat|1451|
+addat|1460|
+addat|1470|
+addat|1480|
+addat|1490|
+addat|1500|supplier name at customer
+addat|ACTD|Contract Date
+addat|ACTN|Contract Number
+addat|AD01|Advics Customer code
+addat|AD02|Advics 'Shinkyu-kubun'
+addat|AD03|Advics Materal number
+addat|AD04|Advics 'Kako-zu'
+addat|AD05|Advics 'Seppen'
+addat|AD06|Advics 'Iro-hinban'
+addat|AD07|Advics 'Shohin-koujo'
+addat|AD08|Advics 'Shiresaki'
+addat|AD09|Advics 'NT-Kubun'
+addat|AD10|Advics 'Nonyusaki'
+addat|AD11|Advics 'Ukeire'
+addat|ADHE|Dummy MM
+addat|AMBA|Dummy MM
+addat|AS|Line Feed
+addat|AVRO|Dummy MM
+addat|BEHA|Dummy MM
+addat|BEHÄ|Dummy MM
+addat|BLIS|Dummy MM
+addat|BOIT|Dummy MM
+addat|BOX|Dummy MM
+addat|CCSA|CC Schedl Agrmt RBJP SBI Split
+addat|CDDE|cust. product descript. german
+addat|CDEN|cust. product descript. engl.
+addat|CDFR|cust. product descript. french
+addat|CDUK|cust. product descript. ukrain
+addat|CDZH|cust. product descript. china
+addat|CME|Customer material EDI
+addat|CMPF|Cust.mat.number in print form
+addat|CMSI|Cust.mat.number short ID
+addat|CONT|Dummy MM
+addat|CORR|Dummy MM
+addat|CP|Customer plant
+addat|CUM|CUM
+addat|DCLF|Deviating SH Supplier
+addat|DCMN|Deviating SH Material
+addat|DCPO|Deviating SH PO
+addat|DCUP|Deviating SH Unloading Point
+addat|DCWK|Deviating SH plant
+addat|DECK|Dummy MM
+addat|DEEP|Dummy MM
+addat|DEPO|Dummy MM
+addat|DLSP|Delivery split
+addat|DOSE|Dummy MM
+addat|DUNS|DUNS number
+addat|EURO|Dummy MM
+addat|EVAK|EVA key (migration)
+addat|FOLD|Fold
+addat|FWPA|Forwarding Agent Principal
+addat|INC1|MM Incoterms 1
+addat|INC2|MM Incoterms 2
+addat|IS|Material Issuer
+addat|KART|Dummy MM
+addat|KHIN|Receiving GB
+addat|KORR|Dummy MM
+addat|KUNS|Dummy for Plant/Plant
+addat|LPNR|MM-Purchase Order
+addat|LPOS|MM-Purchase Order Item
+addat|LTOD|Left To Order
+addat|M#AN|Dummy MM
+addat|MACH|MM dummy
+addat|MOTO|Dummy MM
+addat|NAM5|NAME 5
+addat|OHÝB|Dummy MM
+addat|ORST|Original sold-to MLB
+addat|PALE|Dummy MM
+addat|PALL|Dummy MM-LP
+addat|PLAS|Dummy MM
+addat|POCD|PO Change date
+addat|POCH|Dummy MM
+addat|POCT|POCT
+addat|POLY|Dummy MM
+addat|PUR-|Dummy MM
+addat|RAKO|Dummy MM
+addat|RECI|Dummy MM
+addat|RESE|Dummy MM
+addat|ROLL|Dummy MM
+addat|SADT|Material Issuer
+addat|SDYC|Fiscal year change process
+addat|STNR|Tax number
+addat|STYR|Dummy MM
+addat|SVSA|MM Shipping instructions
+addat|T1CM|Customer material
+addat|T1CP|Consumption point customer
+addat|T1EC|Cust. eng. change level
+addat|T1FZ|CUM goods received
+addat|T1ON|Customer order number
+addat|T1PC|Customer plant code
+addat|T1RP|Receiving point
+addat|T1SC|Supplier code
+addat|T1SH|Ship-to address
+addat|T1UP|Unloading point
+addat|TART|Dummy MM
+addat|TIEF|Dummy MM
+addat|TOAC|Toyota:Contract Assembler Code
+addat|TOPC|Toyota:Plant Code final dest.
+addat|TORA|Toyota:PC Rack Address
+addat|UP|Dock Code
+addat|VERN|
+addat|VERP|Dummy MM
+addat|WELL|Dummy MM
+addat|ZFB1|ZF Supplier No. for Bosch
+addat|ZFB2|ZF Part No
+addat|ZFB3|ZF Purchase order No

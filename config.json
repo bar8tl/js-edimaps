@@ -1,0 +1,35 @@
+{
+  "program": {
+    "idxNam": "index.xlsx",
+    "lrfDir": "c:\\c_portab\\01_rb\\ProgramData\\js-edimap\\",
+    "dboNam": "edimaps.db",
+    "dboDir": "c:\\c_portab\\01_rb\\ProgramData\\js-edimap\\",
+    "inpDir": "c:\\c_portab\\01_rb\\_work_projects\\rb1901_rbna_edi-mapping-specs\\",
+    "outDir": "c:\\c_portab\\01_rb\\ProgramData\\js-edimap\\output\\",
+    "trimSpace": false, "useNoData": true, "ommitEmpty": false, "noDataChar": "¤", "lineFeedChar": "\\n",
+    "output": [
+      {"otype": "text",     "activ": true,  "ofile": "<mapid-mvers_idocm>.txt"},
+      {"otype": "xml",      "activ": false, "ofile": "<mapid-mvers_idocm>.xml"},
+      {"otype": "json",     "activ": true,  "ofile": "<mapid-mvers_idocm>.json"},
+      {"otype": "sqlite3",  "activ": true,  "ofile": "edimaps.db"},
+      {"otype": "msaccess", "activ": false, "ofile": "edimaps.accdb"}
+    ]
+  },
+  "run": [],
+  "cdb": [
+    {"id": "idx", "table": "indix",    "cr": true},
+    {"id": "cix", "table": "cd_index", "cr": true},
+    {"id": "ccd", "table": "cd_codes", "cr": true},
+    {"id": "cdt", "table": "cd_data",  "cr": true},
+    {"id": "hdr", "table": "headers",  "cr": true},
+    {"id": "sct", "table": "sections", "cr": true},
+    {"id": "sgm", "table": "segments", "cr": true},
+    {"id": "fld", "table": "fields",   "cr": true}
+  ],
+  "lrf": [
+    {"id": "idx", "table": "indix",    "file": "index.xls",    "ld": true},
+    {"id": "cix", "table": "cd_index", "file": "cd_index.txt", "ld": true},
+    {"id": "ccd", "table": "cd_codes", "file": "cd_codes.txt", "ld": true},
+    {"id": "cdt", "table": "cd_data",  "file": "cd_data.txt",  "ld": true}
+  ]
+}
