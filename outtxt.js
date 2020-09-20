@@ -14,12 +14,12 @@ module.exports.Otxt = class Otxt {
   }
 
   OpenOtxt(s, otp) {
-    this.outdr = s.Envmnt.Outdr;
-    this.nodat = s.Envmnt.Nodat;
-    this.omite = s.Envmnt.Omite;
-    this.ndchr = s.Envmnt.Ndchr;
-    if (s.Dfault.d.dflt.OFILE_NAME == 'LONG_NAME') {
-      var inptn = path.basename(s.Envmnt.Fname, '.xlsx');
+    this.outdr = s.Outdr;
+    this.nodat = s.Nodat;
+    this.omite = s.Omite;
+    this.ndchr = s.Ndchr;
+    if (s.Dflt.OFILE_NAME == 'LONG_NAME') {
+      var inptn = path.basename(s.Fname, '.xlsx');
       this.outpf = inptn + '.txt';
     } else {
       this.outpf = otp.Ofile;
@@ -28,7 +28,7 @@ module.exports.Otxt = class Otxt {
 
   OutHeader(hd) {
     this.Print ('BEGIN_MAPPING_SPECS\r\n');
-    this.Print ('  BEGIN_CONTROL_SECTION\r\n');
+    this.Print ('  BEGIN_CONTROL_GROUP\r\n');
     this.Print ('    BEGIN_HEADER_RECORD\r\n');
     this.Printf('      NAME                %s\r\n', hd.mptit);
     this.Printf('      LAST_UPDATE         %s\r\n', hd.lstup);
@@ -40,15 +40,15 @@ module.exports.Otxt = class Otxt {
     this.Printf('      INSTRUCTIONS        %s\r\n', hd.instr);
     this.Printf('      SAMPLE              %s\r\n', hd.sampl);
     this.Print ('    END_HEADER_RECORD\r\n');
-    this.Print ('  END_CONTROL_SECTION\r\n');
-    this.Print ('  BEGIN_SEGMENTS_SECTION\r\n');
+    this.Print ('  END_CONTROL_GROUP\r\n');
+    this.Print ('  BEGIN_SEGMENTS_GROUP\r\n');
   }
 
-  OutSection(sc, sectx) {
+  OutGroup(gp, grupx) {
     this.Print ('      END_FIELDS\r\n');
     this.Print ('    END_SEGMENT\r\n');
-    this.Printf('    BEGIN_TEXT            %s\r\n', sectx);
-    this.Printf('      TEXT                %s\r\n', sc.stext);
+    this.Printf('    BEGIN_TEXT            %s\r\n', grupx);
+    this.Printf('      TEXT                %s\r\n', gp.gtext);
     this.Print ('    END_TEXT\r\n');
   }
 
@@ -81,7 +81,7 @@ module.exports.Otxt = class Otxt {
   OutEof() {
     this.Print('      END_FIELDS\r\n');
     this.Print('    END_SEGMENT\r\n');
-    this.Print('  END_SEGMENTS_SECTION\r\n');
+    this.Print('  END_SEGMENTS_GROUP\r\n');
     this.Print('END_MAPPING_SPECS\r\n');
     fs.writeFile(this.outdr+this.outpf, this.line, (err) => {
       if (err) throw err;

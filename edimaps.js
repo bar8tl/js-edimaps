@@ -6,17 +6,21 @@ const lrfdata  = require('./lrfdata');
 const settings = require('./settings');
 
 function main() {
-  var s = new settings.Settings(constant.CONFIG, constant.DFAULT)
-  for (const parm of s.Params.Cmdpr) {
-    if (parm.Optn == 'cdb') {
+  var s = new settings.Settings(constant.CONFIG, constant.DFAULT);
+  for (const parm of s.Parms) {
+    switch (parm.Optn) {
+    case s.Konst.CREATE_DB :
       var dbo = new crtdb.Ddbo();
       dbo.CrtTables(parm, s);
-    } else if (parm.Optn == 'lrf') {
+      break;
+    case s.Konst.LOAD_REFERENCES :
       var lrf = new lrfdata.Dlrf();
       lrf.LoadRefData(parm, s);
-    } else if (parm.Optn == 'dmp') {
+      break;
+    case s.Konst.DUMP_MAPPING_FILE :
       var dmp = new dumpmap.Ddmp();
       dmp.Dumpmap(parm, s);
+      break;
     }
   }
 }

@@ -1,13 +1,13 @@
 {
-  "program": {
-    "idxNam": "index.xlsx",
-    "lrfDir": "c:\\c_portab\\01_rb\\ProgramData\\js-edimap\\",
-    "dboNam": "edimaps.db",
-    "dboDir": "c:\\c_portab\\01_rb\\ProgramData\\js-edimap\\",
-    "inpDir": "c:\\c_portab\\01_rb\\_work_projects\\rb1901_rbna_edi-mapping-specs\\",
-    "outDir": "c:\\c_portab\\01_rb\\ProgramData\\js-edimap\\output\\",
-    "trimSpace": false, "useNoData": true, "ommitEmpty": false, "noDataChar": "¤", "lineFeedChar": "\\n",
-    "output": [
+  "progm": {
+    "idxnm": "index.xlsx",
+    "lrfdr": "c:\\c_portab\\01_rb\\ProgramData\\js-edimap\\",
+    "dbonm": "edimaps.db",
+    "dbodr": "c:\\c_portab\\01_rb\\ProgramData\\js-edimap\\",
+    "inpdr": "c:\\c_portab\\01_rb\\_work_projects\\rb1901_rbna_edi-mapping-specs\\",
+    "outdr": "c:\\c_portab\\01_rb\\ProgramData\\js-edimap\\output\\",
+    "trims": false, "nodat": true, "omite": false, "ndchr": "¤", "lfchr": "\\n",
+    "outpt": [
       {"otype": "text",     "activ": true,  "ofile": "<mapid-mvers_idocm>.txt"},
       {"otype": "xml",      "activ": false, "ofile": "<mapid-mvers_idocm>.xml"},
       {"otype": "json",     "activ": true,  "ofile": "<mapid-mvers_idocm>.json"},
@@ -22,7 +22,7 @@
     {"id": "ccd", "table": "cd_codes", "cr": true},
     {"id": "cdt", "table": "cd_data",  "cr": true},
     {"id": "hdr", "table": "headers",  "cr": true},
-    {"id": "sct", "table": "sections", "cr": true},
+    {"id": "grp", "table": "groups",   "cr": true},
     {"id": "sgm", "table": "segments", "cr": true},
     {"id": "fld", "table": "fields",   "cr": true}
   ],

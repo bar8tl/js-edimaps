@@ -9,6 +9,7 @@ node edimaps.js -dmp:bob850
 node edimaps.js -dmp:gan830
 node edimaps.js -dmp:jat830
 node edimaps.js -dmp:krmdfr
+node edimaps.js -dmp:kaw830
 node edimaps.js -dmp:len830
 node edimaps.js -dmp:nav862
 node edimaps.js -dmp:nsa830

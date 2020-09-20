@@ -1,2 +1,2 @@
-node edimaps.js -dmp:riv830
+node edimaps.js -dmp:sum830
 pause

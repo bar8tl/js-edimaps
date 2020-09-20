@@ -4,7 +4,7 @@ const path = require('path');
 
 module.exports.Ojsn = class Ojsn {
   constructor() {
-    this.sec   = 0;
+    this.grp   = 0;
     this.seg   = 0;
     this.fld   = 0;
     this.outdr = '';
@@ -13,12 +13,12 @@ module.exports.Ojsn = class Ojsn {
   }
 
   OpenOjsn(s, otp) {
-    this.sec   = -1;
+    this.grp   = -1;
     this.seg   = -1;
     this.fld   = -1;
-    this.outdr = s.Envmnt.Outdr
-    if (s.Dfault.d.dflt.OFILE_NAME == "LONG_NAME") {
-      var inptn = path.basename(s.Envmnt.Fname, '.xlsx');
+    this.outdr = s.Outdr
+    if (s.Dflt.OFILE_NAME == "LONG_NAME") {
+      var inptn = path.basename(s.Fname, '.xlsx');
       this.outpf = inptn + '.json';
     } else {
       this.outpf = otp.Ofile;
@@ -37,22 +37,22 @@ module.exports.Ojsn = class Ojsn {
     this.sp.header.sample        = hd.sampl;
   }
 
-  OutSection(sc, sectx) {
-    this.sp.sections.push(new Section_tp(sectx, sc.stext));
-    this.sec++;
+  OutGroup(gp, grupx) {
+    this.sp.groups.push(new Group_tp(grupx, gp.gtext));
+    this.grp++;
     this.seg = -1;
     this.fld = -1;
   }
 
   OutSegment(sg) {
-    this.sp.sections[this.sec].segments.push(new Segment_tp(sg.segid, sg.sgmtp,
+    this.sp.groups[this.grp].segments.push(new Segment_tp(sg.segid, sg.sgmtp,
       sg.lpmax, sg.stats, sg.usage));
     this.seg++;
     this.fld = -1;
   }
 
   OutField(fl) {
-    this.sp.sections[this.sec].segments[this.seg].fields.push(new Field_tp(
+    this.sp.groups[this.grp].segments[this.seg].fields.push(new Field_tp(
       fl.targt, fl.dtext, fl.sourc, fl.rcond, fl.commt, fl.sampl, fl.chang));
     this.fld++;
   }
@@ -65,8 +65,8 @@ module.exports.Ojsn = class Ojsn {
 
 class Specs_tp {
   constructor() {
-    this.header   = new Header_tp();
-    this.sections = []; // Array of Section_tp
+    this.header = new Header_tp();
+    this.groups = []; // Array of Section_tp
   }
 }
 
@@ -84,9 +84,9 @@ class Header_tp {
   }
 }
 
-class Section_tp {
+class Group_tp {
   constructor(id, text) {
-    this.section  = id;
+    this.group    = id;
     this.text     = text;
     this.segments = []; // Array of Segment_tp
   }

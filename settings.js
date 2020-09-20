@@ -1,25 +1,19 @@
 `use strict`;
 const fs   = require('fs');
 const xlsx = require('/nodejs/node_modules/xlsx');
+const tp   = require('./dtypes');
 
-class Param_tp {
-  constructor(optn, prm1, prm2) {
-    this.Optn = optn;
-    this.Prm1 = prm1;
-    this.Prm2 = prm2;
-  }
-}
-
+// Parameters from run command line
 class Params {
   constructor() {
-    this.Cmdpr = []
+    this.Parms = []; // Array of Param_tp
     var args = process.argv.slice(2);
     if (args.length == 0) {
       console.log('Run option missing\r\n')
       return
     }
     for (var i = 0; i < args.length; i++) {
-      var curarg = args[i].toLowerCase();
+      var curarg = args[i];
       if (curarg.substr(0,1) == '-' || curarg.substr(0,1) == '//') {
         var optn = curarg.substr(1, curarg.length);
         var prm1 = '';
@@ -33,7 +27,7 @@ class Params {
               prm1 = prm1.substr(0, prm1.indexOf(':')).trim();
             }
           }
-          this.Cmdpr.push(new Param_tp(optn, prm1, prm2))
+          this.Parms.push(new tp.Param_tp(optn, prm1, prm2))
         } else {
           console.log('Run option missing\r\n')
         }
@@ -42,130 +36,71 @@ class Params {
   }
 }
 
-class Output_tp {
-  constructor(ocode, oactv, ofile) {
-    this.Ocode = ocode;
-    this.Oactv = oactv;
-    this.Ofile = ofile;
+// Values from configuration file
+class Config {
+  constructor(fname) {
+    var jsonv = fs.readFileSync(fname);
+    this.c = JSON.parse(jsonv);
   }
 }
 
-class Program_tp {
-  constructor() {
+// Defaults, Constants and Literal values from defaults file
+class Dfault {
+  constructor(fname) {
+    var jsonv = fs.readFileSync(fname);
+    this.d = JSON.parse(jsonv);
+  }
+}
+
+// Run specific environment variables
+class Envmnt {
+  constructor() {}
+}
+
+// Program global settings - Inheriting from parameters, configuration,
+// defaults and constants
+module.exports.Settings = class Settings {
+  constructor(cfnam, dfnam) {
+    this.Params = new Params();
+    this.Config = new Config(cfnam);
+    this.Dfault = new Dfault(dfnam);
+
+    // Following definitions and functions will be migrated to own class as
+    // soon as I am able to implement multiple inheritance
+
+    // Params
+    this.Parms = []; // Array of Param_tp
+    this.customizeParams();
+
+    // Config
     this.Idxnm = '';
     this.Lrfdr = '';
+    this.Idxrt = '';
     this.Dbonm = '';
     this.Dbodr = '';
+    this.Dbort = '';
     this.Inpdr = '';
     this.Outdr = '';
-    this.Trims = false;
-    this.Nodat = false;
-    this.Omite = false;
+    this.Trims = '';
+    this.Nodat = '';
+    this.Omite = '';
     this.Ndchr = '';
     this.Lfchr = '';
     this.Outtp = []; // Array of Output_tp
-  }
-}
-
-class Run_tp {
-  constructor(option, objNam, inpDir, outDir) {
-    this.Optcd = option;
-    this.Objnm = objNam;
-    this.Inpdr = inpDir;
-    this.Outdr = outDir;
-  }
-}
-
-class Cdb_tp {
-  constructor(id, table, cr) {
-    this.id    = id;
-    this.table = table;
-    this.cr    = cr;
-  }
-}
-
-class Lrf_tp {
-  constructor(id, table, file, ld) {
-    this.id    = id;
-    this.table = table;
-    this.file  = file;
-    this.ld    = ld;
-  }
-}
-
-class Config {
-  constructor(fname) {
-    this.Progm = new Program_tp()
     this.Run   = []; // Array of Run_tp
     this.Cdb   = []; // Array of Cdb_tp
     this.Lrf   = []; // Array of Lrf_tp
-    var jsonv = fs.readFileSync(fname);
-    var c = JSON.parse(jsonv);
-    this.Progm.Idxnm = c.program.idxNam.trim();
-    this.Progm.Lrfdr = c.program.lrfDir.trim();
-    this.Progm.Dbonm = c.program.dboNam.trim();
-    this.Progm.Dbodr = c.program.dboDir.trim();
-    this.Progm.Inpdr = c.program.inpDir.trim();
-    this.Progm.Outdr = c.program.outDir.trim();
-    this.Progm.Trims = c.program.trimSpace;
-    this.Progm.Nodat = c.program.useNoData;
-    this.Progm.Omite = c.program.ommitEmpty;
-    this.Progm.Ndchr = c.program.noDataChar.trim();
-    this.Progm.Lfchr = c.program.lineFeedChar.trim();
-    for (var output of c.program.output) {
-      this.Progm.Outtp.push(new Output_tp(
-        output.otype.trim(),
-        output.activ,
-        output.ofile.trim()));
-    }
-    for (var run of c.run) {
-      this.Run.push(new Run_tp(
-        run.option.trim().toLowerCase(),
-        run.objNam.trim(),
-        run.inpDir.trim(),
-        run.outDir.trim()));
-    }
-    for (var cdb of c.cdb) {
-      this.Cdb.push(new Cdb_tp(
-        cdb.id.trim().toLowerCase(),
-        cdb.table.trim(),
-        cdb.cr));
-    }
-    for (var lrf of c.lrf) {
-      this.Lrf.push(new Lrf_tp(
-        lrf.id.trim().toLowerCase(),
-        lrf.table.trim(),
-        lrf.file.trim(),
-        lrf.ld));
-    }
-  }
-}
+    this.customizeConfig();
 
-class Dfault {
-  constructor(fname) {
-    var jsonv  = fs.readFileSync(fname);
-    this.d     = JSON.parse(jsonv);
-    this.Sqlst = []; // Array of booleans
-    for (var sqlst of this.d.sqlst) {
-      this.Sqlst.push(sqlst.activ ? true : false);
-    }
-  }
-}
+    // Dfault
+    this.Sqlst = []; // Array of Sqlst_tp
+    this.customizeDfault();
 
-class Envmnt {
-  constructor(c, k) {
+    // Envmnt
+    this.Dtsys = new Date();
+    this.Dtcur = new Date();
+    this.Dtnul = new Date(0);
     this.Objnm = '';
-    this.Idxnm = c.Progm.Idxnm.length > 0 ? c.Progm.Idxnm : k.INDEX_NAME;
-    this.Lrfdr = c.Progm.Lrfdr.length > 0 ? c.Progm.Lrfdr : k.REFDATA_DIR;
-    this.Dbonm = c.Progm.Dbonm.length > 0 ? c.Progm.Dbonm : k.DB_NAME;
-    this.Dbodr = c.Progm.Dbodr.length > 0 ? c.Progm.Dbodr : k.DB_DIR;
-    this.Inpdr = c.Progm.Inpdr.length > 0 ? c.Progm.Inpdr : k.INPUTS_DIR;
-    this.Outdr = c.Progm.Outdr.length > 0 ? c.Progm.Outdr : k.OUTPUTS_DIR;
-    this.Trims = c.Progm.Trims.length > 0 ? c.Progm.Trims : k.TRIM_SPACE;
-    this.Nodat = c.Progm.Nodat.length > 0 ? c.Progm.Nodat : k.USE_NO_DATA;
-    this.Omite = c.Progm.Omite.length > 0 ? c.Progm.Omite : k.OMMIT_EMPTY;
-    this.Ndchr = c.Progm.Ndchr.length > 0 ? c.Progm.Ndchr : k.NODATA_CHAR;
-    this.Lfchr = c.Progm.Lfchr.length > 0 ? c.Progm.Lfchr : k.LF_CHAR;
     this.Inptf = '';
     this.Mapid = '';
     this.Ctmrs = '';
@@ -176,23 +111,93 @@ class Envmnt {
     this.Stats = '';
     this.Fname = '';
     this.Msgtp = '';
-    this.Otype = []; // Array of Output_tp
-    for (var otp of c.Progm.Outtp) {
-      if (otp.Oactv) {
-        this.Otype.push(new Output_tp(otp.Ocode, otp.Oactv, otp.Ofile))
-      }
-    }
-    this.Cdb = c.Cdb;
-    this.Lrf = c.Lrf;
-    this.Dtsys = new Date();
-    this.Dtcur = new Date();
-    this.Dtnul = new Date(0);
   }
 
-  SetRunVars(p, s) {
-    if (p.Optn == 'cdb') {
+  customizeParams() {
+    for (var parm of this.Params.Parms) {
+      this.Parms.push(new tp.Param_tp(
+        parm.Optn.toLowerCase(),
+        parm.Prm1.toLowerCase(),
+        parm.Prm2.toLowerCase()
+      ));
+    }
+  }
+
+  customizeConfig() {
+    this.Idxnm = this.Config.c.progm.idxnm.length > 0 ?
+      this.Config.c.progm.idxnm.trim() : this.Dfault.d.konst.INDEX_NAME;
+    this.Lrfdr = this.Config.c.progm.lrfdr.length > 0 ?
+      this.Config.c.progm.lrfdr.trim() : this.Dfault.d.konst.REFDATA_DIR;
+    this.Dbonm = this.Config.c.progm.dbonm.length > 0 ?
+      this.Config.c.progm.dbonm.trim() : this.Dfault.d.konst.DB_NAME;
+    this.Dbodr = this.Config.c.progm.dbodr.length > 0 ?
+      this.Config.c.progm.dbodr.trim() : this.Dfault.d.konst.DB_DIR;
+    this.Inpdr = this.Config.c.progm.inpdr.length > 0 ?
+      this.Config.c.progm.inpdr.trim() : this.Dfault.d.konst.INPUTS_DIR;
+    this.Outdr = this.Config.c.progm.outdr.length > 0 ?
+      this.Config.c.progm.outdr.trim() : this.Dfault.d.konst.OUTPUTS_DIR;
+    this.Ndchr = this.Config.c.progm.ndchr.length > 0 ?
+      this.Config.c.progm.ndchr.trim() : this.Dfault.d.konst.NODATA_CHAR;
+    this.Lfchr = this.Config.c.progm.lfchr.length > 0 ?
+      this.Config.c.progm.lfchr.trim() : this.Dfault.d.konst.LF_CHAR;
+    this.Trims = this.Config.c.progm.trims;
+    this.Nodat = this.Config.c.progm.nodat;
+    this.Omite = this.Config.c.progm.omite;
+    this.Idxrt = this.Lrfdr + this.Idxnm;
+    this.Dbort = this.Dbodr + this.Dbonm;
+    for (var otp of this.Config.c.progm.outpt) {
+      if (otp.activ) {
+        this.Outtp.push(new tp.Output_tp(
+          otp.otype.trim().toLowerCase(),
+          otp.activ,
+          otp.ofile.trim().toLowerCase()
+        ));
+      }
+    }
+    for (var run of this.Config.c.run) {
+      this.Run.push(new tp.Run_tp(
+        run.optcd.trim().toLowerCase(),
+        run.objnm.trim(),
+        run.inpdr.trim(),
+        run.outdr.trim()
+      ));
+    }
+    for (var cdb of this.Config.c.cdb) {
+      this.Cdb.push(new tp.Cdb_tp(
+        cdb.id.trim().toLowerCase(),
+        cdb.table.trim(),
+        cdb.cr
+      ));
+    }
+    for (var lrf of this.Config.c.lrf) {
+      this.Lrf.push(new tp.Lrf_tp(
+        lrf.id.trim().toLowerCase(),
+        lrf.table.trim(),
+        lrf.file.trim(),
+        lrf.ld
+      ));
+    }
+  }
+
+  customizeDfault() {
+    this.Dflt  = this.Dfault.d.dflt;
+    this.Konst = this.Dfault.d.konst;
+    for (var sql of this.Dfault.d.sqlst) {
+      if (sql.activ) {
+        this.Sqlst.push(new tp.Sqlst_tp(
+          sql.activ,
+          sql.table,
+          sql.sqlst
+        ));
+      }
+    }
+    this.errs  = this.Dfault.errs;
+  }
+
+  SetRunSettings(p) {
+    if (p.Optn == this.Konst.CREATE_DB) {
       if (p.Prm1.Length > 0) {
-        s.Envmnt.Dbonam = p.Prm1.trim();
+        this.Dbonm = p.Prm1.trim();
       }
       if (p.Prm2.length > 0) {
         var ids = String(p.Prm2.split('.'));
@@ -206,7 +211,7 @@ class Envmnt {
         }
       }
     }
-    if (p.Optn == 'lrf' && p.Prm1.length > 0) {
+    if (p.Optn == this.Konst.LOAD_REFERENCES && p.Prm1.length > 0) {
       var ids = String(p.Prm1.split('.'));
       for (var i = 0; i < ids.length; i++) {
         for (var j = 0; j < this.Lrf.length; j++) {
@@ -217,7 +222,7 @@ class Envmnt {
         }
       }
     }
-    if (p.Optn == 'dmp') {
+    if (p.Optn == this.Konst.DUMP_MAPPING_FILE) {
       if (p.Prm1.length > 0) {
         this.Objnm = p.Prm1.trim();
       } else {
@@ -226,30 +231,30 @@ class Envmnt {
       }
     }
     var found = false;
-    for (var i = 0; i < s.Config.Run.length && !found; i++) {
+    for (var i = 0; i < this.Run.length && !found; i++) {
       var run = s.Config.Run[i];
       if (p.Optn == run.Optcd && p.Prm1 == run.Objnm) {
         found = true;
         this.Objnm = run.Objnm.length > 0 ? run.Objnm : p.Prm1;
-        if (p.Optn == 'dmp') {
+        if (p.Optn == this.Konst.DUMP_MAPPING_FILE) {
           this.Inpdr = run.Inpdr.length > 0 ? run.Inpdr : this.Inpdr;
           this.Outdr = run.Outdr.length > 0 ? run.Outdr : this.Outdr;
         }
       }
     }
-    this.getMapDetail(s.Dfault.d.konst);
-    for (var i = 0; i < this.Otype.length; i++) {
-      this.Otype[i].Ofile = this.Otype[i].Ofile.replace('<mapid-mvers_idocm>',
+    this.getMapDetail();
+    for (var i = 0; i < this.Outtp.length; i++) {
+      this.Outtp[i].Ofile = this.Outtp[i].Ofile.replace('<mapid-mvers_idocm>',
         this.Mapid+'-'+this.Mvers+'_'+this.Idocm, 1);
     }
   }
 
-  getMapDetail(k) {
+  getMapDetail() {
     var found = false;
     const workbook = xlsx.readFile(this.Lrfdr+this.Idxnm);
     const sheet_name_list = workbook.SheetNames;
     var xlsj = xlsx.utils.sheet_to_json(
-      workbook.Sheets[sheet_name_list[k.IX_MAPPING_SHEET]]);
+      workbook.Sheets[sheet_name_list[this.Konst.IX_MAPPING_SHEET]]);
     for (var i=0; i < xlsj.length && !found; i++) {
       if (!found && xlsj[i].mapid == this.Objnm) {
         this.Mapid = xlsj[i].mapid;
@@ -268,20 +273,11 @@ class Envmnt {
 
   GetMsgTp(messg) {
     if (messg == 'invoice' || messg == '810') {
-      return 'inv';
+      return this.Konst.INVOICE_MAP;
     } else if (messg == 'desadv' || messg == '856') {
-      return 'asn';
+      return this.Konst.ASN_MAP;
     } else {
-      return 'crl';
+      return this.Konst.CUSTOMER_RELEASE_MAP;
     }
-  }
-}
-
-module.exports.Settings = class Settings {
-  constructor(cfnam, dfnam) {
-    this.Params = new Params();
-    this.Config = new Config(cfnam);
-    this.Dfault = new Dfault(dfnam);
-    this.Envmnt = new Envmnt(this.Config, this.Dfault.d.konst);
   }
 }

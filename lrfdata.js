@@ -1,5 +1,6 @@
 `use strict`;
 const fs      = require('fs');
+const sprintf = require('/nodejs/node_modules/sprintf-js').sprintf;
 const parse   = require('/nodejs/node_modules/csv-parse');
 const sqlite3 = require('/nodejs/node_modules/sqlite3');
 const xlsx    = require('/nodejs/node_modules/xlsx');
@@ -8,26 +9,31 @@ module.exports.Dlrf = class Dlrf {
   constructor() {}
 
   LoadRefData(parm, s) {
-    s.Envmnt.SetRunVars(parm, s);
-    for (var lrf of s.Envmnt.Lrf) {
-      if (lrf.id == 'idx') {
-        this.loadIndex(parm, s);
-      } else if (lrf.id == 'cix') {
-        this.loadCodeIndex(s.Envmnt, lrf);
-      } else if (lrf.id == 'ccd') {
-        this.loadCodeCodes(s.Envmnt, lrf);
-      } else if (lrf.id == 'cdt') {
-        this.loadCodeData(s.Envmnt, lrf);
+    s.SetRunSettings(parm, s);
+    for (var lrf of s.Lrf) {
+      switch (lrf.Id) {
+      case s.Konst.INDEX_REF :
+        this.loadIndex(s);
+        break;
+      case s.Konst.CODES_INDEX_REF :
+        this.loadCodeIndex(s, lrf);
+        break;
+      case s.Konst.CODES_CODE_REF :
+        this.loadCodeCodes(s, lrf);
+        break;
+      case s.Konst.CODES_DATA_REF :
+        this.loadCodeData(s, lrf);
+        break;
       }
     }
   }
 
-  loadIndex(parm, s) {
-    const wbook = xlsx.readFile(s.Envmnt.Lrfdr + s.Envmnt.Idxnm);
+  loadIndex(s) {
+    const wbook = xlsx.readFile(s.Idxrt);
     const shlst = wbook.SheetNames;
     const xlsjs = xlsx.utils.sheet_to_json(
-      wbook.Sheets[shlst[s.Dfault.d.konst.IX_MAPPING_SHEET]]);
-    const db = new sqlite3.Database(s.Envmnt.Dbodr + s.Envmnt.Dbonm, (err) => {
+      wbook.Sheets[shlst[s.Konst.IX_MAPPING_SHEET]]);
+    const db = new sqlite3.Database(s.Dbort, (err) => {
       if (err) {
         return console.error('sql-connection:', err.message);
       }
@@ -43,7 +49,7 @@ module.exports.Dlrf = class Dlrf {
         db.run('INSERT INTO indix VALUES(?,?,?,?,?,?,?,?,?);',
           xlsjs[i].mapid, xlsjs[i].ctmrs, xlsjs[i].ctmrl, xlsjs[i].messg,
           xlsjs[i].mvers, xlsjs[i].idocm, xlsjs[i].stats, xlsjs[i].fname,
-          s.Envmnt.GetMsgTp(xlsjs[i].messg), (err) => {
+          s.GetMsgTp(xlsjs[i].messg), (err) => {
           if (err) {
             console.log('sql-insert:', err.message);
             throw err;
@@ -54,66 +60,124 @@ module.exports.Dlrf = class Dlrf {
         if (err) {
           console.error('sql-close:', err.message);
         }
+        console.log(sprintf('Table %-8s loaded...', 'index'));
       });
     });
   }
 
-  loadCodeIndex(se, lrf) {
+  loadCodeIndex(s, lrf) {
     var csvdata = [];
-    fs.createReadStream(se.Lrfdr + lrf.file)
+    fs.createReadStream(s.Lrfdr + lrf.File)
       .pipe(parse({delimiter: '|'}))
       .on('data', function(csvrow) {
         csvdata.push(csvrow);
       })
       .on('end', function() {
-        const db = new sqlite3.Database(se.Dbodr + se.Dbonm, (err) => {});
+        const db = new sqlite3.Database(s.Dbort, (err) => {
+          if (err) {
+            return console.error('sql-connection:', err.message);
+          }
+        });
         db.serialize(() => {
-          db.run('DELETE FROM cd_index;', (err) => {});
+          db.run('DELETE FROM cd_index;', (err) => {
+            if (err) {
+              console.log('sql-delete:', err.message);
+              throw err;
+            }
+          });
           for (var row of csvdata) {
             db.run('INSERT INTO cd_index VALUES(?,?,?);',
-              row[0], row[1], row[2], (err) => {});
+              row[0], row[1], row[2], (err) => {
+              if (err) {
+                console.log('sql-insert:', err.message);
+                throw err;
+              }
+            });
           }
-          db.close((err) => {});
+          db.close((err) => {
+            if (err) {
+              console.error('sql-close:', err.message);
+            }
+            console.log(sprintf('Table %-8s loaded...', 'cd-index'));
+          });
         });
       });
   }
 
-  loadCodeCodes(se,lrf) {
+  loadCodeCodes(s, lrf) {
     var csvdata = [];
-    fs.createReadStream(se.Lrfdr + lrf.file)
+    fs.createReadStream(s.Lrfdr + lrf.File)
       .pipe(parse({delimiter: '|'}))
       .on('data', function(csvrow) {
         csvdata.push(csvrow);
       })
       .on('end', function() {
-        const db = new sqlite3.Database(se.Dbodr + se.Dbonm, (err) => {});
+        const db = new sqlite3.Database(s.Dbort, (err) => {
+          if (err) {
+            return console.error('sql-connection:', err.message);
+          }
+        });
         db.serialize(() => {
-          db.run('DELETE FROM cd_codes;', (err) => {});
+          db.run('DELETE FROM cd_codes;', (err) => {
+            if (err) {
+              console.log('sql-delete:', err.message);
+              throw err;
+            }
+          });
           for (var row of csvdata) {
             db.run('INSERT INTO cd_codes VALUES(?,?,?);',
-              row[0], row[1], row[2], (err) => {});
+              row[0], row[1], row[2], (err) => {
+              if (err) {
+                console.log('sql-insert:', err.message);
+                throw err;
+              }
+            });
           }
-          db.close((err) => {});
+          db.close((err) => {
+            if (err) {
+              console.error('sql-close:', err.message);
+            }
+            console.log(sprintf('Table %-8s loaded...', 'cd-codes'));
+          });
         });
       });
   }
 
-  loadCodeData(se, lrf) {
+  loadCodeData(s, lrf) {
     var csvdata = [];
-    fs.createReadStream(se.Lrfdr + lrf.file)
+    fs.createReadStream(s.Lrfdr + lrf.File)
       .pipe(parse({delimiter: '|'}))
       .on('data', function(csvrow) {
         csvdata.push(csvrow);
       })
       .on('end', function() {
-        const db = new sqlite3.Database(se.Dbodr + se.Dbonm, (err) => {});
+        const db = new sqlite3.Database(s.Dbort, (err) => {
+          if (err) {
+            return console.error('sql-connection:', err.message);
+          }
+        });
         db.serialize(() => {
-          db.run('DELETE FROM cd_data;', (err) => {});
+          db.run('DELETE FROM cd_data;', (err) => {
+            if (err) {
+              console.log('sql-delete:', err.message);
+              throw err;
+            }
+          });
           for (var row of csvdata) {
             db.run('INSERT INTO cd_data VALUES(?,?,?,?);',
-              row[0], row[1], row[2], row[3], (err) => {});
+              row[0], row[1], row[2], row[3], (err) => {
+              if (err) {
+                console.log('sql-insert:', err.message);
+                throw err;
+              }
+            });
           }
-          db.close((err) => {});
+          db.close((err) => {
+            if (err) {
+              console.error('sql-close:', err.message);
+            }
+            console.log(sprintf('Table %-8s loaded...', 'cd-data'));
+          });
         });
       });
   }
