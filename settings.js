@@ -200,24 +200,28 @@ module.exports.Settings = class Settings {
         this.Dbonm = p.Prm1.trim();
       }
       if (p.Prm2.length > 0) {
-        var ids = String(p.Prm2.split('.'));
-        for (var i = 0; i < ids.length; i++) {
-          for (var j = 0; j < this.Cdb.length; j++) {
-            if (ids[i] == this.Cdb[j].id) {
-              this.Cdb[j].cr = true;
+        var ids = p.Prm2.split('.');
+        for (var i = 0; i < this.Cdb.length; i++) {
+          for (var j = 0; j < ids.length; j++) {
+            if (this.Cdb[i].Id == ids[j]) {
+              this.Cdb[i].Cr = true;
               break;
+            } else {
+              this.Cdb[i].Cr = false;
             }
           }
         }
       }
     }
     if (p.Optn == this.Konst.LOAD_REFERENCES && p.Prm1.length > 0) {
-      var ids = String(p.Prm1.split('.'));
-      for (var i = 0; i < ids.length; i++) {
-        for (var j = 0; j < this.Lrf.length; j++) {
-          if (ids[i] == this.Lrf[j].id) {
-            this.Lrf[j].ld = true;
+      var ids = p.Prm1.split('.');
+      for (var i = 0; i < this.Lrf.length; i++) {
+        for (var j = 0; j < ids.length; j++) {
+          if (this.Lrf[i].Id == ids[j]) {
+            this.Lrf[i].Ld = true;
             break;
+          } else {
+            this.Lrf[i].Ld = false;
           }
         }
       }

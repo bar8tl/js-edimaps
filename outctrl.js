@@ -29,7 +29,7 @@ module.exports.Outctrl = class Outctrl {
       } else if (otp.Otype == 'json') {
         this.oj.OutHeader(hd);
       } else if (otp.Otype == 'sqlite3') {
-        this.ol.OutHeader(hd);
+        this.ol.OutHeader(s, hd);
       } else if (otp.Otype == 'msaccess') {
         this.om.OutHeader(hd);
       }
@@ -45,7 +45,7 @@ module.exports.Outctrl = class Outctrl {
       } else if (otp.Otype == 'json') {
         this.oj.OutGroup(gp, grupx);
       } else if (otp.Otype == 'sqlite3') {
-        this.ol.OutGroup(gp);
+        this.ol.OutGroup(s, gp);
       } else if (otp.Otype == 'msaccess') {
         this.om.OutGroup(gp);
       }
@@ -59,7 +59,7 @@ module.exports.Outctrl = class Outctrl {
       } else if (otp.Otype == 'json') {
         this.oj.OutSegment(sg);
       } else if (otp.Otype == 'sqlite3') {
-        this.ol.OutSegment(sg);
+        this.ol.OutSegment(s, sg);
       } else if (otp.Otype == 'msaccess') {
         this.om.OutSegment(sg);
       }
@@ -73,7 +73,7 @@ module.exports.Outctrl = class Outctrl {
       } else if (otp.Otype == 'json') {
         this.oj.OutField(fl);
       } else if (otp.Otype == 'sqlite3') {
-        this.ol.OutField(fl);
+        this.ol.OutField(s, fl);
       } else if (otp.Otype == 'msaccess') {
         this.om.OutField(fl);
       }

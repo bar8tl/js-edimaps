@@ -18,20 +18,11 @@ module.exports.Ddbo = class Ddbo {
         }
       }
     }
-    var db = new sqlite3.Database(s.Dbort, (err) => {
-      if (err) {
-        return console.error('sql-connection:', err.message);
-      }
-    });
+    var db = new sqlite3.Database(s.Dbort);
     db.serialize(() => {
       this.mpcrt.forEach((mapdb) => {
         var sqdrp = 'DROP TABLE IF EXISTS &1;'.replace('&1', mapdb.Table);
-        db.run(sqdrp, (err) => {
-          if (err) {
-            console.log('sql-delete:', err.message);
-            throw err;
-          }
-        });
+        db.run(sqdrp);
         db.run(mapdb.Sqlst, (err) => {
           if (err) {
             console.log('sql-insert:', err.message);

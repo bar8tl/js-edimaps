@@ -24,7 +24,7 @@ module.exports.Dmpcr = class Dmpcr {
       }
     }
     var title = String(this.cell[0][1]).trim();
-    if (title != s.Konst.MAPPING_X12_SPECS && 
+    if (title != s.Konst.MAPPING_X12_SPECS &&
         title != s.Konst.MAPPING_ISO_SPECS) {
      console.error('Error: Document is not an EDI Mapping Specification file.');
     }
@@ -44,7 +44,7 @@ module.exports.Dmpcr = class Dmpcr {
     var sqfld = 0;
     sqhdr++;
     this.procHeader(s, sqhdr);
-    for (var row = s.Konst.ITEMS_TOP_LINE; 
+    for (var row = s.Konst.ITEMS_TOP_LINE;
       String(this.cell[row][5]) != s.Konst.END_OF_MAPPING; row++) {
       var wrd = String(this.cell[row][2]).split(':');
       for (var i = 0; i < wrd.length; i++) {

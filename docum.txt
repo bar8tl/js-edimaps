@@ -5,16 +5,19 @@ Modules Structure
                               |
                           edimaps.js
                               |
-     +--------------+---------+-+-----------+----------+
-     |              |           |           |          |
-constants.js   settings.js   crtdb.js   ldindx.js   dumpmap.js
+     +--------------+---------+-+-----------+----------+-----------+
+     |              |           |           |          |           |
+constants.js   settings.js   crtdb.js   ldindx.js   dumpmap.js   dtypes.js
                     |                                  |
-             +------------+                            |
-             |            |                            |
-         config.json  defaults.json                 outctrl.js
-                                                       |
-                                           +-----------+------------+
-                                           |           |            |
-                                        outtxt.js   outsql.js   outjson.js
+             +------------+                  +---------+---------+
+             |            |                  |         |         |
+         config.json  defaults.json       dumpcrl   dumpinv   dumpasn   
+                                             |
+                                             |
+                                         outctrl.js
+                                             |
+                                 +-----------+------------+
+                                 |           |            |
+                              outtxt.js   outsql.js   outjson.js
 
 
