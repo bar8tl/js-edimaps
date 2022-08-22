@@ -1,0 +1,182 @@
+0020  BGM - BEGINNING OF MESSAGE                              None 1 M 1    Segment uniquely identifies the delivery schedule document, by means of its name and its number.
+C002  DOCUMENT/MESSAGE NAME                 O         C                     
+1001  Document/message name, coded          O AN3   : M AN3                 “241” = Delivery Schedule.
+1131  Code list qualifier                   O AN3   :                       
+3055  Code list responsible agency, coded   O AN3   :                       
+1000  Document/message name                 O AN35  +                       
+C106  DOCUMENT/MESSAGE IDENTIFICATION       O                               
+1004  Document/message number               O AN35  : M AN35                Schedule Release Number
+1056  Version                               O AN9   :                       
+1060  Revision number                       O AN6   +                       
+1225  MESSAGE FUNCTION, CODED               O AN3   + M AN3                 “5” = Replace. This schedule replaces the previous schedule.
+4343  RESPONSE TYPE, CODED                  O AN3   ‘                       
+                                                                            
+0030  DTM - DATE/TIME/PERIOD                                  None 1 M 1    Segment specifies the date, and when relevant, the time/period of the beginning and ending of the valid period of the document. The DTM must be specified at least once to identify the Delivery Schedule document date.
+C507  DATE/TIME/PERIOD                      M         M                     
+2005  Date/time/period qualifier            M AN3   : M AN3                 “137” = Document message date/time.
+2380  Date/time/period                      O AN35  : M AN35                Actual issue date of document
+2379  Date/time/period format qualifier     O AN3   “ M AN3                 “102” = CCYYMMDD.
+
+0090  NAD - NAME AND ADDRESS                                  None 1 m 2    Segment identifies names and addresses and their functions relevant for the whole Delivery Schedule. Identification of the seller and buyer parties is recommended for the Delivery Schedule message. Exception: the identification of the recipient of the goods must be given in the detail section.
+3035  PARTY QUALIFIER                       M AN3   + M AN3                 “MI” = Material issuer. (= Buyer). “SU” = Supplier
+C082  PARTY IDENTIFICATION DETAILS          O         M                     
+3039  Party id. Identification              M AN35  : M AN35                “DMAX”.
+1131  Code list qualifier                   O AN3   :                       
+3055  Code list responsible agency, coded   O AN3   + M AN3                 “37” = constant.
+C058  NAME AND ADDRESS                      O                               
+3124  Name and address line                 M AN35  :                       
+3124  Name and address line                 O AN35  :                       
+3124  Name and address line                 O AN35  :                       
+3124  Name and address line                 O AN35  :                       
+3124  Name and address line                 O AN35  +                       
+C080  PARTY NAME                            O         O                     
+3036  Party name                            M AN35  : M AN35                Name of the party
+3036  Party name                            O AN35  :                       
+3036  Party name                            O AN35  :                       
+3036  Party name                            O AN35  :                       
+3036  Party name                            O AN35  :                       
+3045  Party name format, coded              O AN3   +                       
+C059  STREET                                O         O                     
+3042  Street and number/P.O. Box            M AN35  : M AN35                Street name of the party
+3042  Street and number/P.O. Box            O AN35  :                       
+3042  Street and number/P.O. Box            O AN35  :                       
+3042  Street and number/P.O. Box            O AN35  +                       
+3164  CITY NAME                             O AN35  + O AN35                City name of the party
+3229  COUNTRY SUB-ENTITY IDENTIFICATION     O AN9   + O AN9                 State name of the party
+3251  POSTCODE IDENTIFICATION               O AN9   + O AN9                 Postal or ZIP code
+3207  COUNTRY, CODED                        O AN3   “ O AN3                 Country code
+
+SG01  GIS-SG02-SG03                                           None 1 O 1    This group of segments provides details and scheduling methods of delivery points and products.
+0200  GIS - GENERAL INDICATOR                                 01   2 M 1    Segment to indicate which scheduling method is used.
+C529  PROCESSING INDICATOR                  M         M
+7365  Processing indicator, coded           M AN3   : M AN3                 “37” = Complete information
+1131  Code list qualifier                   O AN3   :
+3055  Code list responsible agency, coded   O AN3
+7187  Process type identification           O AN17  ‘
+
+SG02  NAD                                                     01   2 O 1    Group contains segments needed to identify a delivery point and its attached information.
+0220  NAD - NAME AND ADDRESS                                  02   3 M 1    Segment identifies names and addresses and their functions relevant to the delivery point. All other segments in this Segment group 01 following the NAD segment refer to that delivery point.
+3035  PARTY QUALIFIER                       M AN3   + M AN3                 “ST” = Ship to (= Consignee).
+C082  PARTY IDENTIFICATION DETAILS          O         M                     
+3039  Party Identification                  M AN35  : M AN35                Code identifying the plant where the material must be delivered. For code value see below.
+1131  Code list qualifier                   O AN3   :                       
+3055  Code list responsible agency, coded   O AN3   + M AN3                 “92” = Assigned by buyer or buyer’s agent.
+C058  NAME AND ADDRESS                      O                               
+3124  Name and address line                 M AN35  :                       
+3124  Name and address line                 O AN35  :                       
+3124  Name and address line                 O AN35  :                       
+3124  Name and address line                 O AN35  :                       
+3124  Name and address line                 O AN35  +                       
+C080  PARTY NAME                            O         O                     
+3036  Party name                            M AN35  : M AN35                Name of the party.
+3036  Party name                            O AN35  :                       
+3036  Party name                            O AN35  :                       
+3036  Party name                            O AN35  :                       
+3036  Party name                            O AN35  :                       
+3045  Party name format, coded              O AN3   +                       
+C059  STREET                                O         O                     
+3042  Street and number/P.O. Box            M AN35  : M AN35                Street name of the party
+3042  Street and number/P.O. Box            O AN35  :                       
+3042  Street and number/P.O. Box            O AN35  :                       
+3042  Street and number/P.O. Box            O AN35  +                       
+3164  CITY NAME                             O AN35  + O AN35                City name of the party
+3229  COUNTRY SUB-ENTITY ID.                O AN9   + O AN9                 State name of the party
+3251  POSTCODE IDENTIFICATION               O AN9   + O AN9                 Postal or ZIP code
+3207  COUNTRY, CODED                        O AN3   “ O AN9                 Country code
+
+SG03  LIN-IMD-LOC-SG4-SG5-SG7                                 01   2 O 9999 Group of segments providing details of the individual line items for the specified delivery point.
+0380  LIN - LINE ITEM                                         03   3 O 1    Segment identifies the details of the product or service to be delivered, e.g. product identification. All other segments in the detail section following the LIN segment refer to the line item.
+1082  LINE ITEM NUMBER                      O AN6   +
+1229  ACTION REQUEST/ NOTIFICATION, CODED   O AN3   +
+C212  ITEM NUMBER IDENTIFICATION            O         M
+7140  Item number                           O AN35  : M AN35                DMAX assigned 10-digit part number.
+7143  Item number type, coded               O AN3   : M AN3                 “IN” = Buyer’s item number.
+1131  Code list qualifier                   O AN3   :                       
+3055  Code list responsible agency, coded   O AN3   +                       
+C829  SUB-LINE INFORMATION                  O                               
+5495  Sub-line indicator, coded             O AN3   :                       
+1082  Line item number                      O AN6   +                       
+1222  CONFIGURATION LEVEL                   O AN2   +                       
+7083  CONFIGURATION, CODED                  O AN3   ‘                       
+                                                                            
+0400  IMD - ITEM DESCRIPTION                                                03   3 O 1    Segment describes the product or the service to be delivered.
+7077  ITEM DESCRIPTION TYPE, CODED          O AN3   +                       
+7081  ITEM CHARACTERISTIC, CODED            O AN3   +                       
+C273  ITEM DESCRIPTION                      O                               
+7009  Item description identification       O AN17  :                       
+1131  Code list qualifier                   O AN3   :                       
+3055  Code list responsible agency, coded   O AN3   :                       
+7008  Item description                      O AN35  : O AN35                Item description (Part name)
+7008  Item description                      O AN35  :                       
+3453  Language, coded                       O AN3   +                       
+7383  SURFACE/LAYER INDICATOR, CODED        O AN3
+
+0450  LOC - PLACE/LOCATION IDENTIFICATION                     03   3 O 1    Segment identifies a specific location from which product should be shipped.
+3227  PLACE/LOCATION QUALIFIER              M AN3   + M AN3                 “11” = Place/port of discharge.
+C517  LOCATION IDENTIFICATION               O         O                     
+3225  Place/location identification         O AN25  : O AN25                Code identifying the origin of the shipment.
+1131  Code list qualifier                   O AN3   :
+3055  Code list responsible agency, coded   O AN3   :
+3224  Place/location                        O AN70  +
+C519  RELATED LOCATION ONE ID.              O
+3223  Related place/location one Id.        O AN25  :
+1131  Code list qualifier                   O AN3   :
+3055  Code list responsible agency, coded   O AN3   :
+3222  Related place/location one            O AN70  +
+C553  RELATED LOCATION TWO ID.              O
+3233  Related place/location two Id.        O AN25  :
+1131  Code list qualifier                   O AN3   :
+3055  Code list responsible agency, coded   O AN3   :
+3232  Related place/location two            O AN70  +
+5479  RELATION, CODED                       O AN3   ‘
+
+SG04  RFF                                                     03   3 O 1    Group of segments providing details of documents relating to the individual line items for the specified delivery point.
+0490  RFF - REFERENCE                                         04   4 O 1    Segment identifies documents relating to the line item, e.g. a contract and its appropriate line item.
+C506  REFERENCE                             M         M
+1153  Reference qualifier                   M AN3   : M AN3                 “CT” = Contract (Blanket PO) number.
+1154  Reference number                      O AN35  : O AN35                Number of the Blanket Order relevant for the article defined in the preceding LIN.
+1156  Line number                           O AN6   :
+4000  Reference version number              O AN35  ‘
+
+SG05  QTY                                                     03   3 O 3    Group of segments providing quantities and associated dates details of the individual line items for the specified delivery point.
+0630  QTY - QUANTITY                                          05   4 O 1    Segment specifies product quantities of the individual line items for the specified delivery point.
+C507  QUANTITY                              M         M
+6063  Quantity qualifier                    M AN3   : M AN3                 “3” = ASN Cumulative Quantity / “12” = ASN Despatch Quantity / “74” = DMAX Cumulative Quantity Required
+6060  Quantity                              M AN15  : C AN15                Number of units
+6411  Measure Unit Qualifier                M AN3   : M AN3                 “C62” = Pieces
+
+0030  DTM - DATE/TIME/PERIOD                                  04   4 m 2    Segments specify the dates, and when relevant, the time/periods of the beginning and ending of the valid period of the document. The DTM must be specified at least once to identify the Delivery Schedule document date.
+C507  DATE/TIME/PERIOD                      M         M
+2005  Date/time/period qualifier            M AN3   : M AN3                 “11” = Date/time of last ASN shipped. / “51” = Valid cumulative from date/time (start). / “52” = Valid cumulative to date/time (end).
+2380  Date/time/period                      O AN35  : M AN35                Actual issue date of document
+2379  Date/time/period format qualifier     o AN3   “ M AN3                 “102” = CCYYMMDD.
+
+SG06  RFF                                                     05   4 O 1    Group of segments providing quantities and associated dates details of the individual line items for the specified delivery point.
+0490  RFF - REFERENCE                                         06   5 O 1    Segment identifies documents relating to the line item, e.g. a contract and its appropriate line item.
+C506  REFERENCE                             M         M
+1153  Reference qualifier                   M AN3   : M AN3                 “SI” = Ship Notice number
+1154  Reference number                      O AN35  : O AN35                ASN number corresponding to the last received/cum quantities in the QTY segment
+1156  Line number                           O AN6   :
+4000  Reference version number              O AN35  ‘
+
+SG07  SCC-SG08                                                03   3 O 3    Function: Group of segments specifies the schedule information for the product identified in the LIN segment. This segment group provides the schedule for the identified delivery point and product.
+0610  SCC - SCHEDULING CONDITIONS                             07   4 O 1    Segment specifies the status of the schedule. Optionally a delivery pattern can be established, e.g. firm or proposed delivery pattern.
+4017  DELIVERY PLAN STATUS INDICATOR, CODED M AN3   + M AN3                 “2” = Commitment for manufacturing and material (fabrication authorization). / “3” = Commitment for material. / “4” = Planning/Forecast.
+4493  DELIVERY REQUIREMENTS, CODED          O AN3   +                       
+C329  PATTERN DESCRIPTION                   O         O                     
+2013  Frequency, coded                      O AN3   : O AN3                 “W” = Weekly. Definition of the time unit for the quantity defined in the following QTY segments.
+2015  Despatch pattern, coded               O AN3   : O AN3                 For code value (see below).
+2017  Despatch pattern timing, coded        O AN3   ‘
+
+SG08  QTY-DTM                                                 07   4 O 999  Group of segments specifying product quantities and associated dates.
+0630  QTY - QUANTITY                                          08   5 O 1    Segment specifies scheduled quantities which may be related to schedule(s) and, or pattern established in the following DTM segment, e.g. delivery quantity for a specified date.
+C186  QUANTITY DETAILS                      M         M
+6063  Quantity qualifier                    M AN3   : M AN3                 “1” = Discrete quantity. / “3” = Cumulative quantity.
+6060  Quantity                              M AN15  : M AN15                If 4017 =4 - Forecasted quantity for the time period defined by the preceding SCC. / If 4017 =2 - Cumulative quantity of fabrication authorization / If 4017 = 3 - Cumulative quantity of material authorization
+6411  Measure unit qualifier                O AN3     O AN3                 “C62” = Pieces
+
+0640  DTM - DATE/TIME/PERIOD                                  08   5 O 1    segment indicating date/time/period details relating to the given quantity.
+C507  DATE/TIME/PERIOD                      M         M
+2005  Date/time/period qualifier            M AN3   : M AN3                 “10” = Shipped date/time, requested. / “157” =  Authorization Horizon
+2380  Date/time/period                      O AN35  : M AN35                Date/time qualified by 2005
+2379  Date/time/period format qualifier     O AN3   ‘ M AN3                 “102” = CCYYMMDD.

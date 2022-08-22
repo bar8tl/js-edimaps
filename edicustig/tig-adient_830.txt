@@ -1,0 +1,75 @@
+         /
+         ST        010  Transaction Set Header                      M    1    Purpose: To indicate the start of a transaction set and to assign a control number
+M        ST   01   143  Transaction Set Identifier Code             M ID 3/3  Code uniquely identifying a Transaction Set 830 Planning Schedule with Release Capability
+M        ST   02   329  Transaction Set Control Number              M AN 4/9  Identifying control number that must be unique within the transaction set functional group assigned by the originator for a transaction set
+         BFR       020  Beginning Segment for Planning Schedule     M    1    Purpose: To indicate the beginning of a planning schedule transaction set; whether a ship or delivery based forecast; and related forecast envelope dates
+M        BFR  01   353  Transaction Set Purpose Code                M ID 2/2  Code identifying purpose of transaction set 05 Replace
+M        BFR  02   127  Reference Identification                    M AN 1/30 Reference information as defined for a particular Transaction Set or as specified by the Reference Identification Qualifier Notes to Trading Partner: This field will contain the Adient release number. The format of the release number will be CCYYMMDD-###. If multiple releases are generated on the same day, each release will have a unique release suffix number.
+M        BFR  04   675  Schedule Type Qualifier                     M ID 2/2  Code identifying the type of dates used when defining a shipping or delivery time in a schedule or forecast DL Delivery Based SH Shipment Based
+M        BFR  05   676  Schedule Quantity Qualifier                 M ID 1/1  Code identifying the type of quantities used when defining a schedule or forecast A Actual Discrete Quantities
+M        BFR  06   373  Date                                        M DT 8/8  Date expressed as CCYYMMDD Notes to Trading Partner: Horizon Start Date
+Must Use BFR  07   373  Date                                        O DT 8/8  Date expressed as CCYYMMDD Notes to Trading Partner: Horizon End Date
+M        BFR  08   373  Date                                        M DT 8/8  Date expressed as CCYYMMDDNotes to Trading Partner: Release Creation Date
+         DTM       130  Date/Time Reference                         O    1    Purpose: To specify pertinent dates and times
+M        DTM  01   374  Date/Time Qualifier                         M ID 3/3  Code specifying type of date or time, or both date and time 097 Transaction Creation
+Must Use DTM  02   373  Date                                        X DT 8/8  Date expressed as CCYYMMDD
+Must Use DTM  03   337  Time                                        X TM 4/8  Time expressed in 24-hour clock time as follows: HHMM, or HHMMSS, or HHMMSSD, or HHMMSSDD, where H = hours (00-23), M = minutes (00-59), S = integer seconds (00-59) and DD = decimal seconds; decimal seconds are expressed as follows: D = tenths (0-9) and DD = hundredths (00-99)
+         N1
+         N1        230  Name                                    N1  M    1    Purpose: To identify a party by type of organization, name, and code
+M        N1   01   98   Entity Identifier Code                      M ID 2/3  Code identifying an organizational entity, a physical location, property or an individual MI Planning Schedule/Material Release Issuer SF Ship From ST Ship To SU Supplier/Manufacturer
+Must Use N1   02   93   Name                                        X AN 1/60 Free-form name
+Must Use N1   03   66   Identification Code Qualifier               X ID 1/2  Code designating the system/method of code structure used for Identification Code (67) 1 D-U-N-S Number, Dun & Bradstreet 92 Assigned by Buyer or Buyer's Agent
+Must Use N1   04   67   Identification Code                         X AN 2/80 Code identifying a party or other code
+         LIN
+         LIN       010  Item Identification                     LIN M    >1   Purpose: To specify basic item identification data
+M        LIN  02   235  Product/Service ID Qualifier                M ID 2/2  Code identifying the type/source of the descriptive number used in Product/Service ID (234) BP Buyer's Part Number 
+M        LIN  03   234  Product/Service ID                          M AN 1/48 Identifying number for a product or service
+         LIN  04   235  Product/Service ID Qualifier                X ID 2/2  Code identifying the type/source of the descriptive number used in Product/Service ID (234) PO Purchase Order Number
+         LIN  05   234  Product/Service ID                          X AN 1/48 Identifying number for a product or service
+         LIN  06   235  Product/Service ID Qualifier                X ID 2/2  Code identifying the type/source of the descriptive number used in Product/Service ID (234) VP Vendor's (Seller's) Part Number
+         LIN  07   234  Product/Service ID                          X AN 1/48 Identifying number for a product or service
+         LIN  08   235  Product/Service ID Qualifier                X ID 2/2  Code identifying the type/source of the descriptive number used in Product/Service ID (234) EC Engineering Change Level
+         LIN  09   234  Product/Service ID                          X AN 1/48 Identifying number for a product or service
+         UIT       020  Unit Detail                             LIN O    1    Purpose: To specify item unit data
+M        UIT  01   C001 Composite Unit of Measure                   M         To identify a composite unit of measure (See Figures Appendix for examples of use)
+M        C001 01   355  Unit or Basis for Measurement Code          M ID 2/2  Code specifying the units in which a value is being expressed, or manner in which a measurement has been taken Refer to 004010 Data Element Dictionary for acceptable code values.
+         PID       080  Product/Item Description                LIN O    1    Purpose: To describe a product or process in coded or free-form format
+M        PID  01   349  Item Description Type                       M ID 1/1  Code indicating the format of a description F Free-form
+Must Use PID  05   352  Description                                 X AN 1/80 A free-form description to clarify the related data elements and their content Adient Notes: Adient item description
+         REF       140  Reference Identification                LIN O    1    Purpose: To specify identifying information
+M        REF  01   128  Reference Identification Qualifier          M ID 2/3  Code qualifying the Reference Identification Refer to 004010 Data Element Dictionary for acceptable code values.
+         REF  02   127  Reference Identification                    X AN 1/30 Reference information as defined for a particular Transaction Set or as specified by the Reference Identification Qualifier
+         PER       150  Administrative Communications Contact   LIN O    1    Purpose: To identify a person or office to whom administrative communications should be directed
+M        PER  01   366  Contact Function Code                       M ID 2/2  Code identifying the major duty or responsibility of the person or group named EX Expeditor 
+         PER  02   93   Name                                        O AN 1/60 Free-form name
+         PER  03   365  Communication Number Qualifier              X ID 2/2  Code identifying the type of communication number Refer to 004010 Data Element Dictionary for acceptable code values.
+         PER  04   364  Communication Number                        X AN 1/80 Complete communications number including country or area code when applicable
+         ATH       230  Resource Authorization                  LIN O    3    Purpose: To specify resource authorizations (i.e., finished labor, material, etc.) in the planning schedule
+M        ATH  01   672  Resource Authorization Code                 M ID 2/2  Code identifying the resource which the buyer is authorizing the seller to commit to FI Finished (Labor, Material, and Overhead/Burden) MT Material PQ Cumulative Quantity Required Prior to First Schedule Period
+Must Use ATH  03   380  Quantity                                    X R  1/15 Numeric value of quantity Must Use ATH05 373 Date X DT 8/8 Date expressed as CCYYMMDD 
+         SDP
+         SDP       450  Ship/Delivery Pattern                   SDP O    1    Purpose: To identify specific ship/delivery requirements
+M        SDP  01   678  Ship/Delivery or Calendar Pattern Code      M ID 1/2  Code which specifies the routine shipments, deliveries, or calendar pattern Refer to 004010 Data Element Dictionary for acceptable code values.
+M        SDP  02   679  Ship/Delivery Pattern Time Code             M ID 1/1  Code which specifies the time for routine shipments or deliveries Refer to 004010 Data Element Dictionary for acceptable code values.
+         FST       460  Forecast Schedule                       SDP O    260  Purpose: To specify the forecasted dates and quantities
+M        FST  01   380  Quantity                                    M R  1/15 Numeric value of quantity
+M        FST  02   680  Forecast Qualifier                          M ID 1/1  Code specifying the sender's confidence level of the forecast data or an action associated with a forecast C Firm D Planning 
+M        FST  03   681  Forecast Timing Qualifier                   M ID 1/1  Code specifying interval grouping of the forecast D Discrete M Monthly Bucket (Calendar Months) W Weekly Bucket (Monday through Sunday)
+M        FST  04   373  Date                                        M DT 8/8  Date expressed as CCYYMMDD Adient Notes: Delivery or ship date as qualified by the value sent in the BFR04 element.
+         SHP
+         SHP       470  Shipped/Received Information            SHP O    1    Purpose: To specify shipment and/or receipt information
+Must Use SHP  01   673  Quantity Qualifier                          O ID 2/2  Code specifying the type of quantity 01 Discrete Quantity 02 Cumulative Quantity
+Must Use SHP  02   380  Quantity                                    X R  1/15 Numeric value of quantity
+         SHP  03   374  Date/Time Qualifier                         X ID 3/3  Code specifying type of date or time, or both date and time 050 Received 051 Cumulative Quantity Start
+         SHP  04   373  Date                                        X DT 8/8  Date expressed as CCYYMMDD Adient Notes: Receipt date or cumulative quantity start date as qualified by SHP03
+         SHP  06   373  Date                                        O DT 8/8  Date expressed as CCYYMMDD Adient Notes: Date cumulative quantity reached
+         REF       480  Reference Identification                SHP O    5    Purpose: To specify identifying information
+M        REF  01   128  Reference Identification Qualifier          M ID 2/3  Code qualifying the Reference Identification SI Shipper's Identifying Number for Shipment (SID) A unique number (to the shipper) assigned by the shipper to identify the shipment
+Must Use REF  02   127  Reference Identification                    X AN 1/30 Reference information as defined for a particular Transaction Set or as specified by the Reference Identification Qualifier
+         /
+         CTT       010  Transaction Totals                          O    1     Purpose: To transmit a hash total for a specific element in the transaction set
+M        CTT  01   354  Number of Line Items                        M N0 1/6  Total number of line items in the transaction set 
+Must Use CTT  02   347  Hash Total                                  O R  1/10 Sum of values of the specified data element. All values in the data element will be summed without regard to decimal points (explicit or implicit) or signs. Truncation will occur on the left most digits if the sum is greater than the maximum size of the hash total of the data element.
+         SE        020  Transaction Set Trailer                     M    1    Purpose: To indicate the end of the transaction set and provide the count of the transmitted segments (including the beginning (ST) and ending (SE) segments)
+M        SE   01   96   Number of Included Segments                 M N0 1/10 Total number of segments included in a transaction set including ST and SE segments
+M        SE   02   329  Transaction Set Control Number              M AN 4/9  Identifying control number that must be unique within the transaction set functional group assigned by the originator for a transaction set

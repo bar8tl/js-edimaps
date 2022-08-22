@@ -1,0 +1,260 @@
+TABLE 1
+DATA SEGMENT SEQUENCE FOR THE HEADING AREA
+SEG ID  TITLE USE LOOP CNT  SEG CNT COMMENT
+ BGM  BEGINNING OF MESSAGE  M   1
+ DTM  DATE/TIME/PERIOD  M   10
+ MEA  MEASUREMENTS  C   5
+1000_RFF    C 10
+      RFF REFERENCES  C   1
+2000_NAD    C 10
+      NAD NAME AND ADDRESS  C   1
+      LOC:5 PLACE/LOCATION IDENTIFICATION C   1
+4000_TDT    C 10
+      TDT DETAILS OF TRANSPORT  C   1
+5000_EQD    C 10
+      EQD EQUIPMENT DETAILS C   1
+
+TABLE 2
+DATA SEGMENT SEQUENCE FOR THE  DETAIL AREA
+6000_CPS    C 200000
+      CPS CONSIGNMENT PACKING SEQUENCE  C   1
+      6100_PAC    C 9999
+          PAC PACKAGE C   1
+          QTY QUANTITY  C   10
+      6120_PCI    C 1000
+          PCI PACKAGE IDENTIFICATION  C   1
+      6200_LIN    C 1
+          LIN LINE ITEM C   1
+          IMD ITEM DESCRIPTION  C   25
+          QTY:2 QUANTITY  C   10
+          ALI:2 ADDITIONAL INFORMATION  C   10
+          6210_RFF    C 99
+                RFF:4 REFERENCES  C   1
+
+  0020  BGM - BEGINNING OF MESSAGE
+  C002  DOCUMENT/MESSAGE NAME                                     C         O
+A 1001  Document/message name, coded                              C AN3   : M AN3   “351” = Despatch Advice.
+  1131  Code list qualifier                                       C AN3   :
+  3055  Code list responsible agency, coded                       C AN3   :
+  1000  Document/message name                                     C AN35  +
+  C106  DOCUMENT/MESSAGE IDENTIFICATION                           C         O
+B 1004  Document/message number                                   C AN35  : M AN35  Actual Shipping Notice (ASN), assigned by the supplier to identify a specific shipment. This unique control number cannot be repeated. This number must be referenced on both the packing list and the bill of lading as the Actual Shipping Notice (ASN). Maximum length is 8 digits
+  1056  Version                                                   C AN9   :
+  1060  Revision number                                           C AN6   +
+C 1225  MESSAGE FUNCTION, CODED                                   C AN3   + O AN3   “9” = Original. See comments below.
+  4343  RESPONSE TYPE, CODED                                      C AN3   ‘
+
+  0030  DTM - DATE/TIME/PERIOD
+  C507  DATE/TIME/PERIOD                                          M         M
+A 2005  Date/time/period qualifier                                M AN3   : M AN3   “137” = Document message date/time.
+B 2380  Date/time/period                                          C AN35  : M AN35  Date when the document(ASN) was issued.
+C 2379  Date/time/period format qualifier                         C AN3   “ M AN3   “102” = CCYYMMDD.
+
+        Despatch date/time.                                                     MANDATORY - must be transmitted.
+  C507  DATE/TIME/PERIOD                                          M         M
+A 2005  Date/time/period qualifier                                M AN3   : M AN3   “11” = Despatch date and or time.
+B 2380  Date/time/period                                          C AN35  : M AN35  Date/time on which the goods are actually despatched or shipped.
+C 2379  Date/time/period format qualifier                         C AN3   “ M AN3   “203” = CCYYMMDDHHMM.
+
+  0050  MEA - MEASUREMENTS
+A 6311  MEASUREMENT PURPOSE QUALIFIER                             M AN3   + O AN3   “AAX” = Consignment measurement.
+  C502  MEASUREMENT DETAILS                                       C         O
+B 6313  Property measured, coded                                  C AN3   : O AN3   “G” = Gross weight.
+  6321  Measurement significance, coded                           C AN3   :
+  6155  Measurement attribute identification                      C AN17  :
+  6154  Measurement attribute                                     C AN70  +
+  C174  VALUE/RANGE                                               C
+C 6411  Measure unit qualifier                                    M AN3   : O AN3   Weight may be expressed in Kilograms (“KD”) or Pounds (“LBR”)
+D 6314  Measurement value                                         C AN18  : O AN18  Actual weight. Entry must correspond to the weight mentioned on the waybill.
+  6162  Range minimum                                             C AN18  :
+  6152  Range maximum                                             C AN18  :
+  6432  Significant digits                                        C AN2   +
+  7383  SURFACE/LAYER INDICATOR, CODED                            C AN3   ‘
+
+        Segment group 01[RFF]: RFF-DTM
+  0080  RFF - REFERENCE
+  C506  REFERENCE                                                 M         O
+A 1153  Reference qualifier                                       M AN3   : O AN3   For code value see below. / AAO Consignee reference shipment number -   Reference assigned by the consignee to a shipment / CN  Carrier’s reference number -  Reference number assigned by carrier to a consignment. / PK Carrier’s reference number -  Reference number assigned by carrier to a consignment.
+B 1154  Reference number                                          C AN35  : O AN35  Number as referenced in 1153 above
+  1156  Line number                                               C AN6   :
+  4000  Reference version number                                  C AN35  ‘
+
+        Segment group 02[NAD]: NAD-LOC
+  0110  NAD - NAME AND ADDRESS                                                      Planning schedule/material release issuer (buyer).
+A 3035  PARTY QUALIFIER                                           M AN3   + M AN3   “ST” ship to  (Consignee). / “SU” = Supplier / “MI” = Material issuer
+  C082  PARTY IDENTIFICATION DETAILS                              C         C
+B 3039  Party id. Identification                                  M AN35  : M AN35  “W100” where 3035 = ST. / “Dxxx” =Code identifying the supplier where 3035 = SU / “DMAX” =Code identifying the Material Issuer where 3035 = MI
+  1131  Code list qualifier                                       C AN3   :
+C 3055  Code list responsible agency, coded                       C AN3   + M AN3   “92” = assigned by buyer or buyer’s agent.
+  C058  NAME AND ADDRESS                                          C
+  3124  Name and address line                                     M AN35  :
+  3124  Name and address line                                     C AN35  :
+  3124  Name and address line                                     C AN35  :
+  3124  Name and address line                                     C AN35  :
+  3124  Name and address line                                     C AN35  +
+  C080  PARTY NAME                                                C
+D 3036  Party name                                                M AN35  :
+  3036  Party name                                                C AN35  :
+  3036  Party name                                                C AN35  :
+  3036  Party name                                                C AN35  :
+  3036  Party name                                                C AN35  :
+  3045  Party name format, coded                                  C AN3   +
+  C059  STREET                                                    C
+  3042  Street and number/p.o. box                                M AN35  :
+  3042  Street and number/p.o. box                                C AN35  :
+  3042  Street and number/p.o. box                                C AN35  :
+  3042  Street and number/p.o. box                                C AN35  +
+  3164  CITY NAME                                                 C AN35  +
+  3229  COUNTRY SUB-ENTITY IDENTIFICATION                         C AN9   +
+  3251  POSTCODE IDENTIFICATION                                   C AN9   +
+  3207  COUNTRY, CODED                                            C AN3   “
+
+  0120  LOC - PLACE/LOCATION IDENTIFICATION                                         Receiving dock identification.
+A 3227  PLACE/LOCATION QUALIFIER                                  M AN3   + M AN3   “11” = Place/port of discharge.
+  C517  LOCATION IDENTIFICATION                                   C         C
+B 3225  Place/location identification                             C AN25  : M AN25  Code identifying the receiving dock at the plant.
+  1131  Code list qualifier                                       C AN3   :
+  3055  Code list responsible agency, coded                       C AN3   :
+  3224  Place/location                                            C AN70  +
+  C519  RELATED LOCATION ONE ID.                                  C
+  3223  Related place/location one Id.                            C AN25  :
+  1131  Code list qualifier                                       C AN3   :
+  3055  Code list responsible agency, coded                       C AN3   :
+  3222  Related place/location one                                C AN70  +
+  C553  RELATED LOCATION TWO ID.                                  C
+  3233  Related place/location two Id.                            C AN25  :
+  1131  Code list qualifier                                       C AN3   :
+  3055  Code list responsible agency, coded                       C AN3   :
+  3232  Related place/location two                                C AN70  +
+  5479  RELATION, CODED                                           C AN3   ‘
+
+        Segment group 03[TDT]: TDT
+  0240  TDT - DETAILS OF TRANSPORT
+A 8051  TRANSPORT STAGE QUALIFIER                                 M AN3   + M AN3   “12” = At departure.
+  8028  CONVEYANCE REFERENCE NUMBER                               C AN17  +
+B C220  MODE OF TRANSPORT                                         C         O
+  8067  Mode of transport, coded                                  C AN3   : O AN3   For code value see below. / 10  Maritime transport / 20 Rail transport / 30 Road transport / 40 Air transport / 80  Inland water transport
+  8066  Mode of transport                                         C AN17  +
+  C228  TRANSPORT MEANS                                           C
+  8179  Type of means of transport identification                 C AN8   :
+  8178  Type of means of transport                                C AN17  +
+  C040  CARRIER                                                   C         O
+C 3127  Carrier identification                                    C AN17  : O AN17  Entry should correspond with entry in field “Address and signature of shipping agent” on way-bill. When the Supplier delivers the material with his own truck this field must contain his vendor code as assigned by DMAX.
+  1131  Code list qualifier                                       C AN3   :
+D 3055  Code list responsible agency, coded                       C AN3   : O AN3   “92” = Assigned by buyer or buyer’s agent.
+  3128  Carrier name                                              C AN35  +
+  8101  TRANSIT DIRECTION, CODED                                  C AN3   +
+  C401  EXCESS TRANSPORTATION INFORMATION                         C
+  8457  Excess transportation reason, coded                       M AN3   :
+  8459  Excess transportation responsibility, coded               M AN3   :
+  7130  Customer authorisation number                             C AN17  +
+  C222  TRANSPORT IDENTIFICATION                                  C
+  8213  Id. of means of transport identification                  C AN9   :
+  1131  Code list qualifier                                       C AN3   :
+  3055  Code list responsible agency, coded                       C AN3   :
+  8212  Id. of the means of transport                             C AN35  :
+  8453  Nationality of means of transport, coded                  C AN3   +
+  8281  TRANSPORT OWNERSHIP, CODED                                C AN3   ‘
+
+        Segment group 04[EQD]: EQD
+  0300  EQD - EQUIPMENT DETAILS
+A 8053  EQUIPMENT QUALIFIER                                       M AN3   + M AN3   For code value see below. / CN  Container / RR  Railcar / TE  Trailer
+  C237  EQUIPMENT IDENTIFICATION                                  C         O
+B 8260  Equipment identification number                           C AN17  : O AN17  Used to identity equipment number, such as railcar or trailer number including initials. The equipment identified here is the one that contains all the goods described in one DESADV message.
+  1131  code list qualifier                                       C AN3   :
+  3055  Code list responsible agency, coded                       C AN3   :
+  3207  Country coded                                             C AN3   +
+  C224  EQUIPMENT SIZE AND TYPE                                   C
+  8155  Equipment size and type                                   C AN10  :
+  1131  Code list qualifier                                       C AN3   :
+  3055  Code list responsible agency, coded                       C AN3   :
+  8154  Equipment size and type                                   C AN35  :
+  8077  EQUIPMENT SUPPLIER, CODE                                  C AN3   +
+  8249  EQUIPMENT STATUS, CODED                                   C AN3   +
+  8169  FULL/EMPTY INDICATOR,CODED                                C AN3   ‘
+
+        Segment group 05[CPS]: CPS-SG06-SG07
+  0380  CPS - CONSIGNMENT PACKING SEQUENCE
+A 7164  HIERARCHICAL ID. NUMBER                                   M AN12  + M AN12  A unique number assigned by the sender to identify a level within a hierarchical structure. Begins with the number 1 and increments by one for each occurrence within the message. Numbers are NOT to be repeated within the same message.
+  7166  Hierarchical parent id                                    C AN12  +
+B 7075  Packaging level, coded                                    C AN3   ‘ M AN3   For code value see below. / 1 Inner / 3 Outer / 4 No packaging hierarchy
+
+
+        Segment group 06[PAC]: PAC-QTY
+  0410  PAC - PACKAGE
+A 7224  NUMBER OF PACKAGES                                        C AN8   + O AN8   Number of packages
+  C531  PACKAGING DETAILS                                         C
+  7075  Packaging level, coded                                    C AN3   :
+  7233  Packaging related information, coded                      C AN3   :
+  7073  Packaging terms and conditions, coded                     C AN3   +
+  C202  PACKAGE TYPE                                              C
+B 7065  Type of packages identification                           C AN17  : O AN17  Identification of the container used for the shipment of the part number identified in the following LIN segment. This identification must correspond to the information given in the DELFOR message in PAC
+  1131  Code list qualifier                                       C AN3   :
+  3055  Code list responsible agency, coded                       C AN3   :
+  7064  Type of packages                                          C AN35  +
+  C402  PACKAGE TYPE IDENTIFICATION                               C
+  7077  Item description type, coded                              M AN3   :
+  7064  Type of packages                                          C AN35  :
+  7143  Item number type, coded                                   C AN3   :
+  7064  Type of packages                                          C AN35  :
+  7143  Item number type, coded                                   C AN3   +
+  C532  RETURNABLE PACKAGE DETAILS                                C
+  8395  Returnable package freight payment responsibility, coded  C AN3   :
+  8393  Returnable package load contents, coded                   C AN3   ‘
+
+  0430  QTY - QUANTITY
+  C186  QUANTITY DETAILS                                          M         M
+A 6063  Quantity qualifier                                        M AN3   : M AN3   “52” = quantity per pack.
+B 6060  Quantity                                                  M AN15  : M AN15  Actual quantity of the part number identified in the following LIN segment that is contained in the pack defined in the preceding PAC segment
+C 6411
+
+        Segment group 07[LIN]: LIN-IMD-QTY-ALI-SG08
+  0560  LIN - LINE ITEM
+  1082  LINE ITEM NUMBER                                          C AN6   +
+  1229  ACTION REQUEST/ NOTIFICATION, CODED                       C AN3   +
+  C212  ITEM NUMBER IDENTIFICATION                                C         M
+A 7140  Item number                                               C AN35  : M AN35  DMAX  assigned 10-digit part number.
+B 7143  Item number type, coded                                   C AN3   : M AN3   “IN” = Buyer’s item number.
+  1131  Code list qualifier                                       C AN3   :
+  3055  Code list responsible agency, coded                       C AN3   +
+  C829  SUB-LINE INFORMATION                                      C
+  5495  Sub-line indicator, coded                                 C AN3   :
+  1082  Line item number                                          C AN6   +
+  1222  CONFIGURATION LEVEL                                       C AN2   +
+  7083  CONFIGURATION, CODED                                      C AN3   ‘
+
+  0580  IMD - ITEM DESCRIPTION
+  7077  ITEM DESCRIPTION TYPE, CODED                              C AN3   +
+  7081  ITEM CHARACTERISTIC, CODED                                C AN3   +
+  C273  ITEM DESCRIPTION                                          C
+  7009  Item description identification                           C AN17  :
+  1131  Code list qualifier                                       C AN3   :
+  3055  Code list responsible agency, coded                       C AN3   :
+A 7008  Item description                                          C AN35  : O AN35  Item description ( part name)
+  7008  Item description                                          C AN35
+  3453  Language, coded                                           C AN3   +
+  7383  SURFACE/LAYER INDICATOR, CODED                            C AN3   ‘
+
+  0600  QTY - QUANTITY
+  C186  QUANTITY DETAILS                                          M         M
+A 6063  Quantity qualifier                                        M AN3   : M AN3   “12” = Despatch quantity.
+B 6060  Quantity                                                  M AN15  : M AN15  Despatched quantity.
+C 6411  Measure unit qualifier                                    C AN3   ‘ C AN3   For code value see UN/ECE Recommenda¬tion No. 20. Measure unit qualifier used MUST be the sane measure as used in the DELFOR message.
+
+  0610  ALI - ADDITIONAL INFORMATION
+A 3239  COUNTRY OF ORIGIN, CODED                                  C AN3   + M AN3   For code value see below: AT  Austria / CA  Canada / BR Brazil  / CH  Switzerland / DE  Germany / CZ  Czech Republic / MC Monaco  / HU  Hungary / ES  Spain / NO  Norway / FI Finland / PL  Poland / FR France  / RO  Romania / GB  United Kingdom  / SI  Slovenia / GR Greece  / SK  Slovakia / IE Ireland / TN  Tunisia / IT  Italy / TR  Turkey / LU Luxembourg / US United state / NL Netherlands / PT  Portugal / SE Sweden
+  9213  TYPE OF DUTY REGIME, CODED                                C AN3   +
+  4183  SPECIAL CONDITIONS, CODED                                 C AN3   +
+  4183  SPECIAL CONDITIONS, CODED                                 C AN3   +
+  4183  SPECIAL CONDITIONS, CODED                                 C AN3   +
+  4183  SPECIAL CONDITIONS, CODED                                 C AN3   +
+  4183  SPECIAL CONDITIONS, CODED                                 C AN3   ‘
+
+        Segment group 08[RFF]: RFF
+  0720  RFF - REFERENCE
+  C506  REFERENCE                                                 M         M
+A 1153  Reference qualifier                                       M AN3   : M AN3   “ON” = Order number.
+B 1154  Reference number                                          C AN35  : C AN35  Number of the Order relevant for the article defined in the preceding LIN.
+  1156  Line number                                               C AN6   :
+  4000  Reference version number                                  C AN35  ‘
+

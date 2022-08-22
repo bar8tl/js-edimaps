@@ -1,0 +1,39 @@
+{
+  "progm": {
+    "idxnm": "_edirbna_mapping-index.xlsx",
+    "lrfdr": "c:\\ProgramData\\bar8tl\\js-edimap\\",
+    "cigdr": "c:\\c_portab\\01_rb\\_rbprogs\\js-edimaps\\edicustig\\",
+    "dbonm": "edimaps.db",
+    "dbodr": "c:\\ProgramData\\bar8tl\\js-edimap\\",
+    "inpdr": "c:\\c_portab\\01_rb\\_work_projects\\rb202202_na_edispecs\\",
+    "outdr": "c:\\ProgramData\\bar8tl\\js-edimap\\output\\",
+    "trims": false, "nodat": true, "omite": false, "ndchr": "¤", "lfchr": "\\n",
+    "outpt": [
+      {"otype": "text",     "activ": true,  "ofile": "<mapid-mvers_idocm>.txt"},
+      {"otype": "xml",      "activ": false, "ofile": "<mapid-mvers_idocm>.xml"},
+      {"otype": "json",     "activ": true,  "ofile": "<mapid-mvers_idocm>.json"},
+      {"otype": "sqlite3",  "activ": true,  "ofile": "edimaps.db"},
+      {"otype": "msaccess", "activ": false, "ofile": "edimaps.accdb"}
+    ]
+  },
+  "run": [],
+  "cdb": [
+    {"id": "idx", "table": "indix",    "cr": true},
+    {"id": "chg", "table": "changes",  "cr": true},
+    {"id": "cix", "table": "cd_index", "cr": true},
+    {"id": "ccd", "table": "cd_codes", "cr": true},
+    {"id": "cdt", "table": "cd_data",  "cr": true},
+    {"id": "hdr", "table": "headers",  "cr": true},
+    {"id": "grp", "table": "groups",   "cr": true},
+    {"id": "sgm", "table": "segments", "cr": true},
+    {"id": "fld", "table": "fields",   "cr": true},
+    {"id": "cig", "table": "igitems",  "cr": true}
+  ],
+  "lrf": [
+    {"id": "idx", "table": "indix",    "file": "_edirbna_mapping-index.xlsx", "tab": "idx", "ld": true},
+    {"id": "chg", "table": "changes",  "file": "_edirbna_mapping-index.xlsx", "tab": "chg", "ld": true},
+    {"id": "cix", "table": "cd_index", "file": "cd_index.txt",                      "tab": "",    "ld": true},
+    {"id": "ccd", "table": "cd_codes", "file": "cd_codes.txt",                      "tab": "",    "ld": true},
+    {"id": "cdt", "table": "cd_data",  "file": "cd_data.txt",                       "tab": "",    "ld": true}
+  ]
+}

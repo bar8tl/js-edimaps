@@ -1,0 +1,60 @@
+{
+  "dflt": {
+    "CNN_SQLITE3"   : "file:@?file:locked.sqlite?cache=shared&mode=rwc",
+    "CNN_MSACCESS"  : "Driver={Microsoft Access Driver (*.mdb, *.accdb)};Dbq=@;",
+    "INDEX_NAME"    : "_edirbna_mapping-index.xlsx",
+    "REFDATA_DIR"   : "c:\\ProgramData\\bar8tl\\go-edimap\\",
+    "CUSTOMERIG_DIR": "c:\\c_portab\\01_rb\\_rbprogs\\js-edimaps\\edicustig\\",
+    "DB_NAME"       : "edimaps.db",
+    "DB_DIR"        : "c:\\ProgramData\\bar8tl\\go-edimap\\",
+    "INPUTS_DIR"    : "c:\\c_portab\\01_rb\\_work_projects\\rb202102_na_edispecs\\",
+    "OUTPUTS_DIR"   : "c:\\ProgramData\\bar8tl\\go-edimap\\output\\",
+    "TRIM_SPACE"    : false,
+    "USE_NO_DATA"   : true,
+    "OMMIT_EMPTY"   : false,
+    "NODATA_CHAR"   : "¤",
+    "LF_CHAR"       : "\\n",
+    "OFILE_NAME"    : "SHORT_NAME"
+  },
+  "konst": {
+    "MAPPING_X12_SPECS"   : "Common Mapping ANSI X12 for UBK/RM",
+    "MAPPING_ISO_SPECS"   : "Common Mapping EDIFACT for UBK/RM",
+    "MAPPING_SHEET"       : 2,
+    "END_OF_MAPPING"      : "End of mapping",
+    "ITEMS_TOP_LINE"      : 5,
+    "IDX_MAPPING_SHEET"   : 0,
+    "IDX_ITEMS_TOP_LINE"  : 1,
+    "CHG_CONTROL_SHEET"   : 1,
+    "CHG_ITEMS_TOP_LINE"  : 1,
+    "CUSTOMER_IG_SHEET"   : 0,
+    "MSA_FIELD_MAXLEN"    : 255,
+    "CREATE_DB"           : "cdb",
+    "LOAD_REFERENCES"     : "lrf",
+    "LOAD_CUSTOMER_IG"    : "cig",
+    "DUMP_MAPPING_FILE"   : "dmp",
+    "CUSTOMER_RELEASE_MAP": "crl",
+    "INVOICE_MAP"         : "inv",
+    "ASN_MAP"             : "asn",
+    "INDEX_REF"           : "idx",
+    "CHANGES_REF"         : "chg",
+    "CODES_INDEX_REF"     : "cix",
+    "CODES_CODE_REF"      : "ccd",
+    "CODES_DATA_REF"      : "cdt",
+    "CUSTOMER_IG"         : "cig"
+  },
+  "sqlst": [
+    {"activ": true, "table": "cd_index", "sqlst": "CREATE TABLE IF NOT EXISTS cd_index (tabid TEXT, tabtx TEXT, tabus TEXT, PRIMARY KEY (tabid));"},
+    {"activ": true, "table": "cd_codes", "sqlst": "CREATE TABLE IF NOT EXISTS cd_codes (tabid TEXT, cdkey TEXT, cdtext TEXT, PRIMARY KEY (tabid, cdkey));"},
+    {"activ": true, "table": "cd_data",  "sqlst": "CREATE TABLE IF NOT EXISTS cd_data  (tabid TEXT, cdkey TEXT, relshp1 TEXT, relshp2 TEXT, PRIMARY KEY (tabid, cdkey));"},
+    {"activ": true, "table": "indix",    "sqlst": "CREATE TABLE IF NOT EXISTS indix    (mapid TEXT, ctmrs TEXT, ctmrl TEXT, messg TEXT, mvers TEXT, idocm TEXT, idoct TEXT, mstat TEXT, fname TEXT, relsd TEXT, chgnr TEXT, suprt TEXT, asgnd TEXT, dstat TEXT, msgtp TEXT, PRIMARY KEY (mapid, chgnr));"},
+    {"activ": true, "table": "changes",  "sqlst": "CREATE TABLE IF NOT EXISTS changes  (chgno TEXT, fname TEXT, PRIMARY KEY (chgno));"},
+    {"activ": true, "table": "headers",  "sqlst": "CREATE TABLE IF NOT EXISTS headers  (seqno TEXT, mapid TEXT UNIQUE, mptit TEXT, lupdt TEXT, authr TEXT, bvers TEXT, cstmr TEXT, tgtfm TEXT, srcfm TEXT, instr TEXT, sampl TEXT);"},
+    {"activ": true, "table": "groups",   "sqlst": "CREATE TABLE IF NOT EXISTS groups   (seqno TEXT, mapid TEXT, grpid TEXT, gtext TEXT, lpmax TEXT, stats TEXT, PRIMARY KEY (mapid, grpid));"},
+    {"activ": true, "table": "segments", "sqlst": "CREATE TABLE IF NOT EXISTS segments (seqno TEXT, mapid TEXT, grpid TEXT, segid TExT, sgmtp TEXT, lpmax TEXT, stats TEXT, usage TEXT);"},
+    {"activ": true, "table": "fields",   "sqlst": "CREATE TABLE IF NOT EXISTS fields   (seqno TEXT, mapid TEXT, grpid TEXT, segid TEXT, targt TEXT, targ2 TEXT, dtext TEXT, idocs TEXT, idocq TEXT, idocv TEXT, sourc TEXT, rcond TEXT, commt TEXT, sampl TEXT, chang TEXT);"},
+    {"activ": true, "table": "igitems",  "sqlst": "CREATE TABLE IF NOT EXISTS igitems  (mapid TEXT, versn TEXT, relsn TEXT, posno TEXT, path  TEXT, dtype TEXT, sgrup TEXT, segm  TEXT, dstr  TEXT, delem TEXT, itmid TEXT, level TEXT, descr TEXT, count TEXT, minoc TEXT, maxoc TEXT, estat TEXT, etype TEXT, elen  TEXT, cstat TEXT, ctype TEXT, clen  TEXT, notes TEXT, PRIMARY KEY (mapid, versn, relsn, posno, itmid));"}
+  ],
+  "errs": {
+    "F1001" : "Error: Document is not an EDI Mapping Specification file."
+  }
+}

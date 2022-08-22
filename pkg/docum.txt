@@ -1,0 +1,23 @@
+Modules Structure
+
+
+                         package.json
+                              |
+                          edimaps.js
+                              |
+     +--------------+---------+-+-----------+----------+
+     |              |           |           |          |
+constants.js   settings.js   crtdb.js   ldindx.js   dumpmap.js
+                    |                                  |
+             +------------+                  +---------+---------+
+             |            |                  |         |         |
+        _config.json _defaults.json       dumpcrl   dumpinv   dumpasn
+                                             |
+                                             |
+                                         outctrl.js
+                                             |
+                                 +-----------+------------+
+                                 |           |            |
+                              outtxt.js   outsql.js   outjson.js
+
+

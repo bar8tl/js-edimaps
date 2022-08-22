@@ -1,0 +1,207 @@
+BGM BEGINNING OF MESSAGE  M   1
+DTM DATE/TIME             M   1 Document Date
+DTM DATE/TIME             O   1 Horizon Start
+DTM DATE/TIME             O   1 Horizon End
+0100_RFF                  O  10 
+RFF REFERENCE             O   1
+0200_NAD                  O 1
+NAD NAME AND ADDRESS      O   1
+0200_NAD                  O 1
+NAD NAME AND ADDRESS      O   1
+0200_NAD                  O 1
+NAD NAME AND ADDRESS      O   1
+0200_NAD                  O 1
+NAD NAME AND ADDRESS      O   1
+
+3000_SEQ    M 1   Delivery Sequence
+SEQ SEQUENCE DETAILS  M   1
+    3100_PAC    O 5
+PAC PACKAGE O   1
+       3110_PCI   O 1
+PCI Package identification  O   1
+    3200_LIN    O 1   Item Details
+LIN LINE ITEM O   1 Material Number
+IMD ITEM DESCRIPTION  O   1 Description of Material
+       3220_LOC   O 1   Delivery Location
+LOC LOCATION IDENTITY O   1
+       3230_QTY   O 100   Delivery Details
+QTY QUANTITY  O   1 Quantity to be delivered
+DTM DATE/TIME/PERIOD  O   2 Date to be delivered
+       4230_QTY   O 1   Delivery Details
+QTY QUANTITY  O   1 Quantity to be delivered
+DTM DATE/TIME/PERIOD  O   2 Date to be delivered
+       4230_QTY   O 1   Delivery Details
+QTY QUANTITY  O   1 Quantity to be delivered
+DTM DATE/TIME/PERIOD  O   2 Date to be delivered
+            4231_RFF    O 1
+RFF REFERENCES  O   1 Details of Last Received ASN
+       4230_QTY   O 1   Delivery Details
+QTY QUANTITY  O   1 Quantity to be delivered
+DTM DATE/TIME/PERIOD  O   2 Date to be delivered
+
+0020  BGM - BEGINNING OF MESSAGE
+  C002  DOCUMENT/MESSAGE NAME                                     C     M
+A 1001  Document/message name, coded                              C an..3   : O an..3   “242” = Delivery Just in Time
+  1131  Code list qualifier                                       C an..3   :
+  3055  Code list responsible agency, coded                       C an..3   :
+  1000  Document/message name                                     C an..35  +
+  C106  DOCUMENT/MESSAGE IDENTIFICATION                           C
+B 1004  Document/message number                                   C an..35  : O an..35  DMAX number of the Blanket Order .
+  1056  Version                                                   C an..9   : O an 9    Schedule Agreement Release number
+  1060  Revision number                                           C an..6   +
+  1225  MESSAGE FUNCTION, CODED                                   C an..3   +
+  4343  RESPONSE TYPE, CODED                                      C an..3   ‘
+                                                                  
+0030  DTM - DATE/TIME/PERIOD                                      
+  C507  DATE/TIME/PERIOD                                          M     M
+A 2005  Date/time/period qualifier                                M an..3   : C an..3   “137” = Document message date/time. “158” = Horizon start date. “159” = Horizon end date.
+B 2380  Date/time/period                                          C an..35  : O an..35  Where 2005=”137” - Actual issue date of the document.
+C 2379  Date/time/period format qualifier                         C an..3   “ M an..3   “102” = CCYYMMDD.
+                                                                  
+0060  RFF - REFERENCE                                             
+  C506  REFERENCE                                                 M           M
+A 1153  Reference qualifier                                       M an..3   : M an..3   “AAN” = Delivery Schedule number.
+B 1154  Reference number                                          C an..35  : O an..35  This number represents the release number
+  1156  Line number                                               C an..6   :
+  4000  Reference version number                                  C an..35  ‘
+                                                                  
+0090  NAD - NAME AND ADDRESS                                      
+A 3035  PARTY QUALIFIER                                           M an..3   + M an..3   “MI” = Material issuer. (= Buyer). “SU” = Supplier. “CA” = Carrier. “ST” = Ship To.
+B C082  PARTY IDENTIFICATION DETAILS                              C           O
+  3039  Party id. Identification                                  M an..35  : M an..35  “DMAX”. Where 3035 = SU - Code identifying the supplier. Where 3035 = CA - Code identifying the carrier. Where 3035 = ST - Code identifying the recipient.
+  1131  Code list qualifier                                       C an..3   :
+  3055  Code list responsible agency, coded                       M an..3   + O an..3   “137” = constant.
+C C058  NAME AND ADDRESS                                          C
+  3124  Name and address line                                     M an..35  : O
+  3124  Name and address line                                     C an..35  :
+  3124  Name and address line                                     C an..35  :
+  3124  Name and address line                                     C an..35  :
+  3124  Name and address line                                     C an..35  +
+D C080  PARTY NAME                                                C
+  3036  Party name                                                M an..35  : M an..35  Where 3035 = SU - Supplier Name. Where 3035 = CA - Carrier Name. Where 3035 = ST - Ship To Name
+  3036  Party name                                                C an..35  :
+  3036  Party name                                                C an..35  :
+  3036  Party name                                                C an..35  :
+  3036  Party name                                                C an..35  :
+  3045  Party name format, coded                                  C an..3   +
+E C059  STREET                                                    C
+  3042  Street and number/p.o. box                                M an..35  : O an..35  Where 3035 != MI- Street name of the party
+  3042  Street and number/p.o. box                                C an..35  :
+  3042  Street and number/p.o. box                                C an..35  :
+  3042  Street and number/p.o. box                                C an..35  +
+  3164  CITY NAME                                                 C an..35  + O an..35  Where 3035 != MI- City name of the party
+  3229  COUNTRY SUB-ENTITY IDENTIFICATION                         C an..9   + O an..9   Where 3035 != MI- State name of the party
+  3251  POSTCODE IDENTIFICATION                                   C an..9   + O an..9   Where 3035 != MI- Postal or ZIP code
+  3207  COUNTRY, CODED                                            C an..3   “ O an..3   Where 3035 != MI- Country code
+                                                                  
+0160  SEQ - SEQUENCE DETAILS                                      
+A 1245  STATUS INDICATOR, CODED                                   C an..3   + O an..3   See below for valid code value.
+  C286  SEQUENCE INFORMATION                                      C
+  1050  Sequence number                                           M an..10  :
+  1159  Sequence number source, coded                             C an..3   :
+  1131  Code list qualifier                                       C an..3   :
+  3055  Code list responsible agency, coded                       C an..3   ‘           CODE VALUES. 1245 - Status indicator, coded. 1 Amendment. 2 Cancellation. 3 Created new. 6 Agreement
+                                                                  
+0210  PAC - PACKAGE                                               
+  7224  NUMBER OF PACKAGES                                        C n..8    +
+  C531  PACKAGING DETAILS                                         C
+  7075  Packaging level, coded                                    C an..3   :
+A 7233  Packaging related information, coded                      C an..3   : C an..3   “67” = Tagging/ Bar code instructions
+  7073  Packaging terms and conditions, coded                     C an..3   +
+  C202  PACKAGE TYPE                                              C
+  7065  Type of packages identification                           C an..17  :
+  1131  Code list qualifier                                       C an..3   :
+  3055  Code list responsible agency, coded                       C an..3   :
+  7064  Type of packages                                          C an..35  +
+  C402  PACKAGE TYPE IDENTIFICATION                               C
+  7077  Item description type, coded                              M an..3   :
+  7064  Type of packages                                          C an..35  :
+  7143  Item number type, coded                                   C an..3   :
+  7064  Type of packages                                          C an..35  :
+  7143  Item number type, coded                                   C an..3   +
+  C532  RETURNABLE PACKAGE DETAILS                                C
+  8395  Returnable package freight payment responsibility, coded  C an..3   :
+  8393  Returnable package load contents, coded                   C an..3   ‘
+
+0230  PCI - PACKAGE IDENTIFICATION
+A 4233  MARKING INSTRUCTIONS, CODED                               C an..3   +
+  C210  MARKS & LABELS                                            C
+B 7102  Shipping marks                                            M an..35  : M an..35  Shipping marks as instructed by DMAX.
+  7102  Shipping marks                                            C an..35  :
+  7102  Shipping marks                                            C an..35  :
+  7102  Shipping marks                                            C an..35  :
+  7102  Shipping marks                                            C an..35  :
+  7102  Shipping marks                                            C an..35  :
+  7102  Shipping marks                                            C an..35  :
+  7102  Shipping marks                                            C an..35  :
+  7102  Shipping marks                                            C an..35  :
+  7102  Shipping marks                                            C an..35  +
+  8275  CONTAINER/PACKAGE STATUS, CODED                           C an..3   +
+  C827  TYPE OF MARKING                                           C           C
+C 7511  Type of marking, coded                                    M an..3   : M an..3   DMAX will use codes 11Z through 17Z to indicate relative position on the label.
+  1131  Code list qualifier                                       C an..3   :
+D 3055  Code list responsible agency, coded                       C an..3   ‘ C an..3   “167” = US, AIAG (Automotive Industry Action Group)
+
+0260  LIN - LINE ITEM
+A 1082  LINE ITEM NUMBER                                          C an..6   + O an..6   Line item
+  1229  ACTION REQUEST/ NOTIFICATION, CODED                       C an..3   +
+  C212  ITEM NUMBER IDENTIFICATION                                C           O
+B 7140  Item number                                               C an..35  : O an..35  Vendor assigned part number.
+C 7143  Item number type, coded                                   C an..3   : C an..3   “IN” = Buyer’s item number.
+  1131  Code list qualifier                                       C an..3   :
+  3055  Code list responsible agency, coded                       C an..3   +
+  C829  SUB-LINE INFORMATION                                      C
+  5495  Sub-line indicator, coded                                 C an..3   :
+  1082  Line item number                                          C n..6    +
+  1222  CONFIGURATION LEVEL                                       C n..2    +
+  7083  CONFIGURATION, CODED                                      C an..3   ‘
+
+0390  IMD – ITEM DESCRIPTION
+  7077  ITEM DESCRIPTION TYPE, CODED                              C an..3   +
+  7081  ITEM CHARACTERISTIC, CODED                                C an..3   +
+  C273  ITEM DESCRIPTION                                          C
+  7009  Item description identification                           C an..17  :
+  1131  Code list qualifier                                       C an..3   :
+  3055  Code list responsible agency, coded                       C an..3   :
+A 7008  Item description                                          C an..35  : C an..35  Item description ( Part name)
+  7008  Item description                                          C an..35  :
+  3453  Language, coded                                           C an..3   +
+  7383  SURFACE/LAYER INDICATOR, CODED                            C an..3   ‘
+
+0390  LOC - PLACE/LOCATION IDENTIFICATION
+A 3227  PLACE/LOCATION QUALIFIER                                  M an..3   + M an..3   “11” = Place/port of discharge.
+  C517  LOCATION IDENTIFICATION                                   C           C
+B 3225  Place/location identification                             C an..25  : C an..25  Code identifying the origin of the shipment
+  1131  Code list qualifier                                       C an..3   :
+  3055  Code list responsible agency, coded                       C an..3   :
+  3224  Place/location                                            C an..70  +
+  C519  RELATED LOCATION ONE ID.                                  C
+  3223  Related place/location one Id.                            C an..25  :
+  1131  Code list qualifier                                       C an..3   :
+  3055  Code list responsible agency, coded                       C an..3   :
+  3222  Related place/location one                                C an..70  +
+  C553  RELATED LOCATION TWO ID.                                  C
+  3233  Related place/location two Id.                            C an..25  :
+  1131  Code list qualifier                                       C an..3   :
+  3055  Code list responsible agency, coded                       C an..3   :
+  3232  Related place/location two                                C an..70  +
+  5479  RELATION, CODED                                           C an..3   ‘
+
+0440  QTY - QUANTITY
+  C186  QUANTITY DETAILS                                          M     M
+A 6063  Quantity qualifier                                        M an..3   : M an..3   “1” = Discrete Quantity. “3” = ASN Cumulative Quantity / “12” = ASN Despatch Quantity / “74” = DMAX Cumulative Quantity Required / “48” = Last Quantity Received. / “70” = Current Received Cum. Quantity.
+B 6060  Quantity                                                  M n..15   : M n..12   Number of units
+C 6411  Measure unit qualifier                                    C an..3   ‘ C an..3   “C62” = pieces.
+
+0030  DTM - DATE/TIME/PERIOD
+  C507  DATE/TIME/PERIOD                                          M     M
+A 2005  Date/time/period qualifier                                M an..3   : M an..3   “10” = Shipment Date Requested. “11” = Date/time of last ASN shipped. / “51” = Valid cumulative from date/time (start). / “52” = Valid cumulative to date/time (end).
+B 2380  Date/time/period                                          C an..35  : M an..35  Date
+C 2379  Date/time/period format qualifier                         C an..3   “ M an..3   “102” = CCYYMMDD.
+
+0490  RFF - REFERENCE
+  C506  REFERENCE                                                 M           M
+A 1153  Reference qualifier                                       M an..3   : M an..3   “SI” = Ship Notice number
+B 1154  Reference number                                          C an..35  : C an..35  ASN number corresponding to the last shipped
+  1156  Line number                                               C an..6   :
+  4000  Reference version number                                  C an..35  ‘

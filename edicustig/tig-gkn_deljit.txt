@@ -1,0 +1,425 @@
+Counter No Tag St MaxRep Level Content
+0000 1  UNA  O 1    0 Service string advice
+0000 2  UNB  M 1    0 Interchange header
+0010 3  UNH  M 1    0 Message header
+0020 4  BGM  M 1    0 Beginning of message
+0030 5  DTM  M 1    1 Messaqe date
+0030 6  DTM  M 1    1 Type of instruction
+0040    FTX  C 1    1 General information text
+0050    SG1  C 10   1 References
+0060    RFF  M 1    1 Reference
+0080    SG2  M 1    1 Buyer
+0090 7  NAD  M 1    1 Buyer’s name and address
+0120    SG3  C 1    2 Contact at customer / material release issuer
+0130    CTA  M 1    2 Contact information
+0140    COM  C 3    3 Communication contact
+0080    SG2  M 1    1 Seller
+0090 8  NAD  M 1    1 Seller’s name and address
+0080    SG2  M 1    1 Ship from
+0090 9  NAD  M 1    1 Ship from’s name and address
+0080    SG2  M 1    1 Ship to
+0090 10 NAD  M 1    1 Ship to’s name and address
+0100 11 LOC  M 2    2 Place of discharge / unloading point / place of delivery
+0150    SG4  M 9999 1 Delivery instruction line
+0160 12 SEQ  M 1    1 Sequence details
+0170    DTM  C 5    2 Relevant date and time information
+0190    LOC  C 1    2 Place of transshipment
+0200    SG5  C 9    2 Pick-up sheet number
+0210    RFF  M 1    2 Reference
+0230    SG6  C 5    2 Packaging instruction
+0240    PAC  M 1    2 Package
+0250    SG7  C 999  3 Labeling instructions
+0260    PCI  M 1    3 Package identification
+0270    GIN  C 10   4 Goods identity number
+0280    SG8  M 9999 2 Product item line
+0290 13 LIN  M 1    2 Line item
+0300 14 PIA  M 10   3 Additional product ID
+0310 15 IMD  C 99   3 Item description
+0320    ALI  C 1    3 Country of origin
+0340    FTX  C 5    3 Free text
+0350    PAC  C 99   3 Package
+0370    SG9  M 9    3 References
+0380 16 RFF  M 1    3 Reference
+0390    DTM  C 1    4 Reference date
+0430    SG11 C 2    3 Place of destination / other internal locations
+0440 17 LOC  M 1    3 Place/location identification
+0450    SG12 C 1    4 Information contact
+0460    CTA  M 1    4 Contact information
+0470    COM  C 5    5 Communication contact
+0480    SG13 M 1    3 Cumulative quantities
+0490 18 QTY  M 1    3 Cumulative quantity received
+0510 19 DTM  M 1    3 Cumulative quantity start date
+0480    SG13 M 999  3 Delivery quantity
+0490 20 QTY  M 1    3 Quantity
+0500 21 SCC  M 1    3 Scheduling conditions
+0510 22 DTM  M 1    3 Delivery/shipment dates
+0520    SG14 C 1    3 References
+0530 23 RFF  M 1    4 Number of handling units
+0520    SG14 C 1    3 References
+0530 24 RFF  M 1    4 Authorization number
+0480    SG13 C 1    3 Quantity per package
+0490    QTY  M 1    3 Quantity
+0590 25 UNT  M 1    0 Message trailer
+0000 26 UNZ  M 1    0 Interchange trailer
+
+UNB
+S001 Syntax identifier                               M         M
+0001 Syntax identifier                               M AN4     M AN4     UNOC UN/ECE level C
+0002 Syntax version number                           M N1      M N1 3    Version 3
+S002 Interchange sender                              M         M
+0004 Sender identification                           M AN..35  M AN..35  Unique ID of the sender in the data transmission network or system
+0007 Partner identification code qualifier           C AN..4   C AN..4
+0008 Address for reverse routing                     C AN..14  C AN..14
+S003 Interchange recipient                           M         M
+0010 Recipient identification                        M AN..35  M AN..35  Unique ID of the receiver in the data transmission network or system
+0007 Partner identification code qualifier           C AN..4   C AN..4
+0014 Routing address                                 C AN..14  C AN..14
+S004 Date/time of preparation                        M         M
+0017 Date of preparation                             M N6      M N6      Format YYMMDD
+0019 Time of preparation                             M N4      M N4      Format HHMM
+0020 Interchange control reference                   M AN..14  M AN..14  Unique ID of an interchange
+S005 Recipient’s reference, password                 C         N         Not used
+0022 Recipient’s reference/password                  M AN..14  N         Not used
+0025 Recipient’s reference/password qualifier        C AN2     N         Not used
+0026 Application reference                           C AN..14  N         Not used
+0029 Processing priority code                        C A1      N         Not used
+0031 Acknowledgment request                          C N1      N         Not used
+0032 Communications agreement ID                     C AN..35  N         Not used
+0035 Test indicator                                  C N1      C N1      Only to be used if the interchange is for test purpose. 1 Interchange is a test
+
+UNH
+0062 Message reference number                        M AN..14  M AN..14
+S009 Message identifier                              M         M
+0065 Message type                                    M AN..6   M AN..6   DELJIT Delivery just in time
+0052 Message version number                          M AN..3   M AN..3   D Draft version/UN/EDIFACT Directory
+0054 Message release number                          M AN..3   M AN..3   13A Release 2004 - A
+0051 Controlling agency                              M AN..2   M AN..2   UN UN/CEFACT
+0057 Association assigned code                       C AN..6   N         Not used
+0068 Common access reference                         C AN..35  N         Not used
+S010 Status of the transfer                          C         N         Not used
+0070 Sequence of transfer                            M N..2    N         Not used
+0073 First and last transfer                         C A1      N         Not used
+                                                     
+BGM                                                  
+C002 Document/message name                           C         M
+1001 Document name code                              C AN..3   M AN..3   340 Shipping instruction
+1131 Code list identification code                   C AN..17  N         Not used
+3055 Code list responsible agency code               C AN..3   N         Not used
+1000 Document name                                   C AN..35  N         Not used
+C106 Document/message identification                 C         M
+1004 Document identifier                             C AN..35  M AN..35  Unique identifier of a document.
+1056 Version identifier                              C AN..9   N         Not used
+1060 Revision identifier                             C AN..6   N         Not used
+1225 Message function code                           C AN..3   M AN..3   9 Original
+4343 Response type code                              C AN..3   N         Not used
+                                                     
+DTM                                                  
+C507 Date/time/period M M                            
+2005 Date or time or period function code qualifier  M AN..3   M AN..3   137 Document issue date time
+2380 Date or time or period text                     C AN..35  M AN..35  Date on which a document or business signal was issued
+2379 Date or time or period format code              C AN..3   M AN..3   203 Format: CCYYMMDDHHMM
+                                                     
+DTM                                                  
+C507 Date/time/period M M                            
+2005 Date or time or period function code qualifier  M AN..3   M AN..3   Code 2 indicates that all dates in this delivery forecast are delivery dates (goods arriving at destination) Code 10 indicates that all dates in this delivery forecast are shipping (pickup) dates. 2 Delivery date/time, requested. 10 Shipment date/time, requested
+2380 Date or time or period text                     C AN..35  N         Not used
+2379 Date or time or period format code              C AN..3   N         Not used
+
+NAD
+3035 Party function code qualifier                   M AN..3   M AN..3   BY Buyer
+C082 Party identification details                    C M
+3039 Party identifier                                M AN..35  M AN..35  GKN plant code
+1131 Code list identification code                   C AN..17  N         Not used
+3055 Code list responsible agency code               C AN..3   M AN..3   92 Assigned by buyer or buyer’s agent
+C058 Name and address                                C         N         Not used
+3124 Name and address description                    M AN..35  N         Not used
+3124 Name and address description                    C AN..35  N         Not used
+3124 Name and address description                    C AN..35  N         Not used
+3124 Name and address description                    C AN..35  N         Not used
+3124 Name and address description                    C AN..35  N         Not used
+C080 Party name                                      C         M
+3036 Party name                                      M AN..35  M AN..35  Buyer name
+3036 Party name                                      C AN..35  N         Not used
+3036 Party name                                      C AN..35  N         Not used
+3036 Party name                                      C AN..35  N         Not used
+3036 Party name                                      C AN..35  N         Not used
+3045 Party name format code                          C AN..3   N         Not used
+C059 Street                                          C         N         Not used
+3042 Street and number or post office box identifier M AN..35  N         Not used
+3042 Street and number or post office box identifier C AN..35  N         Not used
+3042 Street and number or post office box identifier C AN..35  N         Not used
+3042 Street and number or post office box identifier C AN..35  N         Not used
+3164 City name                                       C AN..35  N         Not used
+C819 Country sub-entity details                      C         N         Not used
+3229 Country sub-entity name code                    C AN..9   N         Not used
+1131 Code list identification code                   C AN..17  N         Not used
+3055 Code list responsible agency code               C AN..3   N         Not used
+3228 Country sub-entity name                         C AN..70  N         Not used
+3251 Postal identification code                      C AN..17  N         Not used
+3207 Country name code                               C AN..3   N         Not used
+
+NAD
+3035 Party function code qualifier                   M AN..3   M AN..3   SE Seller
+C082 Party identification details                    C         M
+3039 Party identifier                                M AN..35  M AN..35  Supplier number assigned by the buyer
+1131 Code list identification code                   C AN..17  N         Not used
+3055 Code list responsible agency code               C AN..3   M AN..3   92 Assigned by buyer or buyer’s agent
+C058 Name and address                                C         N         Not used
+3124 Name and address description                    M AN..35  N         Not used
+3124 Name and address description                    C AN..35  N         Not used
+3124 Name and address description                    C AN..35  N         Not used
+3124 Name and address description                    C AN..35  N         Not used
+3124 Name and address description                    C AN..35  N         Not used
+C080 Party name                                      C         M
+3036 Party name                                      M AN..35  M AN..35  Seller name
+3036 Party name                                      C AN..35  N         Not used
+3036 Party name                                      C AN..35  N         Not used
+3036 Party name                                      C AN..35  N         Not used
+3036 Party name                                      C AN..35  N         Not used
+3045 Party name format code                          C AN..3   N         Not used
+C059 Street                                          C         N         Not used
+3042 Street and number or post office box identifier M AN..35  N         Not used
+3042 Street and number or post office box identifier C AN..35  N         Not used
+3042 Street and number or post office box identifier C AN..35  N         Not used
+3042 Street and number or post office box identifier C AN..35  N         Not used
+3164 City name                                       C AN..35  N         Not used
+C819 Country sub-entity details                      C         N         Not used
+3229 Country sub-entity name code                    C AN..9   N         Not used
+1131 Code list identification code                   C AN..17  N         Not used
+3055 Code list responsible agency code               C AN..3   N         Not used
+3228 Country sub-entity name                         C AN..70  N         Not used
+3251 Postal identification code                      C AN..17  N         Not used
+3207 Country name code                               C AN..3   N         Not used
+
+NAD
+3035 Party function code qualifier                   M AN..3   M AN..3   SF Ship from
+C082 Party identification details                    C         M
+3039 Party identifier                                M AN..35  M AN..35  Supplier number assigned by the buyer
+1131 Code list identification code                   C AN..17  N         Not used
+3055 Code list responsible agency code               C AN..3   M AN..3   92 Assigned by buyer or buyer’s agent
+C058 Name and address                                C         N         Not used
+3124 Name and address description                    M AN..35  N         Not used
+3124 Name and address description                    C AN..35  N         Not used
+3124 Name and address description                    C AN..35  N         Not used
+3124 Name and address description                    C AN..35  N         Not used
+3124 Name and address description                    C AN..35  N         Not used
+C080 Party name                                      C         M
+3036 Party name                                      M AN..35  M AN..35  Ship from name
+3036 Party name                                      C AN..35  N         Not used
+3036 Party name                                      C AN..35  N         Not used
+3036 Party name                                      C AN..35  N         Not used
+3036 Party name                                      C AN..35  N         Not used
+3045 Party name format code                          C AN..3   N         Not used
+C059 Street                                          C         N         Not used
+3042 Street and number or post office box identifier M AN..35  N         Not used
+3042 Street and number or post office box identifier C AN..35  N         Not used
+3042 Street and number or post office box identifier C AN..35  N         Not used
+3042 Street and number or post office box identifier C AN..35  N         Not used
+3164 City name                                       C AN..35  N         Not used
+C819 Country sub-entity details                      C         N         Not used
+3229 Country sub-entity name code                    C AN..9   N         Not used
+1131 Code list identification code                   C AN..17  N         Not used
+3055 Code list responsible agency code               C AN..3   N         Not used
+3228 Country sub-entity name                         C AN..70  N         Not used
+3251 Postal identification code                      C AN..17  N         Not used
+3207 Country name code                               C AN..3   N         Not used
+
+NAD
+3035 Party function code qualifier                   M AN..3   M AN..3   ST Ship to
+C082 Party identification details                    C         M
+3039 Party identifier                                M AN..35  M AN..35  GKN plant code
+1131 Code list identification code                   C AN..17  N         Not used
+3055 Code list responsible agency code               C AN..3   M AN..3   92 Assigned by buyer or buyer’s agent
+C058 Name and address                                C         N         Not used
+3124 Name and address description                    M AN..35  N         Not used
+3124 Name and address description                    C AN..35  N         Not used
+3124 Name and address description                    C AN..35  N         Not used
+3124 Name and address description                    C AN..35  N         Not used
+3124 Name and address description                    C AN..35  N         Not used
+C080 Party name                                      C         M
+3036 Party name                                      M AN..35  M AN..35  Ship to name
+3036 Party name                                      C AN..35  N         Not used
+3036 Party name                                      C AN..35  N         Not used
+3036 Party name                                      C AN..35  N         Not used
+3036 Party name                                      C AN..35  N         Not used
+3045 Party name format code                          C AN..3   N         Not used
+C059 Street                                          C         N         Not used
+3042 Street and number or post office box identifier M AN..35  N         Not used
+3042 Street and number or post office box identifier C AN..35  N         Not used
+3042 Street and number or post office box identifier C AN..35  N         Not used
+3042 Street and number or post office box identifier C AN..35  N         Not used
+3164 City name                                       C AN..35  N         Not used
+C819 Country sub-entity details                      C         N         Not used
+3229 Country sub-entity name code                    C AN..9   N         Not used
+1131 Code list identification code                   C AN..17  N         Not used
+3055 Code list responsible agency code               C AN..3   N         Not used
+3228 Country sub-entity name                         C AN..70  N         Not used
+3251 Postal identification code                      C AN..17  N         Not used
+3207 Country name code                               C AN..3   N         Not used
+
+LOC
+3227 Location function code qualifier                M AN..3   M AN..3   11 Place of discharge
+C517 Location identification                         C         M
+3225 Location name code                              C AN..35  M AN..35  Identifier / code specifying the name of the place of discharge
+1131 Code list identification code                   C AN..17  N         Not used
+3055 Code list responsible agency code               C AN..3   M AN..3   92 Assigned by buyer or buyer’s agent
+3224 Location name                                   C AN..256 N         Not used
+C519 Related location one identification             C         N         Not used
+3223 First related location name code                C AN..25  N         Not used
+1131 Code list identification code                   C AN..17  N         Not used
+3055 Code list responsible agency code               C AN..3   N         Not used
+3222 First related location name                     C AN..70  N         Not used
+C553 Related location two identification             C         N         Not used
+3233 Second related location name code               C AN..25  N         Not used
+1131 Code list identification code                   C AN..17  N         Not used
+3055 Code list responsible agency code               C AN..3   N         Not used
+3232 Second related location name                    C AN..70  N         Not used
+5479 Relation code                                   C AN..3   N         Not used
+
+SEQ
+1229 Action request/notification description code    C AN..3   M AN..3   SEQ is just a trigger 40 Agreed
+C286 Sequence information                            C         N         Not used
+1050 Sequence position identifier                    M AN..10  N         Not used
+1159 Sequence identifier source code                 C AN..3   N         Not used
+1131 Code list identification code                   C AN..17  N         Not used
+3055 Code list responsible agency code               C AN..3   N         Not used
+                                                     
+LIN                                                  
+1082 Line item identifier                            C AN..6   N         Not used
+1229 Action request/notification description code    C AN..3   N         Not used
+C212 Item number identification                      C         M
+7140 Item identifier                                 C AN..35  M AN..35  Part number, assigned by the buyer
+7143 Item type identification code                   C AN..3   M AN..3   IN Buyer’s item number
+1131 Code list identification code                   C AN..17  N         Not used
+3055 Code list responsible agency code               C AN..3   N         Not used
+C829 Sub-line information                            C         N         Not used
+5495 Sub-line indicator code                         C AN..3   N         Not used
+1082 Line item identifier                            C AN..6   N         Not used
+1222 Configuration level number                      C N..2    N         Not used
+7083 Configuration operation code                    C AN..3   N         Not used
+                                                     
+PIA                                                  
+4347 Product identifier code qualifier               M AN..3   M AN..3   1 Additional identification
+C212 Item number identification                      C         C
+7140 Item identifier                                 C AN..35  M AN..35  Part number, assigned by the seller
+7143 Item type identification code                   C AN..3   M AN..3   SA Supplier’s item number
+1131 Code list identification code                   C AN..17  N         Not used
+3055 Code list responsible agency code               C AN..3   N         Not used
+C212 Item number identification                      C         M
+7140 Item identifier                                 C AN..35  M AN..35  Engineering change level
+7143 Item type identification code                   C AN..3   M AN..3   EC Engineering change level
+1131 Code list identification code                   C AN..17  N         Not used
+3055 Code list responsible agency code               C AN..3   N         Not used
+C212 Item number identification                      C         N         Not used
+7140 Item identifier                                 C AN..35  N         Not used
+7143 Item type identification code                   C AN..3   N         Not used
+1131 Code list identification code                   C AN..17  N         Not used
+3055 Code list responsible agency code               C AN..3   N         Not used
+C212 Item number identification                      C         N         Not used
+7140 Item identifier                                 C AN..35  N         Not used
+7143 Item type identification code                   C AN..3   N         Not used
+1131 Code list identification code                   C AN..17  N         Not used
+3055 Code list responsible agency code               C AN..3   N         Not used
+C212 Item number identification                      C         N         Not used
+7140 Item identifier                                 C AN..35  N         Not used
+7143 Item type identification code                   C AN..3   N         Not used
+1131 Code list identification code                   C AN..17  N         Not used
+3055 Code list responsible agency code               C AN..3   N         Not used
+                                                     
+IMD                                                  
+7077 Description format code                         C AN..3   N         Not used
+C272 Item characteristic                             C         N         Not used
+7081 Item characteristic code                        C AN..3   N         Not used
+1131 Code list identification code                   C AN..17  N         Not used
+3055 Code list responsible agency code               C AN..3   N         Not used
+C273 Item description                                C         M         
+7009 Item description code                           C AN..17  N         Not used
+1131 Code list identification code                   C AN..17  N         Not used
+3055 Code list responsible agency code               C AN..3   N         Not used
+7008 Item description                                C AN..256 M AN..256 Item description
+7008 Item description                                C AN..256 N         Not used
+3453 Language name code                              C AN..3   N         Not used
+7383 Surface or layer code                           C AN..3   N         Not used
+                                                     
+RFF                                                  
+C506 Reference                                       M         M
+1153 Reference code qualifier                        M AN..3   M AN..3   ON = order number / frame contract number. ON Order document identifier, buyer assigned
+1154 Reference identifier                            C AN..70  M AN..70  Purchase order number
+1156 Document line identifier                        C AN..6   N         Not used
+4000 Reference version identifier                    C AN..35  N         Not used
+1060 Revision identifier                             C AN..6   N         Not used
+                                                     
+LOC                                                  
+3227 Location function code qualifier                M AN..3   M AN..3   159 Additional internal destination
+C517 Location identification                         C         M
+3225 Location name code                              C AN..35  M AN..35  Identifier / code specifying the name of the place of discharge
+1131 Code list identification code                   C AN..17  N         Not used
+3055 Code list responsible agency code               C AN..3   M AN..3   92 Assigned by buyer or buyer’s agent
+3224 Location name                                   C AN..256 N         Not used
+C519 Related location one identification             C         N         Not used
+3223 First related location name code                C AN..25  N         Not used
+1131 Code list identification code                   C AN..17  N         Not used
+3055 Code list responsible agency code               C AN..3   N         Not used
+3222 First related location name                     C AN..70  N         Not used
+C553 Related location two identification             C         N         Not used
+3233 Second related location name code               C AN..25  N         Not used
+1131 Code list identification code                   C AN..17  N         Not used
+3055 Code list responsible agency code               C AN..3   N         Not used
+3232 Second related location name                    C AN..70  N         Not used
+5479 Relation code                                   C AN..3   N         Not used
+                                                     
+QTY                                                  
+C186 Quantity details                                M         M
+6063 Quantity type code qualifier                    M AN..3   M AN..3   Code 70 = cumulative quantity received (taking into account the last received shipments). 70 Cumulative quantity received
+6060 Quantity                                        M AN..35  M AN..35  Cumulative quantity
+6411 Measurement unit code                           C AN..8   M AN..8   PCE and C62 are synonymous for piece. C62 one. SET set. MTR metre. MTK square metre. MTQ cubic metre. LTR litre. TNE ton (metric ton). KGM kilogram. KMT kilometre. PCE piece. LBR Pound, US (0,45359237 kg)
+                                                     
+DTM                                                  
+C507 Date/time/period M M                            
+2005 Date or time or period function code qualifier  M AN..3   M AN..3   51 Cumulative quantity start date
+2380 Date or time or period text                     C AN..35  M AN..35  Date on which a document or business signal was issued
+2379 Date or time or period format code              C AN..3   M AN..3   102 Format: CCYYMMDD
+                                                     
+QTY                                                  
+C186 Quantity details                                M M
+6063 Quantity type code qualifier                    M AN..3   M AN..3   12 Despatch quantity. 113 Quantity to be delivered
+6060 Quantity                                        M AN..35  M AN..35  Quantity, scheduled or instructed for delivery
+6411 Measurement unit code                           C AN..8   M AN..8   PCE and C62 are synonymous for piece. C62 one. SET set. MTR metre. MTK square metre. MTQ cubic metre. LTR litre. TNE ton (metric ton). KGM kilogram. KMT kilometre. PCE piece. LBR Pound, US (0,45359237 kg)
+                                                     
+SCC                                                  
+4017 Delivery plan commitment level code             M AN..3   M AN..3   1 Firm. 10 Immediate
+4493 Delivery instruction code                       C AN..3   N         Not used
+C329 Pattern description                             C         N         Not used
+2013 Frequency code                                  C AN..3   N         Not used
+2015 Despatch pattern code                           C AN..3   N         Not used
+2017 Despatch pattern timing code                    C AN..3   N         Not used
+                                                     
+DTM                                                  
+C507 Date/time/period                                M         M         
+2005 Date or time or period function code qualifier  M AN..3   M AN..3   2 Delivery date/time, requested. 10 Shipment date/time, requested
+2380 Date or time or period text                     C AN..35  M AN..35  Date on which a document or business signal was issued
+2379 Date or time or period format code              C AN..3   M AN..3   102 Format: CCYYMMDD. 203 Format: CCYYMMDDHHMM
+                                                                         
+RFF                                                                      
+C506 Reference M M                                                       
+1153 Reference code qualifier                        M AN..3   M AN..3   ZZZ Mutually defined reference number
+1154 Reference identifier                            C AN..70  M AN..70  Number of handling units
+1156 Document line identifier                        C AN..6   N         Not used
+4000 Reference version identifier                    C AN..35  N         Not used
+1060 Revision identifier                             C AN..6   N         Not used
+                                                                         
+RFF                                                                      
+C506 Reference M M                                                       
+1153 Reference code qualifier                        M AN..3   M AN..3   CR Customer reference number
+1154 Reference identifier                            C AN..70  M AN..70  Identifier for the referenced document
+1156 Document line identifier                        C AN..6   N         Not used
+4000 Reference version identifier                    C AN..35  N         Not used
+1060 Revision identifier                             C AN..6   N         Not used
+                                                                         
+UNT                                                                      
+0074 Number of segments in the message               M N..6    M N..6    
+0062 Message reference number                        M AN..14  M AN..14  Repetition of the value in UNH - 0062
+                                                                         
+UNZ                                                                      
+0036 Interchange control count                       M N..6    M N..6    
+0020 Interchange control reference                   M AN..14  M AN..14  Repetition of the value transmitted in UNB - 0020

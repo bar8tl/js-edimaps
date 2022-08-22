@@ -1,0 +1,1692 @@
+0000  UNB  Interchange Header   /  0  M  M  1  1  The UNB is a service segment providing the unique identification of an interchange. It allows the identification of the sender and the receiver of the interchange, gives date and time of preparation as well as the interchange control reference and the application reference.
+0010  UNH  Message Header       /  0  M  M  1  1  UNH is a Service segment starting and uniquely identifying a message. The message type code for the Delivery Schedule message is DELFOR.
+1030  UNT  Message Trailer      /  0  M  M  1  1  service segment ending a message, giving the total number of segments in the message and the control reference number of the message.
+1040  UNZ  Interchange Trailer  /  0  M  M  1  1  service segment ending an interchange and giving the number of messages contained in the interchange as well as the Interchange Control Reference number.
+UNB  S001  SYNTAX IDENTIFIER                           M             M    
+UNB  0001  Syntax identifier                           M  a4      :  M  a4      “UNOA”.  
+UNB  0002  Syntax version number                       M  n1      +  M  n1      Indication of the syntax version used for this message. Karma Automotive uses EDIFACT syntax level A, version 2
+UNB  S002  INTERCHANGE SENDER                          M             M    
+UNB  0004  Sender identification                       M  an..35  :  M  an..35  Communication code/mailbox number of the party originating the message.
+UNB  0007  Identification code qualifier               C  an..4   :  C  an..4   Qualifiers to be determined by trading partner relationship.
+UNB  0008  Address for Reverse Routing                 C  an..14  +  
+UNB  S003  INTERCHANGE RECIPIENT                       M             M  
+UNB  0010  Recipient identification                    M  an..35  :  M  an..35  Communication code/mailbox number of the party receiving the message.
+UNB  0007  Identification code qualifier               C  an..4   :  C  an..4   Qualifiers to be determined by trading partner relationship.
+UNB  0014  Routing address                             C  an..14  +  
+UNB  S004  DATE / TIME OF PREPARATION                  M             M  
+UNB  0017  Date of preparation                         M  n6      :  M  n6      YYMMDD format  
+UNB  0019  Time of preparation                         M  n4      +  M  n4      HHMM format  
+UNB  0020  INTERCHANGE CONTROL REFERENCE               M  an..14  +  M  an..14  For structure of the ICR number used, see COMMENTS below. The ICR number is UNIQUE within an inventory year.
+UNB  S005  RECIPIENTS REFERENCE PASSWORD               C  
+UNB  0022  Recipient's reference / password            M  an..14  :  
+UNB  0025  Recipient's reference / password qualifier  C  an2     +  H
+UNB  0026  APPLICATION REFERENCE                       C  an..14  +  C  an..14  “DELFOR”  
+UNB  0029  PROCESSING PRIORITY CODE                    C  a1      +  
+UNB  0031  ACKNOWLEDGEMENT REQUEST                     C  n1      +  
+UNB  0032  COMMUNICATIONS AGREEMENT ID                 C  an..35  +  
+UNB  0035  TEST INDICATOR                              C  n1      '  
+UNH  0062  MESSAGE REFERENCE NUMBER                    M  an..14  +  M  an..14  Message Control number assigned by the sender to the message. See comments below.
+UNH  S009  MESSAGE IDENTIFIER                          M             M
+UNH  0065  Message type                                M  an..6   :  M  an..6   “DELFOR”.
+UNH  0052  Message version number                      M  an..3   :  M  an..3   “D”.
+UNH  0054  Message release number                      M  an..3   :  M  an..3   “97A”.
+UNH  0051  Controlling agency                          M  an..2   :  M  an..2   “UN”.
+UNH  0057  Association assigned code                   C  an..6   +
+UNH  0068  COMMON ACCESS REFERENCE                     C  an..35  +  C  An…35   Not Used.
+UNH  S010  STATUS OF TRANSFER                          C
+UNH  0070  Sequence of transfer                        M  n..2    :  
+UNH  0073  First and last transfer                     C  a1      ‘
+UNT  0074  NUMBER OF SEGMENTS IN THE MESSAGE           M  n..6       M  n..6    Control count of the number of segments in the message, including UNH and UNT.
+UNT  0062  MESSAGE REFERENCE NUMBER                    M  an..14     M  an..14  Number must be identical to UNH - tag 0062
+UNZ  0036  INTERCHANGE CONTROL COUNT                   M  n..6    +  M  n..6    Number of messages in an interchange.
+UNZ  0020  INTERCHANGE CONTROL REFERENCE               M  an..14  ‘  M  an..14  Value must be the same as 0020 - Interchange Control Reference in UNB.
+
+Segment: BGM Beginning of Message 0020 / 0 M 1 To indicate the type and function of a message and to transmit the identifying number.
+C002  DOCUMENT/MESSAGE NAME                       C                        Identification of a type of document/message by code or name. Code preferred.
+1001  Document/message name, coded                C  an..3                 Document/message identifier expressed in code. 241 Delivery schedule Usage of DELFOR-message. X
+1131  Code list qualifier                         C  an..3                 Identification of a code list. Refer to D.97A Data Element Dictionary for acceptable code values. X
+3055  Code list responsible agency, coded         C  an..3                 Code identifying the agency responsible for a code list. Refer to D.97A Data Element Dictionary for acceptable code values. X
+1000  Document/message name                       C  an..35                Plain language identifier specifying the function of a document/message.
+>> C106 DOCUMENT/MESSAGE IDENTIFICATION C Identification of a document/message by its number and eventually its version or revision.
+>> 1004 Document/message number C an..35 Reference number assigned to the document/message by the issuer. Release numbers will be sequential per Supplier Vendor ID/Karma Ship-To Destination.
+X  1056 Version C an..9 To specify the version number or name of an object.
+X  1060 Revision number C an..6 To specify a revision number.
+>> 1225 MESSAGE FUNCTION, CODED C an..3 Code indicating the function of the message. The requirements established in this message supersede any previously established requirements which fall within the horizons of this message. 5 Replace Message replacing a previous message. Will be used for all release numbers > 1.
+X  4343 RESPONSE TYPE, CODED C an..3 Code specifying the type of acknowledgment required or transmitted. Refer to D.97A Data Element Dictionary for acceptable code values.
+
+Segment: DTM Date/Time/Period Position: 0030 Group: Level: 1 Usage: Mandatory Max Use: 10 Purpose: To specify date, and/or time, or period.
+>> C507 DATE/TIME/PERIOD M Date and/or time, or period relevant to the specified date/time/period type.
+>> 2005 Date/time/period qualifier M an..3 Code giving specific meaning to a date, time or period. 137 Document/message date/time. (2006) Date/time when a document/message is issued. This may include authentication. To be used with the Date/time/period format qualifier (element 2379) code 203. One iteration is mandatory. 158 Horizon start date. The first date of a period forming a horizon. Horizon Start Date. 159 Horizon end date. The last date of a period forming a horizon. Horizon End Date
+>> 2380 Date/time/period C an..35 The value of a date, a date and time, a time or of a period in a specified representation.
+>> 2379 Date/time/period format qualifier C an..3 Specification of the representation of a date, a date and time or of a period. 102 CCYYMMDD. Calendar date: C = Century ; Y = Year ; M = Month ; D = Day. 203 CCYYMMDDHHMM. Calendar date including time with minutes: C=Century; Y=Year; M=Month; D=Day; H=Hour; M=Minutes.
+
+Segment: FTX Free Text Position: 0040 Group: Level: 1 Usage: Conditional (Optional) Max Use: 5 Purpose: To provide free form or coded text information.
+>> 4451 TEXT SUBJECT QUALIFIER M an..3 Code specifying subject of a free text. AAI General information
+X  4453 TEXT FUNCTION, CODED C an..3 Code specifying how to handle the text. Refer to D.97A Data Element Dictionary for acceptable code values.
+X  C107 TEXT REFERENCE C Coded reference to a standard text and its source.
+X  4441 Free text identification M an..17 Free text in coded form.
+X  1131 Code list qualifier C an..3 Identification of a code list. Refer to D.97A Data Element Dictionary for acceptable code values.
+X  3055 Code list responsible agency, coded C an..3 Code identifying the agency responsible for a code list. Refer to D.97A Data Element Dictionary for acceptable code values.
+   C108 TEXT LITERAL C Free text; one to five lines.
+>> 4440 Free text M an..70 Free text field available to the message sender for information.
+   4440 Free text C an..70 Free text field available to the message sender for information.
+X  4440 Free text C an..70 Free text field available to the message sender for information.
+X  4440 Free text C an..70 Free text field available to the message sender for information.
+X  4440 Free text C an..70 Free text field available to the message sender for information.
+X  3453 LANGUAGE, CODED C an..3 Code of language (ISO 639-1988).
+
+Group: NAD Segment Group 2: Name and Address osition: 0080 Group: Level: 1 Usage: Conditional (Required) Max Use: 99 Purpose:
+Must Use
+0090
+NAD
+Name and Address
+M
+1
+0130
+Segment Group 4: Contact Information
+C
+5
+Karma Automotive DELFOR
+Guideline 22
+Segment: NAD Name and Address
+Position: 0090 (Trigger Segment)
+Group: Segment Group 2 (Name and Address) Conditional (Required)
+Level: 1
+Usage: Mandatory
+Max Use: 1
+Purpose: To specify the name/address and their related function, either by CO82 only and/or unstructured by CO58 or structured by CO80 thru 3207.
+Dependency Notes:
+Semantic Notes:
+Comments:
+Notes:
+NAD+MI+809578466::16++KARMA AUTOMOTIVE' NAD+SU+10009::16++ROBERT HAGAR LLC+1600 NORTH BECK ROAD+PLYMOUTH+MI+48170+US' In order to facilitate problem-solving around a mis-directed message, the complete name and address of the supplier locations will be sent when available.
+Data Element Summary
+Data Component
+Element Element Name Attributes
+>>
+3035
+PARTY QUALIFIER
+M
+an..3
+Code giving specific meaning to a party.
+Two iterations of data element 3055 are mandatory. They must contain codes MI and SU.
+MI
+Planning schedule/material release issuer
+Karma Automotive DUNS: 809578466
+SU
+Supplier
+(3280) Party which manufactures or otherwise has possession of goods, and consigns or makes them available in trade.
+Karma SAP Vendor ID will be transmitted.
+>>
+C082
+PARTY IDENTIFICATION DETAILS
+C
+Identification of a transaction party by code.
+>>
+3039
+Party id. identification
+M
+an..35
+Code identifying a party involved in a transaction.
+X
+1131
+Code list qualifier
+C
+an..3
+Identification of a code list.
+Refer to D.97A Data Element Dictionary for acceptable code values.
+>>
+3055
+Code list responsible agency, coded
+C
+an..3
+Code identifying the agency responsible for a code list.
+16
+DUNS (Dun & Bradstreet)
+92
+Assigned by buyer or buyer's agent
+X
+C058
+NAME AND ADDRESS
+C
+Unstructured name and address: one to five lines.
+X
+3124
+Name and address line
+C
+an..35
+Free form name and address description.
+X
+3124
+Name and address line
+C
+an..35
+Free form name and address description.
+X
+3124
+Name and address line
+C
+an..35
+Free form name and address description.
+X
+3124
+Name and address line
+C
+an..35
+Karma Automotive DELFOR
+Guideline 23
+Free form name and address description.
+X
+3124
+Name and address line
+C
+an..35
+Free form name and address description.
+C080
+PARTY NAME
+C
+Identification of a transaction party by name, one to five lines. Party name may be formatted.
+3036
+Party name
+C
+an..35
+Name of a party involved in a transaction.
+3036
+Party name
+C
+an..35
+Name of a party involved in a transaction.
+X
+3036
+Party name
+C
+an..35
+Name of a party involved in a transaction.
+X
+3036
+Party name
+C
+an..35
+Name of a party involved in a transaction.
+X
+3036
+Party name
+C
+an..35
+Name of a party involved in a transaction.
+X
+3045
+Party name format, coded
+C
+an..3
+Specification of the representation of a party name.
+Refer to D.97A Data Element Dictionary for acceptable code values.
+C059
+STREET
+C
+Street address and/or PO Box number in a structured address: one to three lines.
+3042
+Street and number/p.o. box
+C
+an..35
+Street and number in plain language, or Post Office Box No.
+3042
+Street and number/p.o. box
+C
+an..35
+Street and number in plain language, or Post Office Box No.
+X
+3042
+Street and number/p.o. box
+C
+an..35
+Street and number in plain language, or Post Office Box No.
+X
+3042
+Street and number/p.o. box
+C
+an..35
+Street and number in plain language, or Post Office Box No.
+3164
+CITY NAME
+C
+an..35
+Name of a city (a town, a village) for addressing purposes.
+3229
+COUNTRY SUB-ENTITY IDENTIFICATION
+C
+an..9
+Identification of the name of sub-entities (state, province) defined by appropriate governmental agencies.
+3251
+POSTCODE IDENTIFICATION
+C
+an..9
+Code defining postal zones or addresses.
+3207
+COUNTRY, CODED
+C
+an..3
+Identification of the name of a country or other geographical entity as specified in ISO 3166.
+Karma Automotive DELFOR
+Guideline 24
+Group: CTA Segment Group 4: Contact Information
+Position: 0130
+Group: Segment Group 2 (Name and Address) Conditional (Required)
+Level: 2
+Usage: Conditional
+Max Use: 5
+Purpose:
+Segment Summary
+Pos. Seg. Req. Max. Group:
+No. ID Name Des. Use Repeat
+Must Use
+0140
+CTA
+Contact Information
+M
+1
+0150
+COM
+Communication Contact
+C
+5
+Karma Automotive DELFOR
+Guideline 25
+Segment: CTA Contact Information
+Position: 0140 (Trigger Segment)
+Group: Segment Group 4 (Contact Information) Conditional
+Level: 2
+Usage: Mandatory
+Max Use: 1
+Purpose: To identify a person or a department to whom communication should be directed.
+Dependency Notes:
+Semantic Notes:
+Comments:
+Notes:
+CTA+SU+:JANE DOE'
+Data Element Summary
+Data Component
+Element Element Name Attributes
+3139
+CONTACT FUNCTION, CODED
+C
+an..3
+Code specifying the function of a contact (e.g. department or person).
+IC
+Information contact
+Department/person to contact for questions regarding transactions.
+C056
+DEPARTMENT OR EMPLOYEE DETAILS
+C
+Code and/or name of a department or employee. Code preferred.
+X
+3413
+Department or employee identification
+C
+an..17
+Internal identification code.
+3412
+Department or employee
+C
+an..35
+The department or person within an organizational entity.
+Karma Automotive DELFOR
+Guideline 26
+Segment: COM Communication Contact
+Position: 0150
+Group: Segment Group 4 (Contact Information) Conditional (Required)
+Level: 3
+Usage: Conditional (Optional)
+Max Use: 5
+Purpose: To identify a communication number of a department or a person to whom communication should be directed.
+Dependency Notes:
+Semantic Notes:
+Comments:
+Notes:
+COM+8109475566:TE'
+Data Element Summary
+Data Component
+Element Element Name Attributes
+>>
+C076
+COMMUNICATION CONTACT
+M
+Communication number of a department or employee in a specified channel.
+>>
+3148
+Communication number
+M
+an..512
+The communication number.
+>>
+3155
+Communication channel qualifier
+M
+an..3
+Code identifying the type of communication channel being used.
+TE
+Telephone
+Voice/data transmission by telephone.
+Karma Automotive DELFOR
+Guideline 27
+Group: GIS Segment Group 6: General Indicator
+Position: 0190
+Group:
+Level: 1
+Usage: Conditional (Required)
+Max Use: 9999
+Purpose:
+Segment Summary
+Pos. Seg. Req. Max. Group:
+No. ID Name Des. Use Repeat
+Must Use
+0200
+GIS
+General Indicator
+M
+1
+0210
+Segment Group 7: Name and Address
+M
+1
+0310
+Segment Group 10: Contact Information
+M
+1
+0370
+Segment Group 12: Line Item
+C
+9999
+Karma Automotive DELFOR
+Guideline 28
+Segment: GIS General Indicator
+Position: 0200 (Trigger Segment)
+Group: Segment Group 6 (General Indicator) Conditional (Required)
+Level: 1
+Usage: Mandatory
+Max Use: 1
+Purpose: To transmit a processing indicator.
+Dependency Notes:
+Semantic Notes:
+Comments:
+Notes:
+GIS+37'
+Data Element Summary
+Data Component
+Element Element Name Attributes
+>>
+C529
+PROCESSING INDICATOR
+M
+Type of process indication.
+>>
+7365
+Processing indicator, coded
+M
+an..3
+Identifies the value to be attributed to indicators required by the processing system.
+37
+Complete information
+Processing of information to note that complete data details (not just changes) are transmitted.
+Used when the value of Data element 1225 in the BGM segment is 5.
+X
+1131
+Code list qualifier
+C
+an..3
+Identification of a code list.
+Refer to D.97A Data Element Dictionary for acceptable code values.
+X
+3055
+Code list responsible agency, coded
+C
+an..3
+Code identifying the agency responsible for a code list.
+Refer to D.97A Data Element Dictionary for acceptable code values.
+X
+7187
+Process type identification
+C
+an..17
+Specification of a process or subprocess.
+Refer to D.97A Data Element Dictionary for acceptable code values.
+Karma Automotive DELFOR
+Guideline 29
+Group: NAD Segment Group 7: Name and Address
+Position: 0210
+Group: Segment Group 6 (General Indicator) Conditional (Required)
+Level: 2
+Usage: Mandatory
+Max Use: 1
+Purpose:
+Segment Summary
+Pos. Seg. Req. Max. Group:
+No. ID Name Des. Use Repeat
+Must Use
+0220
+NAD
+Name and Address
+M
+1
+Karma Automotive DELFOR
+Guideline 30
+Segment: NAD Name and Address
+Position: 0220 (Trigger Segment)
+Group: Segment Group 7 (Name and Address) Mandatory
+Level: 2
+Usage: Mandatory
+Max Use: 1
+Purpose: To specify the name/address and their related function, either by CO82 only and/or unstructured by CO58 or structured by CO80 thru 3207.
+Dependency Notes:
+Semantic Notes:
+Comments:
+Notes:
+NAD+ST+1000::92++KARMA AUTOMOTIVE, LLC+17100 N PERRIS BLVD+MORENO VALLEY+CA+92551+US' For Directed Components schedules, Karma SAP Vendor ID and complete name and address of Tier 1 component supplier will be sent.
+Data Element Summary
+Data Component
+Element Element Name Attributes
+>>
+3035
+PARTY QUALIFIER
+M
+an..3
+Code giving specific meaning to a party.
+ST
+Ship to
+Identification of the party to where goods will be or have been shipped.
+>>
+C082
+PARTY IDENTIFICATION DETAILS
+C
+Identification of a transaction party by code.
+>>
+3039
+Party id. identification
+M
+an..35
+Code identifying a party involved in a transaction.
+X
+1131
+Code list qualifier
+C
+an..3
+Identification of a code list.
+Refer to D.97A Data Element Dictionary for acceptable code values.
+>>
+3055
+Code list responsible agency, coded
+C
+an..3
+Code identifying the agency responsible for a code list.
+16
+DUNS (Dun & Bradstreet)
+92
+Assigned by buyer or buyer's agent
+X
+C058
+NAME AND ADDRESS
+C
+Unstructured name and address: one to five lines.
+X
+3124
+Name and address line
+M
+an..35
+Free form name and address description.
+X
+3124
+Name and address line
+C
+an..35
+Free form name and address description.
+X
+3124
+Name and address line
+C
+an..35
+Free form name and address description.
+X
+3124
+Name and address line
+C
+an..35
+Free form name and address description.
+X
+3124
+Name and address line
+C
+an..35
+Free form name and address description.
+C080
+PARTY NAME
+C
+Identification of a transaction party by name, one to five lines. Party name may be formatted.
+Karma Automotive DELFOR
+Guideline 31
+3036
+Party name
+M
+an..35
+Name of a party involved in a transaction.
+3036
+Party name
+C
+an..35
+Name of a party involved in a transaction.
+X
+3036
+Party name
+C
+an..35
+Name of a party involved in a transaction.
+X
+3036
+Party name
+C
+an..35
+Name of a party involved in a transaction.
+X
+3036
+Party name
+C
+an..35
+Name of a party involved in a transaction.
+X
+3045
+Party name format, coded
+C
+an..3
+Specification of the representation of a party name.
+Refer to D.97A Data Element Dictionary for acceptable code values.
+C059
+STREET
+C
+Street address and/or PO Box number in a structured address: one to three lines.
+3042
+Street and number/p.o. box
+M
+an..35
+Street and number in plain language, or Post Office Box No.
+3042
+Street and number/p.o. box
+C
+an..35
+Street and number in plain language, or Post Office Box No.
+X
+3042
+Street and number/p.o. box
+C
+an..35
+Street and number in plain language, or Post Office Box No.
+X
+3042
+Street and number/p.o. box
+C
+an..35
+Street and number in plain language, or Post Office Box No.
+3164
+CITY NAME
+C
+an..35
+Name of a city (a town, a village) for addressing purposes.
+3229
+COUNTRY SUB-ENTITY IDENTIFICATION
+C
+an..9
+Identification of the name of sub-entities (state, province) defined by appropriate governmental agencies.
+3251
+POSTCODE IDENTIFICATION
+C
+an..9
+Code defining postal zones or addresses.
+3207
+COUNTRY, CODED
+C
+an..3
+Identification of the name of a country or other geographical entity as specified in ISO 3166.
+Karma Automotive DELFOR
+Guideline 32
+Group: CTA Segment Group 4: Contact Information
+Position: 0310
+Group: Segment Group 7 (Name and Address) Conditional (Required)
+Level: 2
+Usage: Conditional
+Max Use: 5
+Purpose:
+Segment Summary
+Pos. Seg. Req. Max. Group:
+No. ID Name Des. Use Repeat
+Must Use
+0140
+CTA
+Contact Information
+M
+1
+0150
+COM
+Communication Contact
+C
+5
+Karma Automotive DELFOR
+Guideline 33
+Segment: CTA Contact Information
+Position: 0320 (Trigger Segment)
+Group: Segment Group 10 (Contact Information) Conditional
+Level: 2
+Usage: Mandatory
+Max Use: 1
+Purpose: To identify a person or a department to whom communication should be directed.
+Dependency Notes:
+Semantic Notes:
+Comments:
+Notes:
+CTA+SU+:JANE DOE'
+Data Element Summary
+Data Component
+Element Element Name Attributes
+3139
+CONTACT FUNCTION, CODED
+C
+an..3
+Code specifying the function of a contact (e.g. department or person).
+SU
+Supplier contact
+Department/person to contact for questions regarding transactions.
+C056
+DEPARTMENT OR EMPLOYEE DETAILS
+C
+Code and/or name of a department or employee. Code preferred.
+X
+3413
+Department or employee identification
+C
+an..17
+Internal identification code.
+3412
+Department or employee
+C
+an..35
+The department or person within an organizational entity.
+Karma Automotive DELFOR
+Guideline 34
+Segment: COM Communication Contact
+Position: 0330
+Group: Segment Group 10 (Contact Information) Conditional (Required)
+Level: 3
+Usage: Conditional (Optional)
+Max Use: 5
+Purpose: To identify a communication number of a department or a person to whom communication should be directed.
+Dependency Notes:
+Semantic Notes:
+Comments:
+Notes:
+COM+8109475566:TE'
+Data Element Summary
+Data Component
+Element Element Name Attributes
+>>
+C076
+COMMUNICATION CONTACT
+M
+Communication number of a department or employee in a specified channel.
+>>
+3148
+Communication number
+M
+an..512
+The communication number.
+>>
+3155
+Communication channel qualifier
+M
+an..3
+Code identifying the type of communication channel being used.
+TE
+Telephone
+Voice/data transmission by telephone.
+Karma Automotive DELFOR
+Guideline 35
+Group: LIN Segment Group 12: Line Item
+Position: 0370
+Group: Segment Group 6 (General Indicator) Conditional (Required)
+Level: 2
+Usage: Conditional (Required)
+Max Use: 9999
+Purpose:
+Segment Summary
+Pos. Seg. Req. Max. Group:
+No. ID Name Des. Use Repeat
+Must Use
+0380
+LIN
+Line Item
+M
+1
+0390
+0400
+PIA
+IMD
+Additional Product Id
+Product Description
+C
+C
+10
+10
+0450
+LOC
+Place/Location Identification
+C
+999
+0480
+Segment Group 13: Reference
+C
+10
+0510
+Segment Group 14: Details of Transport
+C
+10
+0540
+Segment Group 15: Quantity
+C
+10
+0600
+Segment Group 17: Scheduling Conditions
+C
+999
+Karma Automotive DELFOR
+Guideline 36
+Segment: LIN Line Item
+Position: 0380 (Trigger Segment)
+Group: Segment Group 12 (Line Item) Conditional (Required)
+Level: 2
+Usage: Mandatory
+Max Use: 1
+Purpose: To identify a line item and configuration.
+Dependency Notes:
+Semantic Notes:
+Comments:
+Notes:
+LIN+++12345678:IN'
+Data Element Summary
+Data Component
+Element Element Name Attributes
+X
+1082
+LINE ITEM NUMBER
+C
+an..6
+Serial number designating each separate item within a series of articles.
+X
+1229
+ACTION REQUEST/NOTIFICATION, CODED
+C
+an..3
+Code specifying the action to be taken or already taken.
+Refer to D.97A Data Element Dictionary for acceptable code values.
+>>
+C212
+ITEM NUMBER IDENTIFICATION
+C
+Goods identification for a specified source.
+>>
+7140
+Item number
+C
+an..35
+A number allocated to a group or item.
+Karma part number.
+>>
+7143
+Item number type, coded
+C
+an..3
+Identification of the type of item number.
+IN
+Buyer's item number
+X
+1131
+Code list qualifier
+C
+an..3
+Identification of a code list.
+Refer to D.97A Data Element Dictionary for acceptable code values.
+X
+3055
+Code list responsible agency, coded
+C
+an..3
+Code identifying the agency responsible for a code list.
+Refer to D.97A Data Element Dictionary for acceptable code values.
+X
+C829
+SUB-LINE INFORMATION
+C
+To provide an indication that a segment or segment group is used to contain sub-line or sub-line item information and to optionally enable the sub-line to be identified.
+X
+5495
+Sub-line indicator, coded
+C
+an..3
+Indication that the segment and/or segment group is used for sub-line item information.
+Refer to D.97A Data Element Dictionary for acceptable code values.
+X
+1082
+Line item number
+C
+an..6
+Serial number designating each separate item within a series of articles.
+X
+1222
+CONFIGURATION LEVEL
+C
+n..2
+Number indicating the level of an object which is in a hierarchy.
+X
+7083
+CONFIGURATION, CODED
+C
+an..3
+Code indicating the status of the sub-line item in the configuration.
+Refer to D.97A Data Element Dictionary for acceptable code values.
+Karma Automotive DELFOR
+Guideline 37
+Segment: PIA Additional Product Id
+Position: 0390
+Group: Segment Group 12 (Line Item) Conditional (Required)
+Level: 3
+Usage: Conditional (Mandatory for Karma DELFOR)
+Max Use: 10
+Purpose:
+Dependency Notes:
+Semantic Notes:
+Comments:
+Notes:
+PIA+1+5500000004:ON+00030:PL' Used to provide a combined reference to the PO number and the PO line item number of the item identified in the preceding LIN segment.
+Data Element Summary
+Data Component
+Element Element Name Attributes
+>>
+4347
+PRODUCT ID. FUNCTION QUALIFIER
+M
+an..3
+Indication of the function of the product code.
+1
+Additional identification
+Information which specifies and qualifies product identifications.
+>>
+C212
+ITEM NUMBER IDENTIFICATION
+M
+Goods identification for a specified source.
+7140
+Item number
+C
+an..35
+A number allocated to a group or item.
+7143
+Item number type, coded
+C
+an..3
+Identification of the type of item number.
+ON
+PO Number
+Number of the blanket PO or Contract that governs the delivery schedule for a given part number.
+X
+1131
+Code list qualifier
+C
+an..3
+Identification of a code list.
+Refer to D.97A Data Element Dictionary for acceptable code values.
+X
+3055
+Code list responsible agency, coded
+C
+an..3
+Code identifying the agency responsible for a code list.
+Refer to D.97A Data Element Dictionary for acceptable code values.
+C212
+ITEM NUMBER IDENTIFICATION
+C
+Goods identification for a specified source.
+7140
+Item number
+C
+an..35
+A number allocated to a group or item.
+7143
+Item number type, coded
+C
+an..3
+Identification of the type of item number.
+PL PO Line Item Line Item Number of the Part Number within the referenced PO.
+X
+1131
+Code list qualifier
+C
+an..3
+Identification of a code list.
+Refer to D.97A Data Element Dictionary for acceptable code values.
+X
+3055
+Code list responsible agency, coded
+C
+an..3
+Code identifying the agency responsible for a code list.
+Karma Automotive DELFOR
+Guideline 38
+Refer to D.97A Data Element Dictionary for acceptable code values.
+X
+C212
+ITEM NUMBER IDENTIFICATION
+C
+Goods identification for a specified source.
+X
+7140
+Item number
+C
+an..35
+A number allocated to a group or item.
+X
+7143
+Item number type, coded
+C
+an..3
+Identification of the type of item number.
+Refer to D.97A Data Element Dictionary for acceptable code values.
+X
+1131
+Code list qualifier
+C
+an..3
+Identification of a code list.
+Refer to D.97A Data Element Dictionary for acceptable code values.
+X
+3055
+Code list responsible agency, coded
+C
+an..3
+Code identifying the agency responsible for a code list.
+Refer to D.97A Data Element Dictionary for acceptable code values.
+X
+C212
+ITEM NUMBER IDENTIFICATION
+C
+Goods identification for a specified source.
+X
+7140
+Item number
+C
+an..35
+A number allocated to a group or item.
+X
+7143
+Item number type, coded
+C
+an..3
+Identification of the type of item number.
+Refer to D.97A Data Element Dictionary for acceptable code values.
+X
+1131
+Code list qualifier
+C
+an..3
+Identification of a code list.
+Refer to D.97A Data Element Dictionary for acceptable code values.
+X
+3055
+Code list responsible agency, coded
+C
+an..3
+Code identifying the agency responsible for a code list.
+Refer to D.97A Data Element Dictionary for acceptable code values.
+X
+C212
+ITEM NUMBER IDENTIFICATION
+C
+Goods identification for a specified source.
+X
+7140
+Item number
+C
+an..35
+A number allocated to a group or item.
+X
+7143
+Item number type, coded
+C
+an..3
+Identification of the type of item number.
+Refer to D.97A Data Element Dictionary for acceptable code values.
+X
+1131
+Code list qualifier
+C
+an..3
+Identification of a code list.
+Refer to D.97A Data Element Dictionary for acceptable code values.
+X
+3055
+Code list responsible agency, coded
+C
+an..3
+Code identifying the agency responsible for a code list.
+Refer to D.97A Data Element Dictionary for acceptable code values.
+Karma Automotive DELFOR
+Guideline 39
+Segment:IMD Item Description
+Position: 0400
+Group: Segment Group 12 (Line Item) Conditional (Required)
+Level: 3
+Usage: Conditional (Optional)
+Max Use: 10
+Purpose: To describe an item in either an industry or free format.
+Syntax Notes:
+Semantic Notes:
+Comments:
+Notes:
+IMD+++P:::DESCRIPTION'
+Data Element Summary
+Data Component
+Element Element Name Attributes
+7077
+ITEM DESCRIPTION TYPE, CODED
+C
+an..3
+Code indicating the format of a description.
+Code specifying the item characteristic being described.
+C273
+ITEM DESCRIPTION
+C
+Description of an item.
+7009
+Item description identification
+C
+an..17
+Code from an industry code list which provides specific data about a product characteristic.
+Part Release Status Code “P” = Production
+X
+1131
+Code list qualifier
+C
+an..3
+Identification of a code list.
+X
+3055
+Code list responsible agency, coded
+C
+an..3
+Code identifying the agency responsible for a code list.
+7008
+Item description
+C
+an..35
+Plain language description of articles or products.
+X
+7008
+Item description
+C
+an..35
+Plain language description of articles or products.
+X
+3453
+Language, coded
+C
+an..3
+Code of language (ISO 639-1988).
+X
+7383
+SURFACE/LAYER INDICATOR, CODED
+C
+an..3
+Code indicating the surface or layer of a product that is being described.
+Karma Automotive DELFOR
+Guideline 40
+Segment:LOC Place/Location Identification
+Position: 0450
+Group: Segment Group 12 (Line Item) Conditional (Required)
+Level: 3
+Usage: Conditional (Required)
+Max Use: 999
+Purpose: A segment identifying a specific location to which products, as specified in the LIN-Segment group, should be placed after delivery. This function should only be used with the delivery point driven method.
+Syntax Notes:
+Semantic Notes:
+Comments:
+Data Element Summary
+Data Component
+Element Element Name Attributes
+>>
+3227
+PLACE/LOCATION QUALIFIER
+M
+an..3
+Code identifying the function of a location.
+11
+Place/port of discharge
+(3392 + 3414) Seaport, airport, freight terminal, rail station or other place at which the goods (cargo) are unloaded from the means of transport having been used for their carriage.
+C517
+LOCATION IDENTIFICATION
+C
+Identification of a location by code or name.
+3225
+Place/location identification
+C
+an..25
+Identification of the name of place/location, other than 3164 City name.
+Karma Dock Code
+X
+1131
+Code list qualifier
+C
+an..3
+Identification of a code list.
+Refer to D.97A Data Element Dictionary for acceptable code values.
+X
+3055
+Code list responsible agency, coded
+C
+an..3
+Code identifying the agency responsible for a code list.
+Refer to D.97A Data Element Dictionary for acceptable code values.
+X
+3224
+Place/location
+C
+an..70
+Name of place/location, other than 3164 City name.
+X
+C519
+RELATED LOCATION ONE IDENTIFICATION
+C
+Identification the first related location by code or name.
+X
+3223
+Related place/location one identification
+C
+an..25
+Specification of the first related place/location by code.
+X
+1131
+Code list qualifier
+C
+an..3
+Identification of a code list.
+Refer to D.97A Data Element Dictionary for acceptable code values.
+X
+3055
+Code list responsible agency, coded
+C
+an..3
+Code identifying the agency responsible for a code list.
+Refer to D.97A Data Element Dictionary for acceptable code values.
+X
+3222
+Related place/location one
+C
+an..70
+Specification of the first related place/location by name.
+X
+C553
+RELATED LOCATION TWO IDENTIFICATION
+C
+Identification of second related location by code or name.
+X
+3233
+Related place/location two identification
+C
+an..25
+Karma Automotive DELFOR
+Guideline 41
+Specification of a second related place/location by code.
+X
+1131
+Code list qualifier
+C
+an..3
+Identification of a code list.
+Refer to D.97A Data Element Dictionary for acceptable code values.
+X
+3055
+Code list responsible agency, coded
+C
+an..3
+Code identifying the agency responsible for a code list.
+Refer to D.97A Data Element Dictionary for acceptable code values.
+X
+3232
+Related place/location two
+C
+an..70
+Specification of a second related place/location by name.
+X
+5479
+RELATION, CODED
+C
+an..3
+To specify the relationship between two or more items.
+Karma Automotive DELFOR
+Guideline 42
+Group: QTY Segment Group 15: Quantity
+Position: 0540
+Group: Segment Group 12 (Line Item) Conditional (Required)
+Level: 3
+Usage: Conditional (Optional)
+Max Use: 10
+Purpose:
+Segment Summary
+Pos. Seg. Req. Max. Group:
+No. ID Name Des. Use Repeat
+Must Use
+0550
+QTY
+Quantity
+M
+1
+0560
+DTM
+Date/Time/Period
+C
+2
+Karma Automotive DELFOR
+Guideline 43
+Segment: QTY Quantity
+Position: 0550 (Trigger Segment)
+Group: Segment Group 15 (Quantity) Conditional (Optional)
+Level: 3
+Usage: Mandatory
+Max Use: 1
+Purpose: To specify a pertinent quantity.
+Dependency Notes:
+Semantic Notes:
+Comments:
+Notes:
+Up to three iterations of the QTY segment will be transmitted. 1) CUM quantity represented by this delivery schedule. 2) CUM quantity received from supplier. 3) Last quantity received QTY+71:968:EA' QTY+70:5:EA' QTY+48:5:EA’
+Data Element Summary
+Data Component
+Element Element Name Attributes
+>>
+C186
+QUANTITY DETAILS
+M
+Quantity information in a transaction, qualified when relevant.
+>>
+6063
+Quantity qualifier
+M
+an..3
+Code giving specific meaning to a quantity.
+71
+Cumulative quantity ordered
+CUM quantity represented by all the firm and planning quantities in this schedule.
+70
+Cumulative quantity received
+Cumulative quantity received from the supplier prior to the issuance of this schedule.
+48
+Received Quantity
+Quantity of the last received shipment
+>>
+6060
+Quantity
+M
+n..15
+Numeric value of a quantity.
+6411
+Measure unit qualifier
+C
+an..3
+Indication of the unit of measurement in which weight (mass), capacity, length, area, volume or other quantity is expressed.
+Always ‘EA”.
+Karma Automotive DELFOR
+Guideline 44
+Segment: DTM Date/Time/Period
+Position: 0560
+Group: Segment Group 15 (Quantity) Conditional (Optional)
+Level: 4
+Usage: Conditional (Optional)
+Max Use: 2
+Purpose: To specify date, and/or time, or period.
+Dependency Notes:
+Semantic Notes:
+Comments:
+Notes:
+Reserved for future use. As of version 1 of this guideline, Karma Automotive does not plan to transmit dates referring to reported cumulative quantities.
+Data Element Summary
+Data Component
+Element Element Name Attributes
+>>
+C507
+DATE/TIME/PERIOD
+M
+Date and/or time, or period relevant to the specified date/time/period type.
+>>
+2005
+Date/time/period qualifier
+M
+an..3
+Code giving specific meaning to a date, time or period.
+51
+Cumulative quantity start date
+First Date for accumulation of delivery quantities.
+52
+Cumulative quantity end date
+Last Date for accumulation of delivery quantities.
+2380
+Date/time/period
+C
+an..35
+The value of a date, a date and time, a time or of a period in a specified representation.
+2379
+Date/time/period format qualifier
+C
+an..3
+Specification of the representation of a date, a date and time or of a period.
+102
+CCYYMMDD
+Calendar date: C = Century ; Y = Year ; M = Month ; D = Day.
+Karma Automotive DELFOR
+Guideline 45
+Group: RFF Segment Group 16: Reference
+Position: 0570
+Group: Segment Group 15 (Quantity) Conditional (Required)
+Level: 3
+Usage: Conditional
+Max Use: 10
+Purpose:
+Segment Summary
+Pos. Seg. Req. Max. Group:
+No. ID Name Des. Use Repeat
+Must Use
+0580
+RFF
+Reference
+M
+1
+Karma Automotive DELFOR
+Guideline 46
+Segment: RFF Reference
+Position: 0580 (Trigger Segment)
+Group: Segment Group 13 (Reference) Conditional (Required)
+Level: 3
+Usage: Mandatory
+Max Use: 1
+Purpose: To specify a reference.
+Dependency Notes:
+Semantic Notes:
+Comments:
+Notes:
+RFF+AAU:12345'
+Data Element Summary
+Data Component
+Element Element Name Attributes
+>>
+C506
+REFERENCE
+M
+Identification of a reference.
+>>
+1153
+Reference qualifier
+M
+an..3
+Code giving specific meaning to a reference segment or a reference number.
+AAU
+Despatch Advice number
+The Shipment Identification from the most recent DESADV message contributing to the cumulative received quantity reported.
+1154
+Reference number
+C
+an..35
+Identification number the nature and function of which can be qualified by an entry in data element 1153 Reference qualifier.
+X
+1156
+Line number
+C
+an..6
+Number of the line in the document/message referenced in 1154 Reference number.
+X
+4000
+Reference version number
+C
+an..35
+To uniquely identify a reference by its revision number.
+Karma Automotive DELFOR
+Guideline 47
+Group: SCC Segment Group 17: Scheduling Conditions
+Position: 0600
+Group: Segment Group 12 (Line Item) Conditional (Required)
+Level: 3
+Usage: Conditional (Required)
+Max Use: 999
+Purpose:
+Segment Summary
+Pos. Seg. Req. Max. Group:
+No. ID Name Des. Use Repeat
+Must Use
+0610
+SCC
+Scheduling Conditions
+M
+1
+0620
+Segment Group 18: Quantity
+C
+999
+Karma Automotive DELFOR
+Guideline 48
+Segment: SCC Scheduling Conditions
+Position: 0610 (Trigger Segment)
+Group: Segment Group 17 (Scheduling Conditions) Conditional (Required)
+Level: 3
+Usage: Mandatory
+Max Use: 1
+Purpose: To specify scheduling conditions.
+Dependency Notes:
+Semantic Notes:
+Comments:
+Notes:
+Forecast example: SCC+1++W' FAB Commitment example: SCC+2' RAW Commitment example: SCC+3'
+Data Element Summary
+Data Component
+Element Element Name Attributes
+>>
+4017
+DELIVERY PLAN STATUS INDICATOR, CODED
+M
+an..3
+Code indicating the level of commitment of schedule information.
+1
+Firm
+Indicates that the scheduling information is a firm commitment.
+2
+Commitment for manufacturing and material
+Authorizes the supplier to start the manufacturing of goods.
+3
+Commitment for material
+Authorizes the manufacturer to order material required for manufacturing specified goods.
+4
+Planning/forecast
+X
+4493
+DELIVERY REQUIREMENTS, CODED
+C
+an..3
+Indication of general instruction for delivery.
+Refer to D.97A Data Element Dictionary for acceptable code values.
+>>
+C329
+PATTERN DESCRIPTION
+C
+Shipment, delivery or production interval pattern and timing.
+>>
+2013
+Frequency, coded
+C
+an..3
+Code specifying interval grouping of the delivery, production, etc. of the schedule.
+D
+Discrete
+A specific target date.
+M
+Monthly (calendar months)
+Code defining a forecast by calendar month(s).
+W
+Weekly
+Code defining a forecast for weekly intervals.
+F
+Flexible
+Code defining a forecast for flexible intervals.
+X
+2015
+Despatch pattern, coded
+C
+an..3
+Code specifying the days/periods for routine shipments or deliveries.
+10
+Monday through Friday
+13
+Monday
+14
+Tuesday
+Karma Automotive DELFOR
+Guideline 49
+15
+Wednesday
+16
+Thursday
+17
+Friday
+23
+Daily Monday through Friday
+X
+2017
+Despatch pattern timing, coded
+C
+an..3
+Code specifying the detailed times for routine shipments or deliveries within data element 2015 Despatch pattern, coded.
+Refer to D.97A Data Element Dictionary for acceptable code values.
+Karma Automotive DELFOR
+Guideline 50
+Group: QTY Segment Group 18: Quantity
+Position: 0620
+Group: Segment Group 17 (Scheduling Conditions) Conditional (Required)
+Level: 4
+Usage: Conditional (Required)
+Max Use: 999
+Purpose:
+Segment Summary
+Pos. Seg. Req. Max. Group:
+No. ID Name Des. Use Repeat
+Must Use
+0630
+QTY
+Quantity
+M
+1
+Must Use
+0640
+DTM
+Date/Time/Period
+C
+2
+Karma Automotive DELFOR
+Guideline 51
+Segment: QTY Quantity
+Position: 0630 (Trigger Segment)
+Group: Segment Group 18 (Quantity) Conditional (Required)
+Level: 4
+Usage: Mandatory
+Max Use: 1
+Purpose: To specify a pertinent quantity.
+Dependency Notes:
+Semantic Notes:
+Comments:
+Notes:
+One iteration of the QTY segment will be transmitted. 1) Forecast quantity. QTY+1:750:EA’
+Data Element Summary
+Data Component
+Element Element Name Attributes
+>>
+C186
+QUANTITY DETAILS
+M
+Quantity information in a transaction, qualified when relevant.
+>>
+6063
+Quantity qualifier
+M
+an..3
+Code giving specific meaning to a quantity.
+1
+Discrete quantity
+Forecast quantity.
+>>
+6060
+Quantity
+M
+n..15
+Numeric value of a quantity.
+6411
+Measure unit qualifier
+C
+an..3
+Indication of the unit of measurement in which weight (mass), capacity, length, area, volume or other quantity is expressed.
+Always “EA”.
+Karma Automotive DELFOR
+Guideline 52
+Segment: DTM Date/Time/Period
+Position: 0640
+Group: Segment Group 18 (Quantity) Conditional (Required)
+Level: 5
+Usage: Conditional (Optional)
+Max Use: 2
+Purpose: To specify date, and/or time, or period.
+Dependency Notes:
+Semantic Notes:
+Comments:
+Notes:
+One or two iterations will be transmitted. 1) Forecast delivery date (where SCC 03-1 = “D”, “W” or “M” DTM+2:20110415:102' 2) Flexible interval dates (where SCC 03-1 = “F”) DTM+158:20110415:102' DTM+159:20110418:102' As of version 1 of this guideline, Karma Automotive does not plan to transmit date/time segments related to CUM quantities. Codes relating to CUM quantities are reserved for future use.
+Data Element Summary
+Data Component
+Element Element Name Attributes
+>>
+C507
+DATE/TIME/PERIOD
+M
+Date and/or time, or period relevant to the specified date/time/period type.
+>>
+2005
+Date/time/period qualifier
+M
+an..3
+Code giving specific meaning to a date, time or period.
+2
+Delivery date/time, requested.
+Date on which goods should delivered to the ship-to destination.
+158
+Horizon begin date
+Beginning of horizon where quantity is expected to be delivered.
+159
+Horizon end date
+End of horizon where quantity is expected to be delivered.
+51
+Cumulative quantity start date
+First Date for accumulation of delivery quantities.
+52
+Cumulative quantity end date
+Last Date for accumulation of delivery quantities.
+>>
+2380
+Date/time/period
+C
+an..35
+The value of a date, a date and time, a time or of a period in a specified representation.
+>>
+2379
+Date/time/period format qualifier
+C
+an..3
+Specification of the representation of a date, a date and time or of a period.
+102
+CCYYMMDD
+Calendar date: C = Century ; Y = Year ; M = Month ; D = Day.
